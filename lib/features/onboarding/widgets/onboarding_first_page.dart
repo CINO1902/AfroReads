@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
+
 class OnboardingFirstPage extends StatelessWidget {
   const OnboardingFirstPage({
     Key? key,
@@ -24,13 +25,12 @@ class OnboardingFirstPage extends StatelessWidget {
           height: MediaQuery.of(context).size.height * 0.02,
         ),
         const Gap(10),
-        Container(
-          height: MediaQuery.of(context).size.height * 0.45,
-          color: Colors.red,
+        SizedBox(
+          height: MediaQuery.of(context).size.height * 0.4,
           child: Center(
-            child: SvgPicture.asset(
+            child: Image.asset(
               images,
-              height: MediaQuery.of(context).size.height * 0.3,
+              height: MediaQuery.of(context).size.height * 0.25,
             ),
           ),
         ),

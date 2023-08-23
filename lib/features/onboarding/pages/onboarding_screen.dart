@@ -51,7 +51,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       body: Column(
         children: [
           SizedBox(
-            height: MediaQuery.of(context).size.height * 0.7,
+            height: MediaQuery.of(context).size.height * 0.65,
             child: PageView(
               controller: _pageController,
               onPageChanged: onChangedFunction,
@@ -105,17 +105,26 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               ),
             ],
           ),
-          const Gap(60),
-          BusyButton(
-            title: 'Create an Account',
-            onTap: () {},
-          ),
-          const Gap(20),
-          BusyButton(
-            title: 'Create an Account',
-            borderColor: AfroReadsColors.primaryColor,
-            buttonColor: AfroReadsColors.white,
-            onTap: () {},
+          const Gap(40),
+          Padding(
+            padding: EdgeInsets.symmetric(
+                horizontal: MediaQuery.of(context).size.width * 0.05),
+            child: Column(
+              children: [
+                BusyButton(
+                  title: 'Create an Account',
+                  onTap: () {},
+                ),
+                const Gap(20),
+                BusyButton(
+                  title: 'Sign in',
+                  titleColor: AfroReadsColors.textColor,
+                  borderColor: AfroReadsColors.primaryColor,
+                  buttonColor: AfroReadsColors.white,
+                  onTap: () {},
+                ),
+              ],
+            ),
           ),
         ],
       ),
