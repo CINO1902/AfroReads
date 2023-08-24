@@ -51,7 +51,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       body: Column(
         children: [
           SizedBox(
-            height: MediaQuery.of(context).size.height * 0.65,
+            height: MediaQuery.of(context).size.height * 0.7,
             child: PageView(
               controller: _pageController,
               onPageChanged: onChangedFunction,
@@ -60,29 +60,20 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   images: AppAssets.onBoardingImage,
                   subTitle:
                       'Rootts Book App’s library is thoughtfully curated, ensuring every title mirrors the depth, diversity, and richness of African narratives. ',
-                  title: Text(
-                    "Quality at the Heart of Selection",
-                    textAlign: TextAlign.center,
-                  ),
+                  title: "Quality at the Heart of Selection",
                 ),
                 OnboardingFirstPage(
                   images: AppAssets.onBoardingImage1,
                   subTitle:
                       'Our parental controls are designed to empower you, making every reading session safe, engaging, and tailored to your childs unique pace. ',
-                  title: Text(
-                    "Parental Controls",
-                    textAlign: TextAlign.center,
-                  ),
+                  title: "Parental Controls",
                 ),
                 OnboardingFirstPage(
                   images: AppAssets.onBoardingImage2,
                   subTitle:
                       'Rootts Book App brings together tales woven with the vibrant threads of culture, heritage, and imagination. Dive into a treasure trove of stories from the African continent.',
-                  title: Text(
-                    "Embark on a Literary Adventure",
-                    textAlign: TextAlign.center,
-                  ),
-                )
+                  title: "Embark on a Literary Adventure",
+                ),
               ],
             ),
           ),
@@ -108,7 +99,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           const Gap(40),
           Padding(
             padding: EdgeInsets.symmetric(
-                horizontal: MediaQuery.of(context).size.width * 0.05),
+                horizontal: MediaQuery.of(context).size.width * 0.1),
             child: Column(
               children: [
                 BusyButton(

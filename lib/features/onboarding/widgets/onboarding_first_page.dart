@@ -15,7 +15,7 @@ class OnboardingFirstPage extends StatelessWidget {
     required this.title,
   }) : super(key: key);
   final String images;
-  final Widget title;
+  final String title;
   final String subTitle;
   @override
   Widget build(BuildContext context) {
@@ -24,34 +24,38 @@ class OnboardingFirstPage extends StatelessWidget {
         SizedBox(
           height: MediaQuery.of(context).size.height * 0.02,
         ),
-        const Gap(10),
+        const Gap(50),
         SizedBox(
-          height: MediaQuery.of(context).size.height * 0.4,
+          height: MediaQuery.of(context).size.height * 0.35,
           child: Center(
             child: Image.asset(
               images,
-              height: MediaQuery.of(context).size.height * 0.25,
+              height: MediaQuery.of(context).size.height * 0.3,
             ),
           ),
         ),
         SizedBox(
-          height: MediaQuery.of(context).size.height * 0.02,
+          height: MediaQuery.of(context).size.height * 0.015,
         ),
         Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 24,
+          padding: EdgeInsets.symmetric(
+            horizontal: MediaQuery.of(context).size.width * 0.1
           ),
           child: Column(
             children: [
-              title,
+              TextBody(
+                title,
+                color: AfroReadsColors.primaryColor,
+                fontSize: 20,
+                ),
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.02,
               ),
               TextBody(
                 subTitle,
-                fontSize: 15,
+                fontSize: 14,
                 fontWeight: FontWeight.w300,
-                color: AfroReadsColors.grey,
+                color: AfroReadsColors.textColor,
                 maxLines: 10,
                 textAlign: TextAlign.center,
               ),

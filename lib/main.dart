@@ -1,3 +1,5 @@
+import 'package:afroreads/core/navigators/route_name.dart';
+import 'package:afroreads/core/navigators/router.dart';
 import 'package:afroreads/features/onboarding/pages/onboarding_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -8,17 +10,17 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-       
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const OnboardingScreen(),
+      initialRoute: RouteName.onboardingScreen,
+      onGenerateRoute: generateRoute,
+      // home: const OnboardingScreen(),
     );
   }
 }
