@@ -1,6 +1,5 @@
 import 'package:afroreads/core/navigators/route_name.dart';
 import 'package:afroreads/core/navigators/router.dart';
-import 'package:afroreads/features/onboarding/pages/onboarding_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {

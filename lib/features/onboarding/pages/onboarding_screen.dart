@@ -4,6 +4,7 @@ import 'package:afroreads/app/styles/fonts.dart';
 import 'package:afroreads/app/view/widget/busy_button.dart';
 import 'package:afroreads/core/constants/app_assets.dart';
 import 'package:afroreads/core/constants/app_colors.dart';
+import 'package:afroreads/core/navigators/route_name.dart';
 import 'package:afroreads/features/onboarding/widgets/onboarding_first_page.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
@@ -104,7 +105,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               children: [
                 BusyButton(
                   title: 'Create an Account',
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.pushNamed(context, RouteName.signUpPage);
+                  },
                 ),
                 const Gap(20),
                 BusyButton(
