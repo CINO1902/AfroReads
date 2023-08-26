@@ -2,9 +2,9 @@ import 'package:afroreads/app/styles/fonts.dart';
 import 'package:afroreads/app/view/widget/busy_button.dart';
 import 'package:afroreads/app/view/widget/input_input.dart';
 import 'package:afroreads/core/constants/app_colors.dart';
-import 'package:afroreads/core/navigators/navigators.dart';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
+
 import 'package:gap/gap.dart';
 
 class SignUpPage extends StatefulWidget {
