@@ -4,7 +4,6 @@ import 'package:afroreads/app/view/widget/input_input.dart';
 import 'package:afroreads/core/constants/app_colors.dart';
 import 'package:afroreads/core/navigators/navigators.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 
 class SignUpPage extends StatefulWidget {
@@ -15,6 +14,7 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
+  
   final TextEditingController _firstnameController = TextEditingController();
   final TextEditingController _lastnameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
@@ -22,6 +22,15 @@ class _SignUpPageState extends State<SignUpPage> {
   final TextEditingController _dateOfBirthController = TextEditingController();
   final TextEditingController _answerController = TextEditingController();
 
+   String ?selectedOption;
+
+  // List of options for the dropdown
+  List<String> options = [
+    'Option 1',
+    'Option 2',
+    'Option 3',
+    'Option 4',
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -84,11 +93,30 @@ class _SignUpPageState extends State<SignUpPage> {
                   placeholder: 'DD/MM/YYYY',
                 ),
                 const Gap(16),
-                TextBody('Security Question', color: AfroReadsColors.textColor),
+                TextBody(
+                  'Security Question', 
+                  color: AfroReadsColors.textColor),
                 const Gap(8),
-                InputField(
-                  controller: _passwordController,
-                  placeholder: 'My pet name',
+                IgnorePointer(
+                  child: InputField(
+                    controller: _passwordController,
+                    placeholder: '${selectedOption ?? "My pet name"}',
+                    suffix: PopupMenuButton<String>(
+                       onSelected: (value) {
+              setState(() {
+                selectedOption = value;
+              });
+            },
+            itemBuilder: (BuildContext context) {
+              return options.map((String option) {
+                return PopupMenuItem<String>(
+                  value: option,
+                  child: Text(option),
+                );
+              }).toList();
+            },
+                      child: const Icon(Icons.keyboard_arrow_down)),
+                  ),
                 ),
                 const Gap(16),
                 TextBody('Answer', color: AfroReadsColors.textColor),
@@ -100,9 +128,9 @@ class _SignUpPageState extends State<SignUpPage> {
                 const Gap(48),
                 BusyButton(
                     title: 'Create an Account',
-                    onTap: () {
-                      // Navigator.pushNamed(context, RouteName.letsGoScreen);
-                    }),
+                     onTap: () {
+                    Navigator.pushNamed(context, RouteName.signUpVerificationPage);
+                  },),
                 const Gap(30),
               ],
             ),
