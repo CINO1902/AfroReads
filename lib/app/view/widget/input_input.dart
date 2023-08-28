@@ -1,4 +1,4 @@
-import 'package:afroreads/app/styles/fonts.dart';
+
 import 'package:afroreads/core/constants/app_colors.dart';
 import 'package:flutter/material.dart';
 
@@ -142,19 +142,15 @@ class _InputFieldState extends State<InputField> {
                         ? Container(
                             alignment: Alignment.center,
                             child: isPassword!
-                                ? TextBody(
-                                    'Show',
+                                ? Icon(
+                                    Icons.visibility,
                                     color:
                                         widget.validationColor.withOpacity(0.7),
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 15,
                                   )
-                                : TextBody(
-                                    'Hide',
+                                : Icon(
+                                    Icons.visibility_off,
                                     color:
                                         widget.validationColor.withOpacity(0.7),
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 15,
                                   ),
                           )
                         : Container(

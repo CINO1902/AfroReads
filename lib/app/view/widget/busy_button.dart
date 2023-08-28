@@ -31,7 +31,7 @@ class _BusyButtonState extends State<BusyButton> {
         height: 52,
         width: double.infinity,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(2),
+          borderRadius: BorderRadius.circular(8),
           border: Border.all(color: widget.borderColor),
           color: widget.active
               ? widget.buttonColor
@@ -41,8 +41,8 @@ class _BusyButtonState extends State<BusyButton> {
           child: TextBold(
             widget.title,
             color: widget.titleColor,
-            fontSize: 15,
-            fontWeight: FontWeight.w500,
+            fontSize: 17,
+            fontWeight: FontWeight.w700,
           ),
         ),
       ),

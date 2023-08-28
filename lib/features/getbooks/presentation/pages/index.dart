@@ -9,14 +9,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-class homelanding extends StatefulWidget {
-  const homelanding({Key? key}) : super(key: key);
+class Homelanding extends StatefulWidget {
+  const Homelanding({Key? key}) : super(key: key);
 
   @override
-  State<homelanding> createState() => _homelandingState();
+  State<Homelanding> createState() => _HomelandingState();
 }
 
-class _homelandingState extends State<homelanding> {
+class _HomelandingState extends State<Homelanding> {
   int currentIndex = 0;
 
   @override
@@ -25,10 +25,10 @@ class _homelandingState extends State<homelanding> {
   }
 
   static const screens = [
-    home(),
+    Home(),
     Library(),
-    search(),
-    notification(),
+    Search(),
+    NotificationPage(),
     Account(),
   ];
 
@@ -113,7 +113,7 @@ class _homelandingState extends State<homelanding> {
                       currentIndex = index;
                     }),
                 selectedItemColor: AfroReadsColors.primaryColor,
-                selectedLabelStyle: TextStyle(fontWeight: FontWeight.w600),
+                selectedLabelStyle: const TextStyle(fontWeight: FontWeight.w600),
                 unselectedItemColor: AfroReadsColors.grey,
                 items: [
                   BottomNavigationBarItem(
