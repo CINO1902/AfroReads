@@ -64,10 +64,10 @@ class VerificationSuccessfulModal extends StatelessWidget {
           GestureDetector(
             onTap: () async {
               Navigator.pop(context);
-              // await Navigator.pushNamed(
-              //   context,
-              //   RouteName.partnerHomeNavbar,
-              // );
+              await Navigator.pushNamed(
+                context,
+                RouteName.finalSignUpVerificationPage,
+              );
             },
             child: Container(
               height: 48,
