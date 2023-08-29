@@ -21,9 +21,11 @@ class FinalSignUpVerificationPage extends StatelessWidget {
             child: Column(
               children: [
                 const Gap(30),
-                TextBold(
-                  "Who's embarking on this journey today?",
-                  fontSize: 20,
+                FittedBox(
+                  child: TextBold(
+                    "Who's embarking on this journey today?",
+                    fontSize: 20,
+                  ),
                 ),
                 const Gap(30),
                 loginContainer(

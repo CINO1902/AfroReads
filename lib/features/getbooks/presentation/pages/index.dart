@@ -4,7 +4,6 @@ import 'package:afroreads/features/getbooks/presentation/pages/home.dart';
 import 'package:afroreads/features/getbooks/presentation/pages/libary.dart';
 import 'package:afroreads/features/getuserdetails/presentation/pages/account.dart';
 import 'package:afroreads/features/notification/presentation/pages/notification.dart';
-import 'package:afroreads/features/search/presentation/pages/search.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -27,7 +26,6 @@ class _HomelandingState extends State<Homelanding> {
   static const screens = [
     Home(),
     Library(),
-    Search(),
     NotificationPage(),
     Account(),
   ];
@@ -72,16 +70,6 @@ class _HomelandingState extends State<Homelanding> {
                       ),
                     ),
                     label: 'Library',
-                  ),
-                  BottomNavigationBarItem(
-                    activeIcon: SvgPicture.asset(
-                      AppAssets.searchicon,
-                      color: AfroReadsColors.primaryColor,
-                    ),
-                    icon: SvgPicture.asset(
-                      AppAssets.searchicon,
-                    ),
-                    label: 'Search',
                   ),
                   BottomNavigationBarItem(
                     activeIcon: SvgPicture.asset(
@@ -154,18 +142,6 @@ class _HomelandingState extends State<Homelanding> {
                       AppAssets.bookicon,
                     ),
                     label: 'Library',
-                  ),
-                  BottomNavigationBarItem(
-                    activeIcon: SvgPicture.asset(
-                      AppAssets.searchicon,
-                      height: 15,
-                      width: 15,
-                    ),
-                    icon: SvgPicture.asset(
-                      AppAssets.searchicon,
-                    ),
-                    label: 'Search',
-                    //  backgroundColor: Color.fromARGB(200, 39, 39, 39),
                   ),
                   BottomNavigationBarItem(
                     activeIcon: SvgPicture.asset(

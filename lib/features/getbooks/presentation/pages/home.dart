@@ -1,5 +1,5 @@
 import 'package:afroreads/core/constants/app_assets.dart';
-import 'package:afroreads/core/constants/app_colors.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';

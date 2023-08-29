@@ -1,7 +1,8 @@
 import 'package:afroreads/core/navigators/route_name.dart';
 import 'package:afroreads/features/auth/pages/final_sign_up_verification_page.dart';
-import 'package:afroreads/features/auth/pages/parent_sign_up_page.dart';
+import 'package:afroreads/features/auth/pages/parent_sign_in_page.dart';
 import 'package:afroreads/features/auth/pages/sign_up_verification_page.dart';
+import 'package:afroreads/features/getbooks/presentation/pages/home.dart';
 import 'package:afroreads/features/getbooks/presentation/pages/index.dart';
 import 'package:afroreads/features/onboarding/pages/onboarding_screen.dart';
 import 'package:flutter/material.dart';
@@ -33,6 +34,16 @@ Route<dynamic> generateRoute (RouteSettings settings){
     return _getPageRoute(
         routeName: settings.name,
         viewToShow: const ParentSignUpPage(),
+      ); 
+      case RouteName.homePage:
+    return _getPageRoute(
+        routeName: settings.name,
+        viewToShow: const Home(),
+      ); 
+      case RouteName.indexPage:
+    return _getPageRoute(
+        routeName: settings.name,
+        viewToShow: const Homelanding(),
       ); 
     default:
      return MaterialPageRoute<void>(
