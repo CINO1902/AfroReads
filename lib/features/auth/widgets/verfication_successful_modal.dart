@@ -64,7 +64,7 @@ class VerificationSuccessfulModal extends StatelessWidget {
               Navigator.pop(context);
               await Navigator.pushNamed(
                 context,
-                RouteName.homepage,
+                RouteName.finalSignUpVerificationPage,
               );
             },
             child: Container(

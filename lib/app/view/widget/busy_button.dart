@@ -41,7 +41,7 @@ class _BusyButtonState extends State<BusyButton> {
           child: TextBold(
             widget.title,
             color: widget.titleColor,
-            fontSize: 17,
+            fontSize: 16,
             fontWeight: FontWeight.w700,
           ),
         ),
