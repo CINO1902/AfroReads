@@ -1,0 +1,84 @@
+import 'package:afroreads/app/styles/fonts.dart';
+import 'package:afroreads/app/view/widget/busy_button.dart';
+import 'package:afroreads/app/view/widget/input_input.dart';
+import 'package:afroreads/core/constants/app_colors.dart';
+import 'package:afroreads/core/navigators/route_name.dart';
+import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
+
+class ParentSignUpPage extends StatefulWidget {
+  const ParentSignUpPage({super.key});
+
+  @override
+  State<ParentSignUpPage> createState() => _ParentSignUpPageState();
+}
+
+class _ParentSignUpPageState extends State<ParentSignUpPage> {
+  final TextEditingController _parentEmailController = TextEditingController();
+  final TextEditingController _parentPasswordController =
+      TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: AfroReadsColors.background,
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Align(
+                  alignment: Alignment.center,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Gap(20),
+                      TextBold(
+                        "Parent log in",
+                        fontSize: 20,
+                        color: AfroReadsColors.textColor,
+                      ),
+                      const Gap(10),
+                      TextBody(
+                        "Parents, manage and customize the\nreading experirnce here.",
+                        fontSize: 14,
+                        color: AfroReadsColors.textColor,
+                        textAlign: TextAlign.center,
+                      ),
+                    ],
+                  ),
+                ),
+                const Gap(30),
+                TextBody('Email Address', color: AfroReadsColors.textColor),
+                const Gap(8),
+                InputField(
+                  controller: _parentEmailController,
+                  placeholder: 'abcdef@gmail.com',
+                ),
+                const Gap(16),
+                TextBody('Password', color: AfroReadsColors.textColor),
+                const Gap(8),
+                InputField(
+                  controller: _parentPasswordController,
+                  password: true,
+                  placeholder: '6+ characters',
+                ),
+                const Gap(40),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15),
+                  child: BusyButton(
+                      title: "Log In",
+                      onTap: () {
+                        Navigator.pushNamed(context, RouteName.indexPage);
+                      }),
+                )
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}

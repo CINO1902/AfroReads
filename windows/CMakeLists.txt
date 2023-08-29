@@ -8,7 +8,11 @@ set(BINARY_NAME "afroreads")
 
 # Explicitly opt in to modern CMake behaviors to avoid warnings with recent
 # versions of CMake.
+<<<<<<< HEAD
 cmake_policy(VERSION 3.14...3.25)
+=======
+cmake_policy(SET CMP0063 NEW)
+>>>>>>> origin/ibidapobranch
 
 # Define build configuration option.
 get_property(IS_MULTICONFIG GLOBAL PROPERTY GENERATOR_IS_MULTI_CONFIG)
