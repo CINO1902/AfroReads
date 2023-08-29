@@ -1,5 +1,6 @@
 import 'package:afroreads/app/styles/fonts.dart';
 import 'package:afroreads/core/constants/app_colors.dart';
+import 'package:afroreads/core/navigators/route_name.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
@@ -30,13 +31,13 @@ class VerificationSuccessfulModal extends StatelessWidget {
                   color: AfroReadsColors.primaryColor,
                 )),
             child: const Center(
-              // child: SvgPicture.asset(
-              //   AppAssets.mail2,
-              //   color: AfroReadsColors.primaryColor,
-              //   width: 38,
-              //   height: 30,
-              // ),
-            ),
+                // child: SvgPicture.asset(
+                //   AppAssets.mail2,
+                //   color: AfroReadsColors.primaryColor,
+                //   width: 38,
+                //   height: 30,
+                // ),
+                ),
           ),
           const Gap(12),
           TextSemiBold(
@@ -61,10 +62,10 @@ class VerificationSuccessfulModal extends StatelessWidget {
           GestureDetector(
             onTap: () async {
               Navigator.pop(context);
-              // await Navigator.pushNamed(
-              //   context,
-              //   RouteName.partnerHomeNavbar,
-              // );
+              await Navigator.pushNamed(
+                context,
+                RouteName.homepage,
+              );
             },
             child: Container(
               height: 48,

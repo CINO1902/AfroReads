@@ -44,12 +44,13 @@ class _HomelandingState extends State<Homelanding> {
                 onTap: (index) => setState(() {
                       currentIndex = index;
                     }),
-                activeColor: Theme.of(context).primaryColor,
-                inactiveColor: Theme.of(context).colorScheme.onBackground,
+                activeColor: AfroReadsColors.primaryColor,
+                inactiveColor: AfroReadsColors.grey,
                 items: <BottomNavigationBarItem>[
                   BottomNavigationBarItem(
                     activeIcon: SvgPicture.asset(
                       AppAssets.homeicon,
+                      color: AfroReadsColors.primaryColor,
                     ),
                     icon: SvgPicture.asset(
                       AppAssets.homeicon,
@@ -57,17 +58,25 @@ class _HomelandingState extends State<Homelanding> {
                     label: 'Home',
                   ),
                   BottomNavigationBarItem(
-                    activeIcon: SvgPicture.asset(
-                      AppAssets.bookicon,
+                    activeIcon: Padding(
+                      padding: const EdgeInsets.only(top: 5.0),
+                      child: SvgPicture.asset(
+                        AppAssets.bookicon,
+                        color: AfroReadsColors.primaryColor,
+                      ),
                     ),
-                    icon: SvgPicture.asset(
-                      AppAssets.bookicon,
+                    icon: Padding(
+                      padding: const EdgeInsets.only(top: 5.0),
+                      child: SvgPicture.asset(
+                        AppAssets.bookicon,
+                      ),
                     ),
                     label: 'Library',
                   ),
                   BottomNavigationBarItem(
                     activeIcon: SvgPicture.asset(
                       AppAssets.searchicon,
+                      color: AfroReadsColors.primaryColor,
                     ),
                     icon: SvgPicture.asset(
                       AppAssets.searchicon,
@@ -77,6 +86,7 @@ class _HomelandingState extends State<Homelanding> {
                   BottomNavigationBarItem(
                     activeIcon: SvgPicture.asset(
                       AppAssets.notificationicon,
+                      color: AfroReadsColors.primaryColor,
                     ),
                     icon: SvgPicture.asset(
                       AppAssets.notificationicon,
@@ -84,11 +94,21 @@ class _HomelandingState extends State<Homelanding> {
                     label: 'Notification',
                   ),
                   BottomNavigationBarItem(
-                    activeIcon: SvgPicture.asset(
-                      AppAssets.accounticon,
+                    activeIcon: Padding(
+                      padding: const EdgeInsets.only(top: 5.0),
+                      child: Image.asset(
+                        AppAssets.accounticon,
+                        // colorBlendMode: BlendMode.difference,
+                        // colorFilter:
+                        //     ColorFilter.mode(Colors.grey, BlendMode.difference),
+                      ),
                     ),
-                    icon: SvgPicture.asset(
-                      AppAssets.accounticon,
+                    icon: Padding(
+                      padding: const EdgeInsets.only(top: 5.0),
+                      child: Image.asset(
+                        AppAssets.accounticon,
+                        // color: AfroReadsColors.grey,
+                      ),
                     ),
                     label: 'Account',
                   )
@@ -113,7 +133,8 @@ class _HomelandingState extends State<Homelanding> {
                       currentIndex = index;
                     }),
                 selectedItemColor: AfroReadsColors.primaryColor,
-                selectedLabelStyle: const TextStyle(fontWeight: FontWeight.w600),
+                selectedLabelStyle:
+                    const TextStyle(fontWeight: FontWeight.w600),
                 unselectedItemColor: AfroReadsColors.grey,
                 items: [
                   BottomNavigationBarItem(
@@ -137,6 +158,8 @@ class _HomelandingState extends State<Homelanding> {
                   BottomNavigationBarItem(
                     activeIcon: SvgPicture.asset(
                       AppAssets.searchicon,
+                      height: 15,
+                      width: 15,
                     ),
                     icon: SvgPicture.asset(
                       AppAssets.searchicon,

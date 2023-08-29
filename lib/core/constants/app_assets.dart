@@ -5,7 +5,9 @@ class AppAssets {
   static const String onBoardingImage2 = 'assets/images/image2.png';
   static const String homeicon = 'assets/images/home.svg';
   static const String bookicon = 'assets/images/book.svg';
-  static const String accounticon = 'assets/images/Account.svg';
-  static const String searchicon = 'assets/images/search.svg';
+  static const String accounticon = 'assets/images/Rectangle.png';
+  static const String searchicon = 'assets/images/Search.svg';
   static const String notificationicon = 'assets/images/notification.svg';
+  static const String profileicon = 'assets/images/Ellipse.png';
+  static const String menu = 'assets/images/menu.svg';
 }
