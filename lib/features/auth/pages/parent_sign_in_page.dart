@@ -15,9 +15,8 @@ class ParentSignUpPage extends StatefulWidget {
 
 class _ParentSignUpPageState extends State<ParentSignUpPage> {
   final TextEditingController _parentEmailController = TextEditingController();
-  final TextEditingController _parentPasswordController =
-      TextEditingController();
-
+  final TextEditingController _parentPasswordController = TextEditingController();
+  bool isChecked = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -65,7 +64,31 @@ class _ParentSignUpPageState extends State<ParentSignUpPage> {
                   password: true,
                   placeholder: '6+ characters',
                 ),
-                const Gap(40),
+                const Gap(16),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      children: [
+                        Checkbox(
+                          activeColor: AfroReadsColors.primaryColor,
+                          value: isChecked, 
+                          onChanged: (newValue) {
+                            setState(() {
+                              isChecked = newValue!;
+                            });
+                          }
+                          ),
+                        TextBody("Remember me",
+                        fontSize: 14,),
+                      ],
+                    ),
+                    TextBody("Forget password",
+                    fontSize: 14,
+                    ),
+                  ],
+                ),
+                const Gap(50),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 15),
                   child: BusyButton(
@@ -73,6 +96,19 @@ class _ParentSignUpPageState extends State<ParentSignUpPage> {
                       onTap: () {
                         Navigator.pushNamed(context, RouteName.indexPage);
                       }),
+                ),
+                const Gap(10),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    TextSemiBold("Don't have an account? ",
+                    fontSize: 14,
+                    ),
+                    TextSemiBold("Create Account",
+                    fontSize: 14,
+                    color: AfroReadsColors.primaryColor,
+                    ),
+                  ],
                 )
               ],
             ),

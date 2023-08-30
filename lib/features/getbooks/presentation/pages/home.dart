@@ -1,4 +1,5 @@
 import 'package:afroreads/core/constants/app_assets.dart';
+import 'package:afroreads/features/getbooks/presentation/widgets/shimmerwidget.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -11,6 +12,8 @@ class Home extends StatefulWidget {
   State<Home> createState() => _HomeState();
 }
 
+bool loading = true;
+
 class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
@@ -18,7 +21,7 @@ class _HomeState extends State<Home> {
       body: SafeArea(
           child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20.0),
-        child: Column(
+        child: ListView(
           children: [
             Row(
               //crossAxisAlignment: CrossAxisAlignment.start,
@@ -89,7 +92,296 @@ class _HomeState extends State<Home> {
                       Text('Lifestyle')
                     ],
                   ),
-                ))
+                )),
+            FutureBuilder(
+              future: Future.delayed(
+                  const Duration(
+                    seconds: 4,
+                  ), () async {
+                setState(() {
+                  loading = false;
+                });
+              }),
+              builder: (context, snapshot) {
+                if (loading == true) {
+                  return ShimmerWidget.rectangle(
+                    width: double.infinity,
+                    height: MediaQuery.of(context).size.height * 0.2,
+                  );
+                } else {
+                  return SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.2,
+                    child: Image.asset(AppAssets.banner),
+                  );
+                }
+              },
+            ),
+            const Gap(15),
+            const Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Popular Books',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+                Text(
+                  'See More',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                )
+              ],
+            ),
+            const Gap(10),
+            SizedBox(
+              height: 230,
+              width: double.infinity,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: 4,
+                itemBuilder: (context, index) {
+                  if (loading == true) {
+                    return ListView(
+                      shrinkWrap: true,
+                      scrollDirection: Axis.horizontal,
+                      physics: const NeverScrollableScrollPhysics(),
+                      children: const [
+                        SizedBox(
+                            width: 130,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                ShimmerWidget.rectangle(
+                                  width: 130,
+                                  height: 163,
+                                ),
+                                Gap(5),
+                                ShimmerWidget.rectangle(
+                                  width: 130,
+                                  height: 13,
+                                ),
+                                Gap(5),
+                                ShimmerWidget.rectangle(
+                                  width: 130,
+                                  height: 16,
+                                ),
+                              ],
+                            )),
+                        SizedBox(
+                          width: 20,
+                        ),
+                        SizedBox(
+                            width: 130,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                ShimmerWidget.rectangle(
+                                  width: 130,
+                                  height: 163,
+                                ),
+                                Gap(5),
+                                ShimmerWidget.rectangle(
+                                  width: 130,
+                                  height: 13,
+                                ),
+                                Gap(5),
+                                ShimmerWidget.rectangle(
+                                  width: 130,
+                                  height: 16,
+                                ),
+                              ],
+                            )),
+                        SizedBox(
+                          width: 20,
+                        ),
+                        SizedBox(
+                            width: 130,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                ShimmerWidget.rectangle(
+                                  width: 130,
+                                  height: 163,
+                                ),
+                                Gap(5),
+                                ShimmerWidget.rectangle(
+                                  width: 130,
+                                  height: 13,
+                                ),
+                                Gap(5),
+                                ShimmerWidget.rectangle(
+                                  width: 130,
+                                  height: 16,
+                                ),
+                              ],
+                            )),
+                        SizedBox(
+                          width: 20,
+                        ),
+                      ],
+                    );
+                  } else {
+                    return SizedBox(
+                        width: 130,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Image.asset(
+                              AppAssets.book1,
+                              width: 130,
+                              height: 163,
+                            ),
+                            const Gap(5),
+                            Text(
+                              'Purple Hibiscus',
+                              style: TextStyle(fontSize: 13),
+                            ),
+                            const Gap(5),
+                            const Text(
+                              'Chimamanda Ngozi Adichie',
+                              style: TextStyle(fontSize: 10),
+                            ),
+                          ],
+                        ));
+                  }
+                },
+              ),
+            ),
+            const Gap(15),
+            const Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Recommeded',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+                Text(
+                  'See More',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                )
+              ],
+            ),
+            const Gap(10),
+            SizedBox(
+              height: 230,
+              width: double.infinity,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: 4,
+                itemBuilder: (context, index) {
+                  if (loading == true) {
+                    return ListView(
+                      shrinkWrap: true,
+                      scrollDirection: Axis.horizontal,
+                      physics: const NeverScrollableScrollPhysics(),
+                      children: const [
+                        SizedBox(
+                            width: 130,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                ShimmerWidget.rectangle(
+                                  width: 130,
+                                  height: 163,
+                                ),
+                                Gap(5),
+                                ShimmerWidget.rectangle(
+                                  width: 130,
+                                  height: 13,
+                                ),
+                                Gap(5),
+                                ShimmerWidget.rectangle(
+                                  width: 130,
+                                  height: 16,
+                                ),
+                              ],
+                            )),
+                        SizedBox(
+                          width: 20,
+                        ),
+                        SizedBox(
+                            width: 130,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                ShimmerWidget.rectangle(
+                                  width: 130,
+                                  height: 163,
+                                ),
+                                Gap(5),
+                                ShimmerWidget.rectangle(
+                                  width: 130,
+                                  height: 13,
+                                ),
+                                Gap(5),
+                                ShimmerWidget.rectangle(
+                                  width: 130,
+                                  height: 16,
+                                ),
+                              ],
+                            )),
+                        SizedBox(
+                          width: 20,
+                        ),
+                        SizedBox(
+                            width: 130,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                ShimmerWidget.rectangle(
+                                  width: 130,
+                                  height: 163,
+                                ),
+                                Gap(5),
+                                ShimmerWidget.rectangle(
+                                  width: 130,
+                                  height: 13,
+                                ),
+                                Gap(5),
+                                ShimmerWidget.rectangle(
+                                  width: 130,
+                                  height: 16,
+                                ),
+                              ],
+                            )),
+                        SizedBox(
+                          width: 20,
+                        ),
+                      ],
+                    );
+                  } else {
+                    return SizedBox(
+                        width: 130,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Image.asset(
+                              AppAssets.book2,
+                              width: 130,
+                              height: 163,
+                            ),
+                            const Gap(5),
+                            const Text(
+                              'Purple Hibiscus',
+                              style: TextStyle(fontSize: 13),
+                            ),
+                            const Gap(5),
+                            const Text(
+                              'Chimamanda Ngozi Adichie',
+                              style: TextStyle(fontSize: 10),
+                            ),
+                          ],
+                        ));
+                  }
+                },
+              ),
+            )
           ],
         ),
       )),
