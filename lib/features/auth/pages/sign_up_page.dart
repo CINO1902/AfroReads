@@ -1,5 +1,6 @@
 // ignore_for_file: unnecessary_string_interpolations
 import 'package:afroreads/app/styles/fonts.dart';
+import 'package:afroreads/app/view/widget/back_button.dart';
 import 'package:afroreads/app/view/widget/busy_button.dart';
 import 'package:afroreads/app/view/widget/input_input.dart';
 import 'package:afroreads/core/constants/app_colors.dart';
@@ -46,7 +47,9 @@ class _SignUpPageState extends State<SignUpPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Gap(28),
+                const Gap(20),
+                 const AfroReadsBackButton(),
+                const Gap(23),
                 TextBody(
                   'Create Account',
                   fontWeight: FontWeight.w700,
@@ -57,7 +60,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   'We are thrilled to have you here! ',
                   fontSize: 15,
                 ),
-                const Gap(32),
+                const Gap(25),
                 TextBody('Full Name', color: AfroReadsColors.textColor),
                 const Gap(8),
                 InputField(

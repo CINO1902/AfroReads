@@ -1,4 +1,5 @@
 import 'package:afroreads/app/styles/fonts.dart';
+import 'package:afroreads/app/view/widget/back_button.dart';
 import 'package:afroreads/app/view/widget/busy_button.dart';
 import 'package:afroreads/app/view/widget/input_input.dart';
 import 'package:afroreads/core/constants/app_colors.dart';
@@ -28,12 +29,14 @@ class _ParentSignUpPageState extends State<ParentSignUpPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                const Gap(20),
+                const AfroReadsBackButton(),
+                const Gap(13),
                 Align(
                   alignment: Alignment.center,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Gap(20),
                       TextBold(
                         "Parent log in",
                         fontSize: 20,

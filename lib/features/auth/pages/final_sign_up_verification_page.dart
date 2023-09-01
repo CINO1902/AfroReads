@@ -1,4 +1,5 @@
 import 'package:afroreads/app/styles/fonts.dart';
+import 'package:afroreads/app/view/widget/back_button.dart';
 import 'package:afroreads/app/view/widget/busy_button.dart';
 import 'package:afroreads/core/constants/app_assets.dart';
 import 'package:afroreads/core/constants/app_colors.dart';
@@ -12,6 +13,7 @@ class FinalSignUpVerificationPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AfroReadsColors.background,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(
@@ -21,6 +23,10 @@ class FinalSignUpVerificationPage extends StatelessWidget {
             child: Column(
               children: [
                 const Gap(30),
+                const Align(
+                  alignment: Alignment.centerLeft,
+                  child: AfroReadsBackButton()),
+                const Gap(20),
                 FittedBox(
                   child: TextBold(
                     "Who's embarking on this journey today?",
