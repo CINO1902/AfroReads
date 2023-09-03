@@ -1,4 +1,5 @@
 import 'package:afroreads/app/styles/fonts.dart';
+import 'package:afroreads/app/view/widget/back_button.dart';
 import 'package:afroreads/core/constants/app_assets.dart';
 import 'package:afroreads/core/constants/app_colors.dart';
 import 'package:flutter/material.dart';
@@ -21,6 +22,7 @@ class _AccountState extends State<Account> {
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15),
             child: Column(children: [
+              const Gap(20),
               Align(
                 alignment: Alignment.center,
                 child: Column(

@@ -49,13 +49,13 @@ class VerificationSuccessfulModal extends StatelessWidget {
           TextBody(
             'Your email address has been successfully\nverified. Thank you for confirming your',
             fontSize: 16,
-            color: AfroReadsColors.grey.withOpacity(0.6),
+            color: AfroReadsColors.textColor.withOpacity(0.8),
             textAlign: TextAlign.center,
           ),
           TextBody(
             'authenticity',
             fontSize: 16,
-            color: AfroReadsColors.grey.withOpacity(0.6),
+            color: AfroReadsColors.textColor.withOpacity(0.8),
             textAlign: TextAlign.center,
           ),
           const Gap(30),

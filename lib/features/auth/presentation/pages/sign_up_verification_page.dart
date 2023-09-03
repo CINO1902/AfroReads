@@ -2,9 +2,10 @@
 
 import 'package:afroreads/app/styles/fonts.dart';
 import 'package:afroreads/app/view/widget/app_loading_dialog.dart';
+import 'package:afroreads/app/view/widget/back_button.dart';
 import 'package:afroreads/app/view/widget/busy_button.dart';
 import 'package:afroreads/core/constants/app_colors.dart';
-import 'package:afroreads/features/auth/widgets/verfication_successful_modal.dart';
+import 'package:afroreads/features/auth/presentation/widgets/verfication_successful_modal.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
@@ -43,6 +44,7 @@ class _SignUpVerificationPageState extends State<SignUpVerificationPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AfroReadsColors.background,
       body: SafeArea(
           child: Padding(
         padding: const EdgeInsets.symmetric(
@@ -52,42 +54,44 @@ class _SignUpVerificationPageState extends State<SignUpVerificationPage> {
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // const Gap(20),
-                // const IklinBackButton(),
-                const Gap(30),
+                const Gap(20),
+                const AfroReadsBackButton(),
+                const Gap(23),
                 TextBody(
                   'Verify your account',
                   fontSize: 25,
                 ),
                 const Gap(16),
-                const Text.rich(
-                  TextSpan(
-                      text: 'Check your email',
-                      style: TextStyle(
-                        color: AfroReadsColors.grey,
-                        fontSize: 15,
-                        // fontFamily: IklinFont.euclid,
-                        fontWeight: FontWeight.w400,
-                      ),
-                      children: [
-                        TextSpan(
-                          text: ' caleboruta14@gmail.com',
-                          style: TextStyle(
-                              fontWeight: FontWeight.w700,
-                              fontSize: 15,
-                              color: AfroReadsColors.textColor),
+                const FittedBox(
+                  child: Text.rich(
+                    TextSpan(
+                        text: 'Check your email',
+                        style: TextStyle(
+                          color: AfroReadsColors.grey,
+                          fontSize: 15,
+                          // fontFamily: IklinFont.euclid,
+                          fontWeight: FontWeight.w400,
                         ),
-                        TextSpan(
-                          text: ' for a code',
-                          style: TextStyle(
-                              fontWeight: FontWeight.w700,
-                              fontSize: 15,
-                              color: AfroReadsColors.grey),
-                        ),
-                      ]),
-                  textAlign: TextAlign.center,
+                        children: [
+                          TextSpan(
+                            text: ' caleboruta14@gmail.com',
+                            style: TextStyle(
+                                fontWeight: FontWeight.w700,
+                                fontSize: 15,
+                                color: AfroReadsColors.textColor),
+                          ),
+                          TextSpan(
+                            text: ' for a code',
+                            style: TextStyle(
+                                fontWeight: FontWeight.w700,
+                                fontSize: 15,
+                                color: AfroReadsColors.grey),
+                          ),
+                        ]),
+                    textAlign: TextAlign.center,
+                  ),
                 ),
                 const Gap(53),
                 Padding(
@@ -129,9 +133,12 @@ class _SignUpVerificationPageState extends State<SignUpVerificationPage> {
                   ),
                 ),
                 const Gap(10),
-                TextBody(
-                  '0.59',
-                  fontSize: 15,
+                Align(
+                  alignment: Alignment.center,
+                  child: TextBody(
+                    '0.59',
+                    fontSize: 15,
+                  ),
                 ),
                 const Gap(20),
                 const Align(

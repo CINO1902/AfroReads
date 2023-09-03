@@ -1,10 +1,13 @@
 import 'package:afroreads/app/styles/fonts.dart';
+import 'package:afroreads/app/view/widget/back_button.dart';
 import 'package:afroreads/app/view/widget/busy_button.dart';
 import 'package:afroreads/app/view/widget/input_input.dart';
 import 'package:afroreads/core/constants/app_colors.dart';
 import 'package:afroreads/core/navigators/route_name.dart';
+import 'package:afroreads/features/auth/presentation/provider/authPro.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:provider/provider.dart';
 
 class ParentSignUpPage extends StatefulWidget {
   const ParentSignUpPage({super.key});
@@ -15,7 +18,8 @@ class ParentSignUpPage extends StatefulWidget {
 
 class _ParentSignUpPageState extends State<ParentSignUpPage> {
   final TextEditingController _parentEmailController = TextEditingController();
-  final TextEditingController _parentPasswordController = TextEditingController();
+  final TextEditingController _parentPasswordController =
+      TextEditingController();
   bool isChecked = false;
   @override
   Widget build(BuildContext context) {
@@ -28,12 +32,14 @@ class _ParentSignUpPageState extends State<ParentSignUpPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                const Gap(20),
+                const AfroReadsBackButton(),
+                const Gap(13),
                 Align(
                   alignment: Alignment.center,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Gap(20),
                       TextBold(
                         "Parent log in",
                         fontSize: 20,
@@ -71,42 +77,50 @@ class _ParentSignUpPageState extends State<ParentSignUpPage> {
                     Row(
                       children: [
                         Checkbox(
-                          activeColor: AfroReadsColors.primaryColor,
-                          value: isChecked, 
-                          onChanged: (newValue) {
-                            setState(() {
-                              isChecked = newValue!;
-                            });
-                          }
-                          ),
-                        TextBody("Remember me",
-                        fontSize: 14,),
+                            activeColor: AfroReadsColors.primaryColor,
+                            value: isChecked,
+                            onChanged: (newValue) {
+                              setState(() {
+                                isChecked = newValue!;
+                              });
+                            }),
+                        TextBody(
+                          "Remember me",
+                          fontSize: 14,
+                        ),
                       ],
                     ),
-                    TextBody("Forget password",
-                    fontSize: 14,
+                    TextBody(
+                      "Forget password",
+                      fontSize: 14,
                     ),
                   ],
                 ),
                 const Gap(50),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 15),
-                  child: BusyButton(
-                      title: "Log In",
-                      onTap: () {
-                        Navigator.pushNamed(context, RouteName.indexPage);
-                      }),
+                  child: Consumer<AuthPro>(builder: (context, value, child) {
+                    return BusyButton(
+                        title: "Log In",
+                        onTap: () async {
+                          //  context.read<AuthPro>().createaccount();
+                          // if(value)
+                          Navigator.pushNamed(context, RouteName.indexPage);
+                        });
+                  }),
                 ),
                 const Gap(10),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    TextSemiBold("Don't have an account? ",
-                    fontSize: 14,
+                    TextSemiBold(
+                      "Don't have an account? ",
+                      fontSize: 14,
                     ),
-                    TextSemiBold("Create Account",
-                    fontSize: 14,
-                    color: AfroReadsColors.primaryColor,
+                    TextSemiBold(
+                      "Create Account",
+                      fontSize: 14,
+                      color: AfroReadsColors.primaryColor,
                     ),
                   ],
                 )
