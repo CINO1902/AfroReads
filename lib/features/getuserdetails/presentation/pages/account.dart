@@ -1,7 +1,8 @@
 import 'package:afroreads/app/styles/fonts.dart';
-import 'package:afroreads/app/view/widget/back_button.dart';
 import 'package:afroreads/core/constants/app_assets.dart';
 import 'package:afroreads/core/constants/app_colors.dart';
+import 'package:afroreads/core/navigators/route_name.dart';
+import 'package:afroreads/features/auth/widgets/verfication_successful_modal.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
@@ -64,6 +65,20 @@ class _AccountState extends State<Account> {
                 text: "Child Profile",
                 textt: "Manage your personal information",
                 image: AppAssets.profile,
+                onTap: (){
+                    showModalBottomSheet(
+                        backgroundColor: Colors.transparent,
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(8),
+                            topRight: Radius.circular(8),
+                          ),
+                        ),
+                        context: context,
+                        builder: (context) {
+                          return const VerificationSuccessfulModal();
+                        });
+                }
               ),
               const Gap(7),
               Divider(color: Colors.grey.withOpacity(0.3)),
@@ -92,6 +107,20 @@ class _AccountState extends State<Account> {
                 text: "Settings",
                 textt: "Control other aspects of your app experience",
                 image: AppAssets.setting,
+                onTap: (){
+                    showModalBottomSheet(
+                        backgroundColor: Colors.transparent,
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(8),
+                            topRight: Radius.circular(8),
+                          ),
+                        ),
+                        context: context,
+                        builder: (context) {
+                          return const VerificationSuccessfulModal();
+                        });
+                }
               ),
               const Gap(7),
               Divider(color: Colors.grey.withOpacity(0.3)),
@@ -109,49 +138,52 @@ class _AccountState extends State<Account> {
     );
   }
 
-  Container myAccountContainer({text, textt, image}) {
-    return Container(
-      color: AfroReadsColors.background,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Row(
-            children: [
-              Container(
-                height: 20,
-                width: 20,
-                decoration: const BoxDecoration(
-                  shape: BoxShape.circle,
-                ),
-                child: Image.asset(
-                  image,
-                  fit: BoxFit.cover,
-                ),
-              ),
-              const Gap(10),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  TextBold(
-                    text,
-                    fontSize: 14,
+  GestureDetector myAccountContainer({text, textt, image, onTap}) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        color: AfroReadsColors.background,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Row(
+              children: [
+                Container(
+                  height: 20,
+                  width: 20,
+                  decoration: const BoxDecoration(
+                    shape: BoxShape.circle,
                   ),
-                  const Gap(3),
-                  TextBody(
-                    textt,
-                    color: AfroReadsColors.grey,
-                    fontSize: 12,
-                  )
-                ],
-              ),
-            ],
-          ),
-          Icon(
-            Icons.keyboard_arrow_right,
-            color: AfroReadsColors.grey.withOpacity(.7),
-            size: 30,
-          )
-        ],
+                  child: Image.asset(
+                    image,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                const Gap(10),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    TextBold(
+                      text,
+                      fontSize: 14,
+                    ),
+                    const Gap(3),
+                    TextBody(
+                      textt,
+                      color: AfroReadsColors.grey,
+                      fontSize: 12,
+                    )
+                  ],
+                ),
+              ],
+            ),
+            Icon(
+              Icons.keyboard_arrow_right,
+              color: AfroReadsColors.grey.withOpacity(.7),
+              size: 30,
+            )
+          ],
+        ),
       ),
     );
   }
