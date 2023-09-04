@@ -12,8 +12,6 @@ import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:gap/gap.dart';
 import 'package:provider/provider.dart';
 
-import 'package:fluttertoast/fluttertoast.dart';
-
 class SignUpPage extends StatefulWidget {
   const SignUpPage({Key? key}) : super(key: key);
 

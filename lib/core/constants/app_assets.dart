@@ -21,4 +21,6 @@ class AppAssets {
   static const String help = 'assets/images/help.png';
   static const String logout = 'assets/images/logout.png';
   static const String setting = 'assets/images/setting.png';
+  static const String gallery = 'assets/images/gallery.png';
+  static const String lock = 'assets/images/lock.png';
 }

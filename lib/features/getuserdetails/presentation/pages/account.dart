@@ -1,8 +1,8 @@
 import 'package:afroreads/app/styles/fonts.dart';
 import 'package:afroreads/core/constants/app_assets.dart';
 import 'package:afroreads/core/constants/app_colors.dart';
-import 'package:afroreads/core/navigators/route_name.dart';
-import 'package:afroreads/features/auth/widgets/verfication_successful_modal.dart';
+import 'package:afroreads/features/auth/presentation/widgets/verfication_successful_modal.dart';
+import 'package:afroreads/features/getuserdetails/presentation/widgets/settings_modal.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
@@ -62,10 +62,10 @@ class _AccountState extends State<Account> {
               ),
               const Gap(30),
               myAccountContainer(
-                text: "Child Profile",
-                textt: "Manage your personal information",
-                image: AppAssets.profile,
-                onTap: (){
+                  text: "Child Profile",
+                  textt: "Manage your personal information",
+                  image: AppAssets.profile,
+                  onTap: () {
                     showModalBottomSheet(
                         backgroundColor: Colors.transparent,
                         shape: const RoundedRectangleBorder(
@@ -78,8 +78,7 @@ class _AccountState extends State<Account> {
                         builder: (context) {
                           return const VerificationSuccessfulModal();
                         });
-                }
-              ),
+                  }),
               const Gap(7),
               Divider(color: Colors.grey.withOpacity(0.3)),
               myAccountContainer(
@@ -104,12 +103,12 @@ class _AccountState extends State<Account> {
               const Gap(7),
               Divider(color: Colors.grey.withOpacity(0.3)),
               myAccountContainer(
-                text: "Settings",
-                textt: "Control other aspects of your app experience",
-                image: AppAssets.setting,
-                onTap: (){
+                  text: "Settings",
+                  textt: "Control other aspects of your app experience",
+                  image: AppAssets.setting,
+                  onTap: () {
                     showModalBottomSheet(
-                        backgroundColor: Colors.transparent,
+                        backgroundColor: Colors.white,
                         shape: const RoundedRectangleBorder(
                           borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(8),
@@ -118,10 +117,9 @@ class _AccountState extends State<Account> {
                         ),
                         context: context,
                         builder: (context) {
-                          return const VerificationSuccessfulModal();
+                          return const SettingsModal();
                         });
-                }
-              ),
+                  }),
               const Gap(7),
               Divider(color: Colors.grey.withOpacity(0.3)),
               myAccountContainer(
