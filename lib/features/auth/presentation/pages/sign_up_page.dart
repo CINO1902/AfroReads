@@ -77,6 +77,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 TextBody('Email Address', color: AfroReadsColors.textColor),
                 const Gap(8),
                 InputField(
+                  textInputType: TextInputType.emailAddress,
                   controller: _emailController,
                   placeholder: 'abcdef@gmail.com',
                 ),
