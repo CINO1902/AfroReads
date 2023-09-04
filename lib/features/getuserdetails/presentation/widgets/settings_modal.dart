@@ -38,6 +38,7 @@ class SettingsModal extends StatelessWidget {
             Divider(color: Colors.grey.withOpacity(0.3)),
             GestureDetector(
               onTap: () {
+                Navigator.of(context).pop();
                 showModalBottomSheet(
                     backgroundColor: Colors.transparent,
                     shape: const RoundedRectangleBorder(
