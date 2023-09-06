@@ -20,6 +20,7 @@ class _ChangePasswordModalState extends State<ChangePasswordModal> {
   final TextEditingController _newPasswordController = TextEditingController();
   final TextEditingController _confirmPasswordController =
       TextEditingController();
+  bool onFocus = false;
 
   @override
   Widget build(BuildContext context) {
@@ -87,6 +88,9 @@ class _ChangePasswordModalState extends State<ChangePasswordModal> {
               ),
               const Gap(8),
               InputField(
+                onChanged: (p0) =>setState(() {
+                  onFocus = true;
+                }),
                 controller: _confirmPasswordController,
                 placeholder: '**********',
                 password: true,
@@ -95,6 +99,12 @@ class _ChangePasswordModalState extends State<ChangePasswordModal> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: BusyButton(
+                  borderColor: onFocus ?
+                  AfroReadsColors.primaryColor:
+                  AfroReadsColors.grey,
+                  buttonColor: onFocus ?
+                  AfroReadsColors.primaryColor:
+                  AfroReadsColors.grey,
                   title: "Update Password", 
                   onTap: () {
                      Navigator.of(context).pop();

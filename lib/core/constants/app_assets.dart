@@ -23,4 +23,5 @@ class AppAssets {
   static const String setting = 'assets/images/setting.png';
   static const String gallery = 'assets/images/gallery.png';
   static const String lock = 'assets/images/lock.png';
+  static const String mark = 'assets/images/Mark.png';
 }

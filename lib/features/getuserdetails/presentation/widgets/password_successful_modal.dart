@@ -1,9 +1,8 @@
 import 'package:afroreads/app/styles/fonts.dart';
 import 'package:afroreads/app/view/widget/busy_button.dart';
+import 'package:afroreads/core/constants/app_assets.dart';
 import 'package:afroreads/core/constants/app_colors.dart';
-import 'package:afroreads/core/navigators/route_name.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 
 
@@ -35,12 +34,12 @@ class PasswordSuccesfluModal extends StatelessWidget {
                   color: AfroReadsColors.primaryColor,
                 )),
             child: Center(
-              // child: SvgPicture.asset(
-              //   AppAssets.mail2,
-              //   color: AfroReadsColors.primaryColor,
-              //   width: 38,
-              //   height: 30,
-              // ),
+              child: Image.asset(
+                AppAssets.mark,
+                color: AfroReadsColors.primaryColor,
+                width: 38,
+                height: 30,
+              ),
             ),
           ),
           const Gap(10),

@@ -54,7 +54,7 @@ class SettingsModal extends StatelessWidget {
               },
               child: settingsContainer(
                 text: "Change Password",
-                textt: "Customise your account to access your account",
+                textt: "Customise your password to access your account",
                 image: AppAssets.lock,
               ),
             ),
