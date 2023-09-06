@@ -49,7 +49,7 @@ class SettingsModal extends StatelessWidget {
                     ),
                     context: context,
                     builder: (context) {
-                      return const ChangePassword();
+                      return const ChangePasswordModal();
                     });
               },
               child: settingsContainer(
