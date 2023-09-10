@@ -1,5 +1,5 @@
-
 import 'package:afroreads/app/styles/fonts.dart';
+import 'package:afroreads/app/view/widget/app_loading_dialog.dart';
 import 'package:afroreads/app/view/widget/busy_button.dart';
 import 'package:afroreads/app/view/widget/input_input.dart';
 import 'package:afroreads/core/constants/app_colors.dart';
@@ -24,10 +24,9 @@ class _ChangePasswordModalState extends State<ChangePasswordModal> {
 
   @override
   Widget build(BuildContext context) {
-
     return SingleChildScrollView(
       child: Container(
-        height: 450,
+        height: 500,
         width: double.infinity,
         decoration: const BoxDecoration(
           color: AfroReadsColors.white,
@@ -88,7 +87,7 @@ class _ChangePasswordModalState extends State<ChangePasswordModal> {
               ),
               const Gap(8),
               InputField(
-                onChanged: (p0) =>setState(() {
+                onChanged: (p0) => setState(() {
                   onFocus = true;
                 }),
                 controller: _confirmPasswordController,
@@ -99,29 +98,50 @@ class _ChangePasswordModalState extends State<ChangePasswordModal> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: BusyButton(
-                  borderColor: onFocus ?
-                  AfroReadsColors.primaryColor:
-                  AfroReadsColors.grey,
-                  buttonColor: onFocus ?
-                  AfroReadsColors.primaryColor:
-                  AfroReadsColors.grey,
-                  title: "Update Password", 
-                  onTap: () {
-                     Navigator.of(context).pop();
-                  AwesomeDialog(
-                      context: context,
-                      headerAnimationLoop: false,
-                       animType: AnimType.BOTTOMSLIDE,
-                      dialogType: DialogType.NO_HEADER,
-                      body: const PasswordSuccesfluModal(),
-                    ).show();
-                  }
-                    ),
+                    borderColor: onFocus
+                        ? AfroReadsColors.primaryColor
+                        : AfroReadsColors.grey,
+                    buttonColor: onFocus
+                        ? AfroReadsColors.primaryColor
+                        : AfroReadsColors.grey,
+                    title: "Update Password",
+                    onTap: () {
+                      showDialog(
+                          context: context,
+                          builder: (context) {
+                            return Dialog(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              child: const AppLoadingDialog(
+                                text: 'Changing Password',
+                              ),
+                            );
+                          });
+                      verifyCode();
+                    }),
               )
             ],
           ),
         ),
       ),
     );
+  }
+
+  verifyCode() {
+    Future.delayed(
+        const Duration(
+          seconds: 4,
+        ), () async {
+      Navigator.pop(context);
+      Navigator.of(context).pop();
+      AwesomeDialog(
+        context: context,
+        headerAnimationLoop: false,
+        animType: AnimType.BOTTOMSLIDE,
+        dialogType: DialogType.NO_HEADER,
+        body: const PasswordSuccesfluModal(),
+      ).show();
+    });
   }
 }

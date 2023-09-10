@@ -97,10 +97,10 @@ class _AccountState extends State<Account> {
               const Gap(7),
               Divider(color: Colors.grey.withOpacity(0.3)),
               myAccountContainer(
-                text: "Help & Support",
-                textt: "Get support or assist whenever you need it",
-                image: AppAssets.help,
-                onTap: (){
+                  text: "Help & Support",
+                  textt: "Get support or assist whenever you need it",
+                  image: AppAssets.help,
+                  onTap: () {
                     showModalBottomSheet(
                         backgroundColor: Colors.white,
                         shape: const RoundedRectangleBorder(
@@ -113,8 +113,7 @@ class _AccountState extends State<Account> {
                         builder: (context) {
                           return const HelpSupportModal();
                         });
-                }
-              ),
+                  }),
               const Gap(7),
               Divider(color: Colors.grey.withOpacity(0.3)),
               myAccountContainer(

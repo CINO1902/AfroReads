@@ -1,7 +1,12 @@
+import 'dart:io';
+import 'dart:typed_data';
+
 import 'package:afroreads/core/constants/app_assets.dart';
+import 'package:afroreads/core/navigators/route_name.dart';
 import 'package:afroreads/features/getbooks/presentation/widgets/shimmerwidget.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 
@@ -15,6 +20,11 @@ class Home extends StatefulWidget {
 bool loading = true;
 
 class _HomeState extends State<Home> {
+  Future<List<int>> _readDocumentData(String name) async {
+    final ByteData data = await rootBundle.load('assets/$name');
+    return data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -222,29 +232,35 @@ class _HomeState extends State<Home> {
                       ],
                     );
                   } else {
-                    return SizedBox(
-                        width: 130,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Image.asset(
-                              AppAssets.book1,
-                              width: 130,
-                              height: 163,
-                            ),
-                            const Gap(5),
-                            Text(
-                              'Purple Hibiscus',
-                              style: TextStyle(fontSize: 13),
-                            ),
-                            const Gap(5),
-                            const Text(
-                              'Chimamanda Ngozi Adichie',
-                              style: TextStyle(fontSize: 10),
-                            ),
-                          ],
-                        ));
+                    return InkWell(
+                      onTap: () {
+                        //  extracttext();
+                        Navigator.pushNamed(context, RouteName.pdfpage);
+                      },
+                      child: SizedBox(
+                          width: 130,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Image.asset(
+                                AppAssets.book1,
+                                width: 130,
+                                height: 163,
+                              ),
+                              const Gap(5),
+                              Text(
+                                'Purple Hibiscus',
+                                style: TextStyle(fontSize: 13),
+                              ),
+                              const Gap(5),
+                              const Text(
+                                'Chimamanda Ngozi Adichie',
+                                style: TextStyle(fontSize: 10),
+                              ),
+                            ],
+                          )),
+                    );
                   }
                 },
               ),

@@ -1,7 +1,9 @@
 import 'package:afroreads/app/styles/fonts.dart';
+import 'package:afroreads/app/view/widget/app_loading_dialog.dart';
 import 'package:afroreads/app/view/widget/busy_button.dart';
 import 'package:afroreads/app/view/widget/input_input.dart';
 import 'package:afroreads/core/constants/app_colors.dart';
+import 'package:afroreads/features/getuserdetails/presentation/widgets/helpsuccessmodal.dart';
 import 'package:afroreads/features/getuserdetails/presentation/widgets/password_successful_modal.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
@@ -73,7 +75,7 @@ class _HelpSupportModalState extends State<HelpSupportModal> {
               ),
               const Gap(8),
               InputField(
-                onChanged: (p0) =>setState(() {
+                onChanged: (p0) => setState(() {
                   onFocus = true;
                 }),
                 maxLines: 4,
@@ -87,22 +89,27 @@ class _HelpSupportModalState extends State<HelpSupportModal> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: BusyButton(
-                  borderColor: onFocus ?
-                  AfroReadsColors.primaryColor:
-                  AfroReadsColors.grey,
-                  buttonColor: onFocus ?
-                  AfroReadsColors.primaryColor:
-                  AfroReadsColors.grey,
+                    borderColor: onFocus
+                        ? AfroReadsColors.primaryColor
+                        : AfroReadsColors.grey,
+                    buttonColor: onFocus
+                        ? AfroReadsColors.primaryColor
+                        : AfroReadsColors.grey,
                     title: "Submit request",
                     onTap: () {
-                      Navigator.of(context).pop();
-                      AwesomeDialog(
-                        context: context,
-                        headerAnimationLoop: false,
-                        animType: AnimType.BOTTOMSLIDE,
-                        dialogType: DialogType.NO_HEADER,
-                        body: const PasswordSuccesfluModal(),
-                      ).show();
+                      showDialog(
+                          context: context,
+                          builder: (context) {
+                            return Dialog(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              child: const AppLoadingDialog(
+                                text: 'Submitting Query',
+                              ),
+                            );
+                          });
+                      verifyCode();
                     }),
               )
             ],
@@ -110,5 +117,22 @@ class _HelpSupportModalState extends State<HelpSupportModal> {
         ),
       ),
     );
+  }
+
+  verifyCode() {
+    Future.delayed(
+        const Duration(
+          seconds: 4,
+        ), () async {
+      Navigator.of(context).pop();
+      Navigator.of(context).pop();
+      AwesomeDialog(
+        context: context,
+        headerAnimationLoop: false,
+        animType: AnimType.BOTTOMSLIDE,
+        dialogType: DialogType.NO_HEADER,
+        body: const helpsuccessmodal(),
+      ).show();
+    });
   }
 }

@@ -4,49 +4,55 @@ import 'package:afroreads/features/auth/presentation/pages/parent_sign_in_page.d
 import 'package:afroreads/features/auth/presentation/pages/sign_up_verification_page.dart';
 import 'package:afroreads/features/getbooks/presentation/pages/home.dart';
 import 'package:afroreads/features/getbooks/presentation/pages/index.dart';
+import 'package:afroreads/features/getbooks/presentation/pages/pdfscreen.dart';
 import 'package:afroreads/features/onboarding/pages/onboarding_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:afroreads/features/auth/presentation/pages/sign_up_page.dart';
 
-Route<dynamic> generateRoute (RouteSettings settings){
+Route<dynamic> generateRoute(RouteSettings settings) {
   switch (settings.name) {
     case RouteName.onboardingScreen:
-    return _getPageRoute(
+      return _getPageRoute(
         routeName: settings.name,
         viewToShow: const OnboardingScreen(),
       );
-     case RouteName.signUpPage:
-    return _getPageRoute(
+    case RouteName.signUpPage:
+      return _getPageRoute(
         routeName: settings.name,
         viewToShow: const SignUpPage(),
       );
-     case RouteName.signUpVerificationPage:
-    return _getPageRoute(
+    case RouteName.signUpVerificationPage:
+      return _getPageRoute(
         routeName: settings.name,
         viewToShow: const SignUpVerificationPage(),
-      ); 
-       case RouteName.finalSignUpVerificationPage:
-    return _getPageRoute(
+      );
+    case RouteName.finalSignUpVerificationPage:
+      return _getPageRoute(
         routeName: settings.name,
         viewToShow: const FinalSignUpVerificationPage(),
-      ); 
-      case RouteName.parentSignUpPage:
-    return _getPageRoute(
+      );
+    case RouteName.pdfpage:
+      return _getPageRoute(
+        routeName: settings.name,
+        viewToShow: const PdfScreen(),
+      );
+    case RouteName.parentSignUpPage:
+      return _getPageRoute(
         routeName: settings.name,
         viewToShow: const ParentSignUpPage(),
-      ); 
-      case RouteName.homePage:
-    return _getPageRoute(
+      );
+    case RouteName.homePage:
+      return _getPageRoute(
         routeName: settings.name,
         viewToShow: const Home(),
-      ); 
-      case RouteName.indexPage:
-    return _getPageRoute(
+      );
+    case RouteName.indexPage:
+      return _getPageRoute(
         routeName: settings.name,
         viewToShow: const Homelanding(),
-      ); 
+      );
     default:
-     return MaterialPageRoute<void>(
+      return MaterialPageRoute<void>(
         builder: (_) => Scaffold(
           body: Center(
             child: Text(
@@ -54,7 +60,7 @@ Route<dynamic> generateRoute (RouteSettings settings){
             ),
           ),
         ),
-      ); 
+      );
   }
 }
 
