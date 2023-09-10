@@ -16,7 +16,7 @@ class PasswordSuccesfluModal extends StatelessWidget {
      height: 282,
      width: double.infinity,
       decoration: const BoxDecoration(
-        color: AfroReadsColors.white,
+        color: Colors.transparent,
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(8),
           topRight: Radius.circular(8),
@@ -52,13 +52,13 @@ class PasswordSuccesfluModal extends StatelessWidget {
             TextBody("You have successfully",
             style: const TextStyle(
               fontSize: 16,
-              color: Colors.black54
+              color: Colors.black
             ),
             ),
              TextBody("changed your password",
             style: const TextStyle(
               fontSize: 16,
-              color: Colors.black54
+              color: Colors.black
             ),
             ),
             const Gap(25),

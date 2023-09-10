@@ -109,6 +109,7 @@ class _ChangePasswordModalState extends State<ChangePasswordModal> {
                   onTap: () {
                      Navigator.of(context).pop();
                   AwesomeDialog(
+                    dialogBackgroundColor: Colors.white60,
                       context: context,
                       headerAnimationLoop: false,
                        animType: AnimType.BOTTOMSLIDE,

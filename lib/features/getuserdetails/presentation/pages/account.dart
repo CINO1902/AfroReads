@@ -4,21 +4,20 @@ import 'package:afroreads/core/constants/app_colors.dart';
 import 'package:afroreads/features/auth/presentation/widgets/verfication_successful_modal.dart';
 import 'package:afroreads/features/getuserdetails/presentation/widgets/help_support_modal.dart';
 import 'package:afroreads/features/getuserdetails/presentation/widgets/settings_modal.dart';
+import 'package:afroreads/provider/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:provider/provider.dart';
 
-class Account extends StatefulWidget {
+class Account extends StatelessWidget {
   const Account({super.key});
 
   @override
-  State<Account> createState() => _AccountState();
-}
-
-class _AccountState extends State<Account> {
-  @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
+
     return Scaffold(
-      backgroundColor: AfroReadsColors.background,
+      backgroundColor: themeProvider.themeData.primaryColor,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
@@ -97,10 +96,10 @@ class _AccountState extends State<Account> {
               const Gap(7),
               Divider(color: Colors.grey.withOpacity(0.3)),
               myAccountContainer(
-                text: "Help & Support",
-                textt: "Get support or assist whenever you need it",
-                image: AppAssets.help,
-                onTap: (){
+                  text: "Help & Support",
+                  textt: "Get support or assist whenever you need it",
+                  image: AppAssets.help,
+                  onTap: () {
                     showModalBottomSheet(
                         backgroundColor: Colors.white,
                         shape: const RoundedRectangleBorder(
@@ -113,8 +112,7 @@ class _AccountState extends State<Account> {
                         builder: (context) {
                           return const HelpSupportModal();
                         });
-                }
-              ),
+                  }),
               const Gap(7),
               Divider(color: Colors.grey.withOpacity(0.3)),
               myAccountContainer(
@@ -123,7 +121,7 @@ class _AccountState extends State<Account> {
                   image: AppAssets.setting,
                   onTap: () {
                     showModalBottomSheet(
-                        backgroundColor: Colors.white,
+                        backgroundColor: Colors.transparent,
                         shape: const RoundedRectangleBorder(
                           borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(8),
