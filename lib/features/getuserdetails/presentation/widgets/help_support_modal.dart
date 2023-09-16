@@ -29,7 +29,6 @@ class _HelpSupportModalState extends State<HelpSupportModal> {
         height: 500,
         width: double.infinity,
         decoration: const BoxDecoration(
-          color: AfroReadsColors.white,
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(20),
             topRight: Radius.circular(20),

@@ -5,7 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 enum ThemeModeType { light, dark, system }
 
 class ThemeProvider with ChangeNotifier {
-  ThemeModeType _themeModeType = ThemeModeType.system;
+  ThemeModeType _themeModeType = ThemeModeType.light;
   static const String _themeModeKey = 'theme_mode';
 
   ThemeProvider() {
@@ -42,14 +42,18 @@ class ThemeProvider with ChangeNotifier {
       case ThemeModeType.light:
         return ThemeData.light().copyWith(
           primaryColor: AfroReadsColors.background,
-          
+          primaryColorDark: AfroReadsColors.darkBackground,
         );
       case ThemeModeType.dark:
         return ThemeData.dark().copyWith(
-         primaryColor: AfroReadsColors.primaryColor,
+          primaryColor: AfroReadsColors.darkBackground,
+           primaryColorDark: AfroReadsColors.background,
         );
       case ThemeModeType.system:
-        return ThemeData.light();
+        return ThemeData.light().copyWith(
+          primaryColor: AfroReadsColors.background,
+           primaryColorDark: AfroReadsColors.darkBackground,
+        );
     }
   }
 }

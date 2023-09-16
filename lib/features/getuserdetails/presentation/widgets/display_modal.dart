@@ -1,9 +1,9 @@
 import 'package:afroreads/app/view/widget/busy_button.dart';
 import 'package:afroreads/core/constants/app_colors.dart';
 import 'package:afroreads/provider/theme_provider.dart';
-
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:provider/provider.dart';
 
 class DisplayModal extends StatelessWidget {
   final ThemeProvider themeProvider;
@@ -12,13 +12,14 @@ class DisplayModal extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+        final themeProvider = Provider.of<ThemeProvider>(context);
     return SingleChildScrollView(
       child: Container(
         height: MediaQuery.of(context).size.height * 0.4,
         width: double.infinity,
-        decoration: const BoxDecoration(
-          color: AfroReadsColors.white,
-          borderRadius: BorderRadius.only(
+        decoration:  BoxDecoration(
+        color: themeProvider.themeData.primaryColor,
+          borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(20),
             topRight: Radius.circular(20),
           ),
