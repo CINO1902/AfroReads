@@ -47,8 +47,9 @@ dependencies:
   path_provider: ^2.1.1
   image_compare: ^1.1.2
   epub_view: ^3.2.0
-  epub_viewer: ^0.2.5
   internet_file: ^1.2.0
+  shared_preferences: ^2.0.6
+  rive: ^0.9.1
 
 
 

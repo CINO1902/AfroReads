@@ -2,14 +2,17 @@ import 'package:afroreads/app/styles/fonts.dart';
 import 'package:afroreads/core/constants/app_assets.dart';
 import 'package:afroreads/core/constants/app_colors.dart';
 import 'package:afroreads/features/getuserdetails/presentation/widgets/change_password_modal.dart';
+import 'package:afroreads/features/getuserdetails/presentation/widgets/display_modal.dart';
+import 'package:afroreads/provider/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:provider/provider.dart';
 
 class SettingsModal extends StatelessWidget {
-  const SettingsModal({Key? key}) : super(key: key);
-
+   const SettingsModal({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+     final themeProvider = Provider.of<ThemeProvider>(context);
     return Container(
       height: 200,
       width: double.infinity,
@@ -30,17 +33,34 @@ class SettingsModal extends StatelessWidget {
               color: AfroReadsColors.textColor.withOpacity(0.8),
               fontSize: 24,
             ),
-            settingsContainer(
-              text: "Display",
-              textt: "Manage how to experience the app",
-              image: AppAssets.gallery,
+            GestureDetector(
+               onTap: () {
+                Navigator.of(context).pop();
+                showModalBottomSheet(
+                    backgroundColor: Colors.white,
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(8),
+                        topRight: Radius.circular(8),
+                      ),
+                    ),
+                    context: context,
+                    builder: (context) {
+                      return   DisplayModal(themeProvider: themeProvider,);
+                    });
+              },
+              child: settingsContainer(
+                text: "Display",
+                textt: "Manage how you experience the app",
+                image: AppAssets.gallery,
+              ),
             ),
             Divider(color: Colors.grey.withOpacity(0.3)),
             GestureDetector(
               onTap: () {
                 Navigator.of(context).pop();
                 showModalBottomSheet(
-                    backgroundColor: Colors.transparent,
+                    backgroundColor: Colors.white,
                     shape: const RoundedRectangleBorder(
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(8),

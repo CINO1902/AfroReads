@@ -4,7 +4,6 @@ import 'package:afroreads/app/view/widget/busy_button.dart';
 import 'package:afroreads/app/view/widget/input_input.dart';
 import 'package:afroreads/core/constants/app_colors.dart';
 import 'package:afroreads/features/getuserdetails/presentation/widgets/helpsuccessmodal.dart';
-import 'package:afroreads/features/getuserdetails/presentation/widgets/password_successful_modal.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';

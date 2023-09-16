@@ -14,7 +14,7 @@ class PasswordSuccesfluModal extends StatelessWidget {
       height: 282,
       width: double.infinity,
       decoration: const BoxDecoration(
-        color: AfroReadsColors.white,
+        color: Colors.transparent,
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(8),
           topRight: Radius.circular(8),
