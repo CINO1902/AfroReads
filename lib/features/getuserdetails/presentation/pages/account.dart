@@ -17,7 +17,6 @@ class Account extends StatelessWidget {
     final themeProvider = Provider.of<ThemeProvider>(context);
 
     return Scaffold(
-      backgroundColor: themeProvider.themeData.primaryColor,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
@@ -30,6 +29,7 @@ class Account extends StatelessWidget {
                   children: [
                     TextBold(
                       "My Account",
+                      color: themeProvider.themeData.primaryColorDark,
                       fontSize: 20,
                     ),
                     const Gap(15),
@@ -49,6 +49,7 @@ class Account extends StatelessWidget {
                     const Gap(10),
                     TextBold(
                       "Vincent Florence",
+                      color: themeProvider.themeData.primaryColorDark,
                       fontSize: 16,
                     ),
                     const Gap(5),
@@ -62,12 +63,12 @@ class Account extends StatelessWidget {
               ),
               const Gap(30),
               myAccountContainer(
+                  context: context,
                   text: "Child Profile",
                   textt: "Manage your personal information",
                   image: AppAssets.profile,
                   onTap: () {
                     showModalBottomSheet(
-                        backgroundColor: Colors.transparent,
                         shape: const RoundedRectangleBorder(
                           borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(8),
@@ -79,29 +80,31 @@ class Account extends StatelessWidget {
                           return const VerificationSuccessfulModal();
                         });
                   }),
-              const Gap(7),
+              const Gap(5),
               Divider(color: Colors.grey.withOpacity(0.3)),
               myAccountContainer(
+                context: context,
                 text: "Saved Books",
                 textt: "Access comics you have bookmarked to read later",
                 image: AppAssets.mylibrary,
               ),
-              const Gap(7),
+              const Gap(5),
               Divider(color: Colors.grey.withOpacity(0.3)),
               myAccountContainer(
+                context: context,
                 text: "About Rootts Books",
                 textt: "Get to know about us and what we stand for.",
                 image: AppAssets.about,
               ),
-              const Gap(7),
+              const Gap(5),
               Divider(color: Colors.grey.withOpacity(0.3)),
               myAccountContainer(
+                  context: context,
                   text: "Help & Support",
                   textt: "Get support or assist whenever you need it",
                   image: AppAssets.help,
                   onTap: () {
                     showModalBottomSheet(
-                        backgroundColor: Colors.white,
                         shape: const RoundedRectangleBorder(
                           borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(8),
@@ -113,15 +116,15 @@ class Account extends StatelessWidget {
                           return const HelpSupportModal();
                         });
                   }),
-              const Gap(7),
+              const Gap(5),
               Divider(color: Colors.grey.withOpacity(0.3)),
               myAccountContainer(
+                  context: context,
                   text: "Settings",
                   textt: "Control other aspects of your app experience",
                   image: AppAssets.setting,
                   onTap: () {
                     showModalBottomSheet(
-                        backgroundColor: Colors.transparent,
                         shape: const RoundedRectangleBorder(
                           borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(8),
@@ -133,14 +136,15 @@ class Account extends StatelessWidget {
                           return const SettingsModal();
                         });
                   }),
-              const Gap(7),
+              const Gap(5),
               Divider(color: Colors.grey.withOpacity(0.3)),
               myAccountContainer(
+                context: context,
                 text: "Log Out",
                 textt: "Log out of your account",
                 image: AppAssets.logout,
               ),
-              const Gap(7),
+              const Gap(5),
               Divider(color: Colors.grey.withOpacity(0.3)),
             ]),
           ),
@@ -149,11 +153,12 @@ class Account extends StatelessWidget {
     );
   }
 
-  GestureDetector myAccountContainer({text, textt, image, onTap}) {
+  GestureDetector myAccountContainer(
+      {text, textt, image, onTap, required BuildContext context}) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        color: AfroReadsColors.background,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -176,9 +181,10 @@ class Account extends StatelessWidget {
                   children: [
                     TextBold(
                       text,
+                      color: themeProvider.themeData.primaryColorDark,
                       fontSize: 14,
                     ),
-                    const Gap(3),
+                    const Gap(5),
                     TextBody(
                       textt,
                       color: AfroReadsColors.grey,
