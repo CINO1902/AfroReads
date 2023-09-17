@@ -43,17 +43,16 @@ class ThemeProvider with ChangeNotifier {
         return ThemeData.light().copyWith(
           primaryColor: AfroReadsColors.background,
           primaryColorDark: AfroReadsColors.darkBackground,
+          hintColor: AfroReadsColors.white
         );
       case ThemeModeType.dark:
         return ThemeData.dark().copyWith(
           primaryColor: AfroReadsColors.darkBackground,
            primaryColorDark: AfroReadsColors.background,
+           hintColor: AfroReadsColors.semidarkBackground
         );
       case ThemeModeType.system:
-        return ThemeData.light().copyWith(
-          primaryColor: AfroReadsColors.background,
-           primaryColorDark: AfroReadsColors.darkBackground,
-        );
+        return ThemeData.light();
     }
   }
 }
