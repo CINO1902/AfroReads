@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 
@@ -90,12 +89,19 @@ class _PdfScreenState extends State<PdfScreen> {
           // chapterDividerBuilder: (_) => const Divider(),
         ),
         onDocumentLoaded: (document) async {
+          for (var epubViewChapter
+              in _epubController.tableOfContentsListenable.value) {
+            // print(epubViewChapter.startIndex);
+            // _epubController.jumpTo(index: epubViewChapter.startIndex);
+            // print(
+            //     "Chapter: ${epubViewChapter.startIndex}, Name: ${epubViewChapter.title} CFI: ${_epubController.generateEpubCfi()}");
+          }
           print('loaded');
           // print(_epubController.epubCfi);
-          final pref = await SharedPreferences.getInstance();
-          final getcpi = pref.getString('cpi');
-          _epubController.gotoEpubCfi(getcpi!);
-          print(getcpi);
+          // final pref = await SharedPreferences.getInstance();
+          // final getcpi = pref.getString('cpi');
+          // _epubController.gotoEpubCfi(getcpi!);
+          // print(getcpi);
         },
         onChapterChanged: (value) async {
           // print(value!.chapter);
