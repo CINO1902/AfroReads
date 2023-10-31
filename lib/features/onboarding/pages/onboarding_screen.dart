@@ -116,7 +116,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   borderColor: AfroReadsColors.primaryColor,
                   buttonColor: AfroReadsColors.white,
                   onTap: () {
-                    Navigator.pushNamed(context, RouteName.indexPage);
+                    Navigator.pushNamed(
+                        context, RouteName.finalSignUpVerificationPage);
                   },
                 ),
               ],

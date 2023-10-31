@@ -1,10 +1,9 @@
 import 'dart:developer';
-import 'dart:io';
-
 import 'package:afroreads/features/getbooks/data/repositories/getbooksrepo.dart';
 
 abstract class Getbookrepository {
-  Future<File> getbook( );
+  Future<List<List>> getbook(page,limit);
+  Future<List<List>> callbookdetails(page, id);
 }
 
 class getbookrepositoryimp implements Getbookrepository {
@@ -13,10 +12,21 @@ class getbookrepositoryimp implements Getbookrepository {
   getbookrepositoryimp(this.getbookDatasource);
 
   @override
-  Future<File> getbook( ) async {
-    File returnvalue  = File('file.txt');
+  Future<List<List>> getbook(page,limit) async {
+    List<List> returnvalue = [];
     try {
-      returnvalue = await getbookDatasource.getbook( );
+      returnvalue = await getbookDatasource.getbook(page, limit);
+    } catch (e) {
+      log(e.toString());
+    }
+    return returnvalue;
+  }
+
+  @override
+  Future<List<List>> callbookdetails(page,id) async {
+    List<List> returnvalue = [];
+    try {
+      returnvalue = await getbookDatasource.getbook(page, id);
     } catch (e) {
       log(e.toString());
     }

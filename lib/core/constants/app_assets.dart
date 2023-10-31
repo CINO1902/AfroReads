@@ -7,6 +7,9 @@ class AppAssets {
   static const String parentOnBoardingImage2 = 'assets/images/parent.png';
   static const String homeicon = 'assets/images/home.svg';
   static const String bookicon = 'assets/images/book.svg';
+  static const String bubbles = 'assets/images/bubbles.svg';
+  static const String close = 'assets/images/close.svg';
+  static const String fail = 'assets/images/fail.svg';
   static const String accounticon = 'assets/images/Rectangle.png';
   static const String searchicon = 'assets/images/Search.svg';
   static const String notificationicon = 'assets/images/notification.svg';
@@ -24,4 +27,5 @@ class AppAssets {
   static const String gallery = 'assets/images/gallery.png';
   static const String lock = 'assets/images/lock.png';
   static const String mark = 'assets/images/Mark.png';
+  static const String filter = 'assets/images/filter.png';
 }

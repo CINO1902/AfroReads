@@ -1,5 +1,6 @@
-import 'dart:io';
+
 
 abstract class GetbookDatasource {
-  Future<File> getbook( );
+  Future<List<List>> getbook(page, limit);
+  Future<List<List>> callbookdetails(id);
 }

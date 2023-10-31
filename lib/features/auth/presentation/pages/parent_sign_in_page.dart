@@ -4,10 +4,14 @@ import 'package:afroreads/app/view/widget/busy_button.dart';
 import 'package:afroreads/app/view/widget/input_input.dart';
 import 'package:afroreads/core/constants/app_colors.dart';
 import 'package:afroreads/core/navigators/route_name.dart';
+import 'package:afroreads/core/usecases/customesnackbar.dart';
 import 'package:afroreads/features/auth/presentation/provider/authPro.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:gap/gap.dart';
 import 'package:provider/provider.dart';
+
+import '../../../../app/view/widget/app_loading_dialog.dart';
 
 class ParentSignUpPage extends StatefulWidget {
   const ParentSignUpPage({super.key});
@@ -103,9 +107,7 @@ class _ParentSignUpPageState extends State<ParentSignUpPage> {
                     return BusyButton(
                         title: "Log In",
                         onTap: () async {
-                          //  context.read<AuthPro>().createaccount();
-                          // if(value)
-                          Navigator.pushNamed(context, RouteName.indexPage);
+                          handlerequest(value);
                         });
                   }),
                 ),
@@ -130,5 +132,67 @@ class _ParentSignUpPageState extends State<ParentSignUpPage> {
         ),
       ),
     );
+  }
+
+  void handlerequest(AuthPro value) async {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return Dialog(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: const AppLoadingDialog(
+              text: 'Loading...',
+            ),
+          );
+        });
+    await context
+        .read<AuthPro>()
+        .login(_parentEmailController.text, _parentPasswordController.text);
+
+    if (value.loginerror == true) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: CustomeSnackbar(
+          topic: 'Oh Snap!',
+          msg: 'Something went wrong',
+          color1: Color.fromARGB(255, 171, 51, 42),
+          color2: Color.fromARGB(255, 127, 39, 33),
+        ),
+        behavior: SnackBarBehavior.floating,
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+      ));
+      Navigator.pop(context);
+    } else {
+      Navigator.pop(context);
+      if (value.status == 'false') {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: CustomeSnackbar(
+            topic: 'Oh Snap!',
+            msg: value.msg,
+            color1: Color.fromARGB(255, 171, 51, 42),
+            color2: Color.fromARGB(255, 127, 39, 33),
+          ),
+          behavior: SnackBarBehavior.floating,
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+        ));
+      } else {
+        Navigator.pop(context);
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: CustomeSnackbar(
+            topic: 'Great!',
+            msg: value.msg,
+            color1: Color.fromARGB(255, 25, 107, 52),
+            color2: Color.fromARGB(255, 19, 95, 40),
+          ),
+          behavior: SnackBarBehavior.floating,
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+        ));
+        Navigator.pushNamed(context, RouteName.indexPage);
+      }
+    }
   }
 }

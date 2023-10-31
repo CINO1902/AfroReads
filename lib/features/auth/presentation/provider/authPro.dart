@@ -1,4 +1,5 @@
 import 'package:afroreads/features/auth/domain/model/createAccountModel.dart';
+import 'package:afroreads/features/auth/domain/model/login.dart';
 import 'package:afroreads/features/auth/domain/repositories/auth_repo.dart';
 import 'package:flutter/foundation.dart';
 
@@ -7,6 +8,8 @@ class AuthPro extends ChangeNotifier {
 
   AuthPro(this.authReposity);
   bool loading = false;
+  bool loginerror = false;
+  bool loadingloginparent = false;
   List<String> returnvalue = [];
   String msg = '';
   String status = '';
@@ -24,5 +27,23 @@ class AuthPro extends ChangeNotifier {
     loading = false;
     msg = returnvalue[1];
     status = returnvalue[0];
+  }
+
+  Future<void> login(email, password) async {
+    loginerror = false;
+    Loginmodel login = Loginmodel(
+      email: email,
+      password: password,
+    );
+    loadingloginparent = true;
+    returnvalue = await authReposity.loginasparent(login);
+    loadingloginparent = false;
+    if (returnvalue.contains('errorfalse')) {
+      loginerror = true;
+    } else {
+      msg = returnvalue[1];
+      status = returnvalue[0];
+    }
+    notifyListeners();
   }
 }

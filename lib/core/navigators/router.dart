@@ -2,6 +2,7 @@ import 'package:afroreads/core/navigators/route_name.dart';
 import 'package:afroreads/features/auth/presentation/pages/final_sign_up_verification_page.dart';
 import 'package:afroreads/features/auth/presentation/pages/parent_sign_in_page.dart';
 import 'package:afroreads/features/auth/presentation/pages/sign_up_verification_page.dart';
+import 'package:afroreads/features/getbooks/presentation/pages/bookdetails.dart';
 import 'package:afroreads/features/getbooks/presentation/pages/home.dart';
 import 'package:afroreads/features/getbooks/presentation/pages/index.dart';
 import 'package:afroreads/features/getbooks/presentation/pages/pdfscreen.dart';
@@ -45,6 +46,11 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return _getPageRoute(
         routeName: settings.name,
         viewToShow: const Home(),
+      );
+    case RouteName.bookdetails:
+      return _getPageRoute(
+        routeName: settings.name,
+        viewToShow: const BookDetails(),
       );
     case RouteName.indexPage:
       return _getPageRoute(

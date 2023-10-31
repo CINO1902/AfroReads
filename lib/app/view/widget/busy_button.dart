@@ -11,6 +11,7 @@ class BusyButton extends StatefulWidget {
     this.titleColor = AfroReadsColors.white,
     this.buttonColor = AfroReadsColors.primaryColor,
     this.borderColor = AfroReadsColors.primaryColor,
+    this.fontsize = 16,
   }) : super(key: key);
   final String title;
   final VoidCallback onTap;
@@ -18,6 +19,7 @@ class BusyButton extends StatefulWidget {
   final Color buttonColor;
   final Color titleColor;
   final Color borderColor;
+  final double fontsize;
   @override
   State<BusyButton> createState() => _BusyButtonState();
 }
@@ -41,7 +43,7 @@ class _BusyButtonState extends State<BusyButton> {
           child: TextBold(
             widget.title,
             color: widget.titleColor,
-            fontSize: 16,
+            fontSize: widget.fontsize,
             fontWeight: FontWeight.w700,
           ),
         ),

@@ -31,24 +31,10 @@ class NotificationPage extends StatelessWidget {
               color: themeProvider.themeData.primaryColorDark,
             ),
           ),
-          const Gap(25),
-          InputField(
-            controller: TextEditingController(),
-            placeholder: 'Search',
-            fieldColor: AfroReadsColors.white.withOpacity(0.4),
-            validationColor: AfroReadsColors.grey.withOpacity(
-              0.2,
-            ),
-            prefix: const Padding(
-              padding: EdgeInsets.only(
-                right: 11,
-              ),
-              // child: SvgPicture.asset(
-              //   // AppAssets.searchIcon,
-              // ),
-            ),
+          const Divider(
+            color: Colors.grey,
           ),
-          const Gap(11),
+          const Gap(15),
           const Expanded(
             child: SingleChildScrollView(
               child: Align(
@@ -112,7 +98,7 @@ class myContainer extends StatelessWidget {
       decoration: BoxDecoration(
         border: Border.all(color: Colors.grey.withOpacity(.3)),
         borderRadius: BorderRadius.circular(10),
-        color: AfroReadsColors.white.withOpacity(0.4),
+        color: themeProvider.themeData.primaryColor,
       ),
       height: 110,
       width: MediaQuery.of(context).size.width * 0.9,

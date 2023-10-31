@@ -2,6 +2,8 @@ import 'package:afroreads/core/constants/enum.dart';
 import 'package:afroreads/core/service/http_service.dart';
 import 'package:afroreads/features/auth/data/repository/authrepo.dart';
 import 'package:afroreads/features/auth/domain/model/createAccountModel.dart';
+import 'package:afroreads/features/auth/domain/model/login.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthDatasouceImp implements AuthDatasource {
   final HttpService httpService;
@@ -38,8 +40,62 @@ class AuthDatasouceImp implements AuthDatasource {
   }
 
   @override
-  List<String> login() {
-    // TODO: implement login
-    throw UnimplementedError();
+  Future<List<String>> loginaskid(Loginmodel login) async {
+    String result = '';
+    String msg = '';
+    String token = '';
+    List<String> returnvalue = [];
+
+    final response = await httpService.request(
+        url: '/loginparent',
+        methodrequest: RequestMethod.post,
+        data: loginmodelToJson(login));
+
+    if (response.data['status'] != 'fail') {
+      result = response.data['status'];
+      msg = response.data['msg'];
+      token = response.data['token'];
+      returnvalue.add(result);
+      returnvalue.add(msg);
+      returnvalue.add(token);
+    } else {
+      result = response.data['status'];
+      msg = response.data['msg'];
+      returnvalue.add(result);
+      returnvalue.add(msg);
+    }
+
+    return returnvalue;
+  }
+
+  @override
+  Future<List<String>> loginasparent(login) async {
+    String result = '';
+    String msg = '';
+    String token = '';
+    List<String> returnvalue = [];
+
+    final response = await httpService.request(
+        url: '/loginparent',
+        methodrequest: RequestMethod.post,
+        data: loginmodelToJson(login));
+
+    if (response.data['success'] != 'false') {
+      result = response.data['success'];
+      msg = response.data['msg'];
+      token = response.data['token'];
+      final pref = await SharedPreferences.getInstance();
+      pref.setString('tokenlogforparent', token);
+      returnvalue.add(result);
+      returnvalue.add(msg);
+      returnvalue.add(token);
+    } else {
+      result = response.data['success'];
+      msg = response.data['msg'];
+      returnvalue.add(result);
+      returnvalue.add(msg);
+    }
+
+    return returnvalue;
   }
 }

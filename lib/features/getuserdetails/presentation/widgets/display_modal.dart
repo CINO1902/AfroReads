@@ -18,7 +18,7 @@ class DisplayModal extends StatelessWidget {
         height: MediaQuery.of(context).size.height * 0.4,
         width: double.infinity,
         decoration:  BoxDecoration(
-        color: themeProvider.themeData.primaryColor,
+          color: themeProvider.themeData.primaryColor,
           borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(20),
             topRight: Radius.circular(20),

@@ -9,6 +9,8 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../core/navigators/route_name.dart';
+
 class Account extends StatelessWidget {
   const Account({super.key});
 
@@ -31,6 +33,9 @@ class Account extends StatelessWidget {
                       "My Account",
                       color: themeProvider.themeData.primaryColorDark,
                       fontSize: 20,
+                    ),
+                    const Divider(
+                      color: Colors.grey,
                     ),
                     const Gap(15),
                     Container(
@@ -139,11 +144,13 @@ class Account extends StatelessWidget {
               const Gap(5),
               Divider(color: Colors.grey.withOpacity(0.3)),
               myAccountContainer(
-                context: context,
-                text: "Log Out",
-                textt: "Log out of your account",
-                image: AppAssets.logout,
-              ),
+                  context: context,
+                  text: "Log Out",
+                  textt: "Log out of your account",
+                  image: AppAssets.logout,
+                  onTap: () {
+                    Navigator.pushNamed(context, RouteName.onboardingScreen);
+                  }),
               const Gap(5),
               Divider(color: Colors.grey.withOpacity(0.3)),
             ]),

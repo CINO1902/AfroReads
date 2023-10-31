@@ -1,14 +1,22 @@
+// ignore_for_file: deprecated_member_use
 
 import 'dart:typed_data';
 
+import 'package:afroreads/app/view/widget/input_input.dart';
 import 'package:afroreads/core/constants/app_assets.dart';
+import 'package:afroreads/core/constants/app_colors.dart';
 import 'package:afroreads/core/navigators/route_name.dart';
+import 'package:afroreads/features/getbooks/presentation/provider/GetbooksPro.dart';
+import 'package:afroreads/features/getbooks/presentation/widgets/searchload.dart';
 import 'package:afroreads/features/getbooks/presentation/widgets/shimmerwidget.dart';
+import 'package:afroreads/provider/theme_provider.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
+import 'package:provider/provider.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -20,13 +28,16 @@ class Home extends StatefulWidget {
 bool loading = true;
 
 class _HomeState extends State<Home> {
-  Future<List<int>> _readDocumentData(String name) async {
-    final ByteData data = await rootBundle.load('assets/$name');
-    return data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    context.read<GetbookPro>().getbook();
   }
 
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
     return Scaffold(
       body: SafeArea(
           child: Padding(
@@ -42,7 +53,10 @@ class _HomeState extends State<Home> {
                   width: 74,
                   child: Align(
                       alignment: Alignment.centerLeft,
-                      child: SvgPicture.asset(AppAssets.menu)),
+                      child: SvgPicture.asset(
+                        AppAssets.menu,
+                        color: themeProvider.themeData.primaryColorDark,
+                      )),
                 ),
                 SizedBox(
                   height: 50,
@@ -54,10 +68,10 @@ class _HomeState extends State<Home> {
                         SizedBox(
                             width: 30,
                             child: Image.asset(AppAssets.profileicon)),
-                        SizedBox(
+                        const SizedBox(
                           height: 5,
                         ),
-                        Text(
+                        const Text(
                           'Hello Dora,',
                           style: TextStyle(fontSize: 10),
                         )
@@ -67,25 +81,38 @@ class _HomeState extends State<Home> {
                 )
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 30,
             ),
-            Container(
-              decoration: BoxDecoration(
-                  color: const Color(0xffD9D9D9),
-                  borderRadius: BorderRadius.circular(10)),
-              height: 45,
-              child: TextFormField(
-                decoration: const InputDecoration(
-                  hintText: 'Search by Book title, Author',
-                  hintStyle: TextStyle(fontSize: 12),
-                  prefixIcon: Icon(Icons.search),
-                  border: InputBorder.none,
-                  focusedBorder: InputBorder.none,
-                  enabledBorder: InputBorder.none,
-                  errorBorder: InputBorder.none,
-                  disabledBorder: InputBorder.none,
-                ),
+            GestureDetector(
+              onTap: () {
+                showSearch(context: context, delegate: MySearchDelegate());
+                print('object');
+              },
+              child: Stack(
+                children: [
+                  InputField(
+                    controller: TextEditingController(),
+                    placeholder: 'Search',
+                    fieldColor: AfroReadsColors.white.withOpacity(0.4),
+                    validationColor: AfroReadsColors.grey.withOpacity(
+                      0.2,
+                    ),
+                    prefix: const Padding(
+                      padding: EdgeInsets.only(
+                        right: 11,
+                      ),
+                      // child: SvgPicture.asset(
+                      //   // AppAssets.searchIcon,
+                      // ),
+                    ),
+                  ),
+                  Container(
+                    width: 350,
+                    height: 70,
+                    color: Colors.transparent,
+                  ),
+                ],
               ),
             ),
             const Gap(20),
@@ -144,126 +171,149 @@ class _HomeState extends State<Home> {
             SizedBox(
               height: 230,
               width: double.infinity,
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: 4,
-                itemBuilder: (context, index) {
-                  if (loading == true) {
-                    return ListView(
-                      shrinkWrap: true,
-                      scrollDirection: Axis.horizontal,
-                      physics: const NeverScrollableScrollPhysics(),
-                      children: const [
-                        SizedBox(
-                            width: 130,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                ShimmerWidget.rectangle(
-                                  width: 130,
-                                  height: 163,
-                                ),
-                                Gap(5),
-                                ShimmerWidget.rectangle(
-                                  width: 130,
-                                  height: 13,
-                                ),
-                                Gap(5),
-                                ShimmerWidget.rectangle(
-                                  width: 130,
-                                  height: 16,
-                                ),
-                              ],
-                            )),
-                        SizedBox(
-                          width: 20,
-                        ),
-                        SizedBox(
-                            width: 130,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                ShimmerWidget.rectangle(
-                                  width: 130,
-                                  height: 163,
-                                ),
-                                Gap(5),
-                                ShimmerWidget.rectangle(
-                                  width: 130,
-                                  height: 13,
-                                ),
-                                Gap(5),
-                                ShimmerWidget.rectangle(
-                                  width: 130,
-                                  height: 16,
-                                ),
-                              ],
-                            )),
-                        SizedBox(
-                          width: 20,
-                        ),
-                        SizedBox(
-                            width: 130,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                ShimmerWidget.rectangle(
-                                  width: 130,
-                                  height: 163,
-                                ),
-                                Gap(5),
-                                ShimmerWidget.rectangle(
-                                  width: 130,
-                                  height: 13,
-                                ),
-                                Gap(5),
-                                ShimmerWidget.rectangle(
-                                  width: 130,
-                                  height: 16,
-                                ),
-                              ],
-                            )),
-                        SizedBox(
-                          width: 20,
-                        ),
-                      ],
-                    );
-                  } else {
-                    return InkWell(
-                      onTap: () {
-                        //  extracttext();
-                        Navigator.pushNamed(context, RouteName.pdfpage);
-                      },
-                      child: SizedBox(
+              child: Consumer<GetbookPro>(builder: (context, value, child) {
+                if (value.loading == true) {
+                  return ListView(
+                    shrinkWrap: true,
+                    scrollDirection: Axis.horizontal,
+                    physics: const NeverScrollableScrollPhysics(),
+                    children: const [
+                      SizedBox(
                           width: 130,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              Image.asset(
-                                AppAssets.book1,
+                              ShimmerWidget.rectangle(
                                 width: 130,
                                 height: 163,
                               ),
-                              const Gap(5),
-                              Text(
-                                'Purple Hibiscus',
-                                style: TextStyle(fontSize: 13),
+                              Gap(5),
+                              ShimmerWidget.rectangle(
+                                width: 130,
+                                height: 13,
                               ),
-                              const Gap(5),
-                              const Text(
-                                'Chimamanda Ngozi Adichie',
-                                style: TextStyle(fontSize: 10),
+                              Gap(5),
+                              ShimmerWidget.rectangle(
+                                width: 130,
+                                height: 16,
                               ),
                             ],
                           )),
-                    );
-                  }
-                },
-              ),
+                      SizedBox(
+                        width: 20,
+                      ),
+                      SizedBox(
+                          width: 130,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              ShimmerWidget.rectangle(
+                                width: 130,
+                                height: 163,
+                              ),
+                              Gap(5),
+                              ShimmerWidget.rectangle(
+                                width: 130,
+                                height: 13,
+                              ),
+                              Gap(5),
+                              ShimmerWidget.rectangle(
+                                width: 130,
+                                height: 16,
+                              ),
+                            ],
+                          )),
+                      SizedBox(
+                        width: 20,
+                      ),
+                      SizedBox(
+                          width: 130,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              ShimmerWidget.rectangle(
+                                width: 130,
+                                height: 163,
+                              ),
+                              Gap(5),
+                              ShimmerWidget.rectangle(
+                                width: 130,
+                                height: 13,
+                              ),
+                              Gap(5),
+                              ShimmerWidget.rectangle(
+                                width: 130,
+                                height: 16,
+                              ),
+                            ],
+                          )),
+                      SizedBox(
+                        width: 20,
+                      ),
+                    ],
+                  );
+                } else {
+                  return ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: value.bookdetails.length,
+                      itemBuilder: (context, index) {
+                        return InkWell(
+                          onTap: () {
+                            context.read<GetbookPro>().getclickedbook(
+                                  value.bookdetails[index].id,
+                                  value.bookdetails[index].bookTitle,
+                                  value.bookdetails[index].authorName,
+                                  value.bookdetails[index].review,
+                                  value.bookdetails[index].noRated,
+                                  value.bookdetails[index].link,
+                                  value.bookdetails[index].addedBy,
+                                  value.bookdetails[index].imageUrl,
+                                  value.bookdetails[index].preview,
+                                );
+                            Navigator.pushNamed(context, RouteName.bookdetails);
+                          },
+                          child: Row(
+                            children: [
+                              SizedBox(
+                                width: 130,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    Align(
+                                      alignment: Alignment.centerLeft,
+                                      child: CachedNetworkImage(
+                                        imageUrl:
+                                            value.bookdetails[index].imageUrl,
+                                        width: 110,
+                                        height: 163,
+                                      ),
+                                    ),
+                                    const Gap(5),
+                                    Text(
+                                      value.bookdetails[index].bookTitle,
+                                      style: TextStyle(
+                                          fontSize: 13,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    const Gap(5),
+                                    Text(
+                                      value.bookdetails[index].authorName,
+                                      style: TextStyle(fontSize: 10),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              const Gap(15),
+                            ],
+                          ),
+                        );
+                      });
+                }
+              }),
             ),
             const Gap(15),
             const Row(

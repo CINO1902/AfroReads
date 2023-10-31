@@ -44,12 +44,13 @@ dependencies:
   get_it: ^7.6.2
   awesome_dialog: ^3.0.2
   flutter_smart_dialog: ^4.9.4
-  path_provider: ^2.1.1
-  image_compare: ^1.1.2
   epub_view: ^3.2.0
   internet_file: ^1.2.0
   shared_preferences: ^2.0.6
   rive: ^0.9.1
+  cached_network_image: ^3.2.3
+  flutter_native_splash: ^2.2.16
+  flutter_rating_bar: ^4.0.1
 
 
 
@@ -64,6 +65,9 @@ dev_dependencies:
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
 
+flutter_native_splash:
+  image: assets/images/splash.png
+  color: "#25A29A"
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 

@@ -1,10 +1,13 @@
 import 'dart:async';
 
+import 'package:afroreads/core/constants/app_colors.dart';
 import 'package:flutter/material.dart';
 
 import 'package:epub_view/epub_view.dart';
 import 'package:internet_file/internet_file.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:afroreads/features/getbooks/presentation/provider/GetbooksPro.dart';
 
 class PdfScreen extends StatefulWidget {
   const PdfScreen({super.key});
@@ -16,6 +19,7 @@ class PdfScreen extends StatefulWidget {
 class _PdfScreenState extends State<PdfScreen> {
   late EpubController _epubController;
   var cfi = '';
+  int pagenumber = 0;
   @override
   void initState() {
     // TODO: implement initState
@@ -27,13 +31,14 @@ class _PdfScreenState extends State<PdfScreen> {
 
       // Set start point
 
-      epubCfi: 'epubcfi(/6/0[main1]!/4/2/476)',
+      //  epubCfi: 'epubcfi(/6/0[pgepubid00000]!/4/6[pgepubid00000])',
     );
   }
 
   Future<EpubBook> document() async {
-    Future<EpubBook> doucument = EpubDocument.openData(await InternetFile.get(
-        'https://fb2bookfree.com/uploads/files/2016-01/1452778023_ulysses.epub'));
+    final getbooksdetails = context.read<GetbookPro>();
+    Future<EpubBook> doucument =
+        EpubDocument.openData(await InternetFile.get(getbooksdetails.bookurl));
 
     return doucument;
   }
@@ -48,8 +53,14 @@ class _PdfScreenState extends State<PdfScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: AfroReadsColors.grey,
         title: EpubViewActualChapter(
             controller: _epubController,
+            loader: const Center(
+                child: CircularProgressIndicator(
+              strokeWidth: 2,
+              color: AfroReadsColors.primaryColor,
+            )),
             builder: (chapterValue) => Text(
                   chapterValue?.chapter?.Title?.replaceAll('\n', '').trim() ??
                       '',
@@ -59,7 +70,7 @@ class _PdfScreenState extends State<PdfScreen> {
           IconButton(
             icon: const Icon(Icons.save_alt),
             color: Colors.white,
-            onPressed: () => _showCurrentEpubCfi(context),
+            onPressed: () => _epubController.jumpTo(index: 61),
           ),
         ],
       ),
@@ -72,44 +83,82 @@ class _PdfScreenState extends State<PdfScreen> {
           // },
         ),
       ),
-      body: EpubView(
-        controller: _epubController,
-        builders: EpubViewBuilders<DefaultBuilderOptions>(
-          options: const DefaultBuilderOptions(
-            loaderSwitchDuration: Duration(seconds: 2),
-            chapterPadding: EdgeInsets.all(8),
-            paragraphPadding: EdgeInsets.symmetric(horizontal: 0),
-            textStyle:
-                TextStyle(height: 1.25, fontSize: 25, color: Colors.black),
+      body: Stack(
+        children: [
+          EpubView(
+            controller: _epubController,
+            builders: EpubViewBuilders<DefaultBuilderOptions>(
+              options: DefaultBuilderOptions(
+                loaderSwitchDuration: const Duration(seconds: 1),
+                chapterPadding: const EdgeInsets.all(8),
+                paragraphPadding: const EdgeInsets.symmetric(horizontal: 0),
+                textStyle: TextStyle(
+                    height: 1.25,
+                    fontSize: 22,
+                    color: Theme.of(context).primaryColorDark),
+              ),
+              chapterDividerBuilder: (_) => const Divider(),
+              loaderBuilder: (_) => const Center(
+                  child: CircularProgressIndicator(
+                strokeWidth: 2,
+                color: AfroReadsColors.primaryColor,
+              )),
+              errorBuilder: (_, error) {
+                return Center(child: Text(error.toString()));
+              },
+              // chapterDividerBuilder: (_) => const Divider(),
+            ),
+            onDocumentLoaded: (document) async {
+              Future.delayed(Duration(milliseconds: 100), () {
+                // <-- Delay here
+                _epubController.scrollTo(
+                    index: _epubController
+                        .tableOfContentsListenable.value[0].startIndex);
+              });
+              //
+
+              print('loaded');
+            },
+            onChapterChanged: (value) async {
+              setState(() {
+                pagenumber = value?.progress.ceil() ?? 0;
+              });
+
+              // print(_epubController.generateEpubCfi());
+              final pref = await SharedPreferences.getInstance();
+              pref.setString('cpi', _epubController.generateEpubCfi()!);
+            },
           ),
-          chapterDividerBuilder: (_) => const Divider(),
-          loaderBuilder: (_) =>
-              const Center(child: CircularProgressIndicator()),
-          errorBuilder: (_, error) => Center(child: Text(error.toString())),
-          // chapterDividerBuilder: (_) => const Divider(),
-        ),
-        onDocumentLoaded: (document) async {
-          for (var epubViewChapter
-              in _epubController.tableOfContentsListenable.value) {
-            // print(epubViewChapter.startIndex);
-            // _epubController.jumpTo(index: epubViewChapter.startIndex);
-            // print(
-            //     "Chapter: ${epubViewChapter.startIndex}, Name: ${epubViewChapter.title} CFI: ${_epubController.generateEpubCfi()}");
-          }
-          print('loaded');
-          // print(_epubController.epubCfi);
-          // final pref = await SharedPreferences.getInstance();
-          // final getcpi = pref.getString('cpi');
-          // _epubController.gotoEpubCfi(getcpi!);
-          // print(getcpi);
-        },
-        onChapterChanged: (value) async {
-          // print(value!.chapter);
-          _epubController.generateEpubCfi();
-          // print(_epubController.generateEpubCfi());
-          final pref = await SharedPreferences.getInstance();
-          pref.setString('cpi', _epubController.generateEpubCfi()!);
-        },
+          Align(
+              alignment: Alignment.bottomCenter,
+              child: Container(
+                color: AfroReadsColors.grey,
+                height: 80,
+                width: double.infinity,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      EpubViewActualChapter(
+                          loader: const Center(
+                              child: CircularProgressIndicator(
+                            strokeWidth: 2,
+                            color: AfroReadsColors.primaryColor,
+                          )),
+                          controller: _epubController,
+                          builder: (chapterValue) => Text(
+                                'Chapter ${chapterValue?.chapterNumber.toString()}',
+                                textAlign: TextAlign.start,
+                                style: TextStyle(
+                                    fontSize: 18, fontWeight: FontWeight.bold),
+                              )),
+                      Text(pagenumber.toString()),
+                    ],
+                  ),
+                ),
+              ))
+        ],
       ),
     );
   }

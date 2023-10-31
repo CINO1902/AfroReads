@@ -9,16 +9,16 @@ import 'package:gap/gap.dart';
 import 'package:provider/provider.dart';
 
 class SettingsModal extends StatelessWidget {
-   const SettingsModal({Key? key}) : super(key: key);
+  const SettingsModal({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-     final themeProvider = Provider.of<ThemeProvider>(context);
+    final themeProvider = Provider.of<ThemeProvider>(context);
     return Container(
       height: 200,
       width: double.infinity,
-      decoration: const BoxDecoration(
-        color: AfroReadsColors.white,
-        borderRadius: BorderRadius.only(
+      decoration: BoxDecoration(
+        color: themeProvider.themeData.primaryColor,
+        borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(8),
           topRight: Radius.circular(8),
         ),
@@ -30,14 +30,14 @@ class SettingsModal extends StatelessWidget {
           children: [
             TextSemiBold(
               'Settings',
-              color: AfroReadsColors.textColor.withOpacity(0.8),
+              color: themeProvider.themeData.primaryColorDark,
               fontSize: 24,
             ),
             GestureDetector(
-               onTap: () {
+              onTap: () {
                 Navigator.of(context).pop();
                 showModalBottomSheet(
-                    backgroundColor: Colors.white,
+                    backgroundColor: themeProvider.themeData.primaryColor,
                     shape: const RoundedRectangleBorder(
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(8),
@@ -46,10 +46,13 @@ class SettingsModal extends StatelessWidget {
                     ),
                     context: context,
                     builder: (context) {
-                      return   DisplayModal(themeProvider: themeProvider,);
+                      return DisplayModal(
+                        themeProvider: themeProvider,
+                      );
                     });
               },
               child: settingsContainer(
+                context: context,
                 text: "Display",
                 textt: "Manage how you experience the app",
                 image: AppAssets.gallery,
@@ -60,7 +63,6 @@ class SettingsModal extends StatelessWidget {
               onTap: () {
                 Navigator.of(context).pop();
                 showModalBottomSheet(
-                    backgroundColor: Colors.white,
                     shape: const RoundedRectangleBorder(
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(8),
@@ -73,6 +75,7 @@ class SettingsModal extends StatelessWidget {
                     });
               },
               child: settingsContainer(
+                context: context,
                 text: "Change Password",
                 textt: "Customise your password to access your account",
                 image: AppAssets.lock,
@@ -85,9 +88,10 @@ class SettingsModal extends StatelessWidget {
     );
   }
 
-  Container settingsContainer({text, textt, image, onTap}) {
+  Container settingsContainer(
+      {text, textt, image, onTap, required BuildContext context}) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
     return Container(
-      color: AfroReadsColors.white,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -110,6 +114,7 @@ class SettingsModal extends StatelessWidget {
                 children: [
                   TextBold(
                     text,
+                    color: themeProvider.themeData.primaryColorDark,
                     fontSize: 14,
                   ),
                   const Gap(5),

@@ -15,13 +15,14 @@ class AfroReadsBackButton extends StatelessWidget {
         width: 36,
         decoration: const BoxDecoration(
           shape: BoxShape.circle,
-          color: AfroReadsColors.white,
+          color: AfroReadsColors.darkBackground,
         ),
         child: const Center(
           child: Padding(
             padding: EdgeInsets.only(left: 5),
             child: Icon(
               Icons.arrow_back_ios,
+              color: AfroReadsColors.background,
               size: 18,
             ),
           ),

@@ -1,6 +1,7 @@
-
 import 'package:afroreads/core/constants/app_colors.dart';
+import 'package:afroreads/provider/theme_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class InputField extends StatefulWidget {
   const InputField({
@@ -27,6 +28,7 @@ class InputField extends StatefulWidget {
     this.prefixSizedBoxWidth = 20,
     this.fieldColor = AfroReadsColors.white,
     this.fieldHeight = 52,
+    this.ontap,
     Key? key,
   }) : super(key: key);
 
@@ -52,6 +54,7 @@ class InputField extends StatefulWidget {
   final Widget? prefix;
   final Color validationColor;
   final double fieldHeight;
+  final Function()? ontap;
 
   @override
   // ignore: library_private_types_in_public_api
@@ -70,99 +73,95 @@ class _InputFieldState extends State<InputField> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        Container(
-          height: widget.fieldHeight,
-          alignment: Alignment.centerLeft,
-          padding: const EdgeInsets.symmetric(horizontal: 10),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(8),
-            color: widget.fieldColor,
-            border: Border.all(
-              color: widget.validationColor.withOpacity(0.2),
+    final themeProvider = Provider.of<ThemeProvider>(context);
+
+    return Container(
+      height: widget.fieldHeight,
+      alignment: Alignment.centerLeft,
+      padding: const EdgeInsets.symmetric(horizontal: 10),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(8),
+        color: widget.fieldColor,
+        border: Border.all(
+          color: widget.validationColor.withOpacity(0.2),
+        ),
+      ),
+      child: Row(
+        children: <Widget>[
+          widget.prefix ?? const SizedBox(),
+          Expanded(
+            child: TextField(
+              controller: widget.controller,
+              keyboardType: widget.textInputType,
+              focusNode: widget.fieldFocusNode,
+              textInputAction: widget.textInputAction,
+              onChanged: widget.onChanged,
+              maxLines: widget.maxLines,
+              onTap: widget.ontap,
+              style: TextStyle(
+                  fontSize: 14,
+                  // fontFamily: IklinFont.euclid,
+                  // color: AfroReadsColors.grey,
+                  color: themeProvider.themeData.primaryColorDark,
+                  fontWeight: FontWeight.w400),
+
+              onEditingComplete: () {
+                if (widget.enterPressed != null) {
+                  FocusScope.of(context).requestFocus(FocusNode());
+                  // ignore: avoid_dynamic_calls
+                  widget.enterPressed!();
+                }
+              },
+              // onFieldSub  mitted: (value) {
+              //   if (widget.nextFocusNode != null) {
+              //     widget.nextFocusNode.requestFocus();
+              //   }
+              // },
+              obscureText: isPassword!,
+              readOnly: widget.isReadOnly,
+              // decoration:
+              // InputDecoration.collapsed(hintText: widget.placeholder),
+              decoration: InputDecoration(
+                // contentPadding: EdgeInsets.only(top: 10),
+                hintText: widget.placeholder,
+                border: InputBorder.none,
+
+                hintStyle: const TextStyle(
+                  fontSize: 14,
+                  // fontFamily: IklinFont.euclid,
+                  color: AfroReadsColors.grey,
+                  fontWeight: FontWeight.w400,
+                ),
+                // suffix:
+              ),
             ),
           ),
-          child: Row(
-            children: <Widget>[
-              widget.prefix ?? const SizedBox(),
-              Expanded(
-                child: TextField(
-                  controller: widget.controller,
-                  keyboardType: widget.textInputType,
-                  focusNode: widget.fieldFocusNode,
-                  textInputAction: widget.textInputAction,
-                  onChanged: widget.onChanged,
-                  maxLines: widget.maxLines,
-                  style: const TextStyle(
-                      fontSize: 14,
-                      // fontFamily: IklinFont.euclid,
-                      color: AfroReadsColors.grey,
-                      fontWeight: FontWeight.w400),
-
-                  onEditingComplete: () {
-                    if (widget.enterPressed != null) {
-                      FocusScope.of(context).requestFocus(FocusNode());
-                      // ignore: avoid_dynamic_calls
-                      widget.enterPressed!();
-                    }
-                  },
-                  // onFieldSub  mitted: (value) {
-                  //   if (widget.nextFocusNode != null) {
-                  //     widget.nextFocusNode.requestFocus();
-                  //   }
-                  // },
-                  obscureText: isPassword!,
-                  readOnly: widget.isReadOnly,
-                  // decoration:
-                  // InputDecoration.collapsed(hintText: widget.placeholder),
-                  decoration: InputDecoration(
-                    // contentPadding: EdgeInsets.only(top: 10),
-                    hintText: widget.placeholder,
-                    border: InputBorder.none,
-
-                    hintStyle: const TextStyle(
-                      fontSize: 14,
-                      // fontFamily: IklinFont.euclid,
-                      color: AfroReadsColors.grey,
-                      fontWeight: FontWeight.w400,
-                    ),
-                    // suffix:
-                  ),
-                ),
+          widget.suffix ??
+              GestureDetector(
+                onTap: () => setState(() {
+                  isPassword = !isPassword!;
+                }),
+                child: widget.password
+                    ? Container(
+                        alignment: Alignment.center,
+                        child: isPassword!
+                            ? Icon(
+                                Icons.visibility,
+                                color: widget.validationColor.withOpacity(0.7),
+                              )
+                            : Icon(
+                                Icons.visibility_off,
+                                color: widget.validationColor.withOpacity(0.7),
+                              ),
+                      )
+                    : Container(
+                        width: 30,
+                        height: 30,
+                        alignment: Alignment.center,
+                      ),
               ),
-              widget.suffix ??
-                  GestureDetector(
-                    onTap: () => setState(() {
-                      isPassword = !isPassword!;
-                    }),
-                    child: widget.password
-                        ? Container(
-                            alignment: Alignment.center,
-                            child: isPassword!
-                                ? Icon(
-                                    Icons.visibility,
-                                    color:
-                                        widget.validationColor.withOpacity(0.7),
-                                  )
-                                : Icon(
-                                    Icons.visibility_off,
-                                    color:
-                                        widget.validationColor.withOpacity(0.7),
-                                  ),
-                          )
-                        : Container(
-                            width: 30,
-                            height: 30,
-                            alignment: Alignment.center,
-                          ),
-                  ),
-            ],
-          ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
