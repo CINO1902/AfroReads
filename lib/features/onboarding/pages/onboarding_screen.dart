@@ -104,7 +104,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             child: Column(
               children: [
                 BusyButton(
-                  title: 'Create an Account',
+                  title: ' Account',
                   onTap: () {
                     Navigator.pushNamed(context, RouteName.signUpPage);
                   },
