@@ -119,7 +119,7 @@ class _CreatekidprofileState extends State<Createkidprofile> {
                                   width: 1.7),
                             ),
                             hintText: 'Enter Your Email Address',
-                            hintStyle: TextStyle(
+                        hintStyle: TextStyle(
                                 color: Theme.of(context).primaryColorDark)),
                       ),
                     ),
