@@ -3,6 +3,7 @@ import 'package:afroreads/core/navigators/router.dart';
 import 'package:afroreads/core/service/locator.dart';
 import 'package:afroreads/features/auth/presentation/provider/authPro.dart';
 import 'package:afroreads/features/getbooks/presentation/provider/GetbooksPro.dart';
+import 'package:afroreads/features/search/presentation/Provider/SearchPro.dart';
 import 'package:afroreads/provider/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
@@ -50,6 +51,7 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(create: (context) => AuthPro(locator())),
         ChangeNotifierProvider(create: (context) => ThemeProvider()),
         ChangeNotifierProvider(create: (context) => GetbookPro(locator())),
+        ChangeNotifierProvider(create: (context) => Searchpro(locator())),
       ],
       child: Builder(builder: (BuildContext context) {
         final themeProvider = Provider.of<ThemeProvider>(context);

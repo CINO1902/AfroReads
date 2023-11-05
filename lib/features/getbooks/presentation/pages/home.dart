@@ -1,19 +1,14 @@
-// ignore_for_file: deprecated_member_use
-
-import 'dart:typed_data';
-
 import 'package:afroreads/app/view/widget/input_input.dart';
 import 'package:afroreads/core/constants/app_assets.dart';
 import 'package:afroreads/core/constants/app_colors.dart';
 import 'package:afroreads/core/navigators/route_name.dart';
 import 'package:afroreads/features/getbooks/presentation/provider/GetbooksPro.dart';
-import 'package:afroreads/features/getbooks/presentation/widgets/searchload.dart';
+import 'package:afroreads/features/search/presentation/Provider/SearchPro.dart';
+import 'package:afroreads/features/search/presentation/widgets/searchload.dart';
 import 'package:afroreads/features/getbooks/presentation/widgets/shimmerwidget.dart';
 import 'package:afroreads/provider/theme_provider.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 import 'package:provider/provider.dart';
@@ -86,8 +81,10 @@ class _HomeState extends State<Home> {
             ),
             GestureDetector(
               onTap: () {
-                showSearch(context: context, delegate: MySearchDelegate());
-                print('object');
+                final searchpro = context.read<Searchpro>();
+                final color = Theme.of(context);
+                showSearch(
+                    context: context, delegate: MySearchDelegate(searchpro, color));
               },
               child: Stack(
                 children: [

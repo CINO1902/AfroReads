@@ -9,4 +9,6 @@ class RouteName {
   static const String indexPage = '/index_page';
   static const String pdfpage = '/pdfpage';
   static const String bookdetails = '/bookdetails';
+  static const String kidprofilesetting = '/kidprofilesetting';
+  static const String createkidprofile = '/createkidprofile';
 }

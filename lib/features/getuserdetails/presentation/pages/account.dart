@@ -1,13 +1,14 @@
 import 'package:afroreads/app/styles/fonts.dart';
 import 'package:afroreads/core/constants/app_assets.dart';
 import 'package:afroreads/core/constants/app_colors.dart';
-import 'package:afroreads/features/auth/presentation/widgets/verfication_successful_modal.dart';
 import 'package:afroreads/features/getuserdetails/presentation/widgets/help_support_modal.dart';
 import 'package:afroreads/features/getuserdetails/presentation/widgets/settings_modal.dart';
 import 'package:afroreads/provider/theme_provider.dart';
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../core/navigators/route_name.dart';
 
@@ -73,17 +74,7 @@ class Account extends StatelessWidget {
                   textt: "Manage your personal information",
                   image: AppAssets.profile,
                   onTap: () {
-                    showModalBottomSheet(
-                        shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(8),
-                            topRight: Radius.circular(8),
-                          ),
-                        ),
-                        context: context,
-                        builder: (context) {
-                          return const VerificationSuccessfulModal();
-                        });
+                    Navigator.pushNamed(context, RouteName.kidprofilesetting);
                   }),
               const Gap(5),
               Divider(color: Colors.grey.withOpacity(0.3)),
@@ -149,7 +140,22 @@ class Account extends StatelessWidget {
                   textt: "Log out of your account",
                   image: AppAssets.logout,
                   onTap: () {
-                    Navigator.pushNamed(context, RouteName.onboardingScreen);
+                    AwesomeDialog(
+                      context: context,
+                      dialogType: DialogType.warning,
+                      headerAnimationLoop: false,
+                      animType: AnimType.topSlide,
+                      title: 'Warning',
+                      desc: 'This action would log you out of your account',
+                      btnCancelOnPress: () {},
+                      onDismissCallback: (type) {},
+                      btnOkOnPress: () async {
+                        final pref = await SharedPreferences.getInstance();
+                        pref.remove('tokenlogforparent');
+                        Navigator.pushNamed(
+                            context, RouteName.onboardingScreen);
+                      },
+                    ).show();
                   }),
               const Gap(5),
               Divider(color: Colors.grey.withOpacity(0.3)),

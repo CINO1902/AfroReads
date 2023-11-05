@@ -43,12 +43,14 @@ class AuthRepositoryImp implements AuthReposity {
     try {
       returnresponse = await authDatasource.loginasparent(login);
     } catch (e) {
-      if (e.toString().contains('Request time out')) {
-        returnresponse.add('Request timed out');
+      if (e.toString().contains('Request')) {
+        returnresponse.add('1');
+      } else if (e.toString().contains('Unexpected')) {
+        returnresponse.add('2');
       } else {
-        returnresponse.add('errorfalse');
+        returnresponse.add('3');
       }
-
+      //print(NetworkException(e as NetworkExceptionType).type);
       log(e.toString());
     }
     return returnresponse;

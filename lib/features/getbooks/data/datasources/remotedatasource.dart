@@ -26,7 +26,7 @@ class GetbookDatasourceImp implements GetbookDatasource {
       returnvalue.add(errorvalue);
       returnvalue.add([]);
     }
-    print(returnvalue);
+
     return returnvalue;
   }
 

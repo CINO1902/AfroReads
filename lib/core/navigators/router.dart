@@ -6,6 +6,8 @@ import 'package:afroreads/features/getbooks/presentation/pages/bookdetails.dart'
 import 'package:afroreads/features/getbooks/presentation/pages/home.dart';
 import 'package:afroreads/features/getbooks/presentation/pages/index.dart';
 import 'package:afroreads/features/getbooks/presentation/pages/pdfscreen.dart';
+import 'package:afroreads/features/getuserdetails/presentation/pages/createkidprofile.dart';
+import 'package:afroreads/features/getuserdetails/presentation/pages/kidprofilesetting.dart';
 import 'package:afroreads/features/onboarding/pages/onboarding_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:afroreads/features/auth/presentation/pages/sign_up_page.dart';
@@ -56,6 +58,16 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return _getPageRoute(
         routeName: settings.name,
         viewToShow: const Homelanding(),
+      );
+    case RouteName.kidprofilesetting:
+      return _getPageRoute(
+        routeName: settings.name,
+        viewToShow: const kidprogilesetting(),
+      );
+    case RouteName.createkidprofile:
+      return _getPageRoute(
+        routeName: settings.name,
+        viewToShow: const Createkidprofile(),
       );
     default:
       return MaterialPageRoute<void>(
