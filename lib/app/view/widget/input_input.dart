@@ -75,6 +75,7 @@ class _InputFieldState extends State<InputField> {
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
 
+
     return Container(
       height: widget.fieldHeight,
       alignment: Alignment.centerLeft,
@@ -103,8 +104,9 @@ class _InputFieldState extends State<InputField> {
                   // fontFamily: IklinFont.euclid,
                   // color: AfroReadsColors.grey,
                   color: themeProvider.themeData.primaryColorDark,
-                  fontWeight: FontWeight.w400),
-
+                  fontWeight: FontWeight.w400
+                  ),
+            
               onEditingComplete: () {
                 if (widget.enterPressed != null) {
                   FocusScope.of(context).requestFocus(FocusNode());
@@ -125,7 +127,7 @@ class _InputFieldState extends State<InputField> {
                 // contentPadding: EdgeInsets.only(top: 10),
                 hintText: widget.placeholder,
                 border: InputBorder.none,
-
+            
                 hintStyle: const TextStyle(
                   fontSize: 14,
                   // fontFamily: IklinFont.euclid,
