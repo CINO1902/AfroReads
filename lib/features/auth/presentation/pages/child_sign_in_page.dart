@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:afroreads/app/styles/fonts.dart';
 import 'package:afroreads/app/view/widget/back_button.dart';
 import 'package:afroreads/app/view/widget/busy_button.dart';
@@ -13,14 +15,14 @@ import 'package:provider/provider.dart';
 
 import '../../../../app/view/widget/app_loading_dialog.dart';
 
-class ParentSignUpPage extends StatefulWidget {
-  const ParentSignUpPage({super.key});
+class ChildSignUpPage extends StatefulWidget {
+  const ChildSignUpPage({super.key});
 
   @override
-  State<ParentSignUpPage> createState() => _ParentSignUpPageState();
+  State<ChildSignUpPage> createState() => _ChildSignUpPage();
 }
 
-class _ParentSignUpPageState extends State<ParentSignUpPage> {
+class _ChildSignUpPage extends State<ChildSignUpPage> {
     final _formKey = GlobalKey<FormState>();
 
   final TextEditingController _parentEmailController = TextEditingController();
@@ -47,12 +49,13 @@ class _ParentSignUpPageState extends State<ParentSignUpPage> {
         .login(_parentEmailController.text, _parentPasswordController.text);
 
     if (value.loginerror == true) {
+      // ignore: use_build_context_synchronously
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: CustomeSnackbar(
           topic: 'Oh Snap!',
           msg: 'Something went wrong',
-          color1: Color.fromARGB(255, 171, 51, 42),
-          color2: Color.fromARGB(255, 127, 39, 33),
+          color1: const Color.fromARGB(255, 171, 51, 42),
+          color2: const Color.fromARGB(255, 127, 39, 33),
         ),
         behavior: SnackBarBehavior.floating,
         backgroundColor: Colors.transparent,
@@ -113,13 +116,13 @@ class _ParentSignUpPageState extends State<ParentSignUpPage> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         TextBold(
-                          "Parent log in",
+                          "Child log in",
                           fontSize: 20,
                           color: AfroReadsColors.textColor,
                         ),
                         const Gap(10),
                         TextBody(
-                          "Parents, manage and customize the\nreading experirnce here.",
+                          "Young adventurers, your stories await!",
                           fontSize: 14,
                           color: AfroReadsColors.textColor,
                           textAlign: TextAlign.center,

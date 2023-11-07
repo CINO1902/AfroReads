@@ -5,6 +5,7 @@ class RouteName {
   static const String finalSignUpVerificationPage =
       '/final_signup_verification_page';
   static const String parentSignUpPage = '/parent_signup_page';
+  static const String childSignUpPage = '/child_signup_page';
   static const String homePage = '/home_page';
   static const String indexPage = '/index_page';
   static const String pdfpage = '/pdfpage';
