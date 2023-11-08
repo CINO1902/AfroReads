@@ -11,6 +11,7 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../core/navigators/route_name.dart';
+import '../provider/UserDetails.dart';
 
 class Account extends StatelessWidget {
   const Account({super.key});
@@ -18,7 +19,7 @@ class Account extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
-
+    final userdetail = context.watch<userdetails>();
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -74,7 +75,11 @@ class Account extends StatelessWidget {
                   textt: "Manage your personal information",
                   image: AppAssets.profile,
                   onTap: () {
-                    Navigator.pushNamed(context, RouteName.kidprofilesetting);
+                    userdetail.childprofileexist
+                        ? Navigator.pushNamed(
+                            context, RouteName.managekidprofile)
+                        : Navigator.pushNamed(
+                            context, RouteName.kidprofilesetting);
                   }),
               const Gap(5),
               Divider(color: Colors.grey.withOpacity(0.3)),

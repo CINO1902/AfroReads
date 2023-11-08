@@ -11,4 +11,5 @@ class RouteName {
   static const String bookdetails = '/bookdetails';
   static const String kidprofilesetting = '/kidprofilesetting';
   static const String createkidprofile = '/createkidprofile';
+   static const String managekidprofile = '/managekidprofile';
 }
