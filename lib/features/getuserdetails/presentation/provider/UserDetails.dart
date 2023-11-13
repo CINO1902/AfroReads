@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:afroreads/features/getuserdetails/domain/entities/parentkidmodel.dart';
 import 'package:flutter/material.dart';
 
@@ -18,6 +20,7 @@ class userdetails extends ChangeNotifier {
 
   List<dynamic> decodedresponse = [];
   List<Msg> decoded = [];
+  List<Msg> profileclicklist = [];
   String msg = '';
   DateTime childbirth = DateTime.now();
 
@@ -29,6 +32,34 @@ class userdetails extends ChangeNotifier {
     childmonth = childbirth.month;
     childyear = childbirth.year;
     notifyListeners();
+  }
+
+  int calculateage(String dob) {
+    int age = 0;
+    int day = int.parse(dob.split('-')[0]);
+    int month = int.parse(dob.split('-')[1]);
+    int year = int.parse(dob.split('-')[2]);
+    DateTime date = DateTime.now();
+    if (month > date.month) {
+      age = (date.year - year) - 1;
+    } else if (month < date.month) {
+      age = (date.year - year);
+    } else if (month == date.month) {
+      if (day > date.day) {
+        age = (date.year - year) - 1;
+      } else if (day <= date.day) {
+        age = (date.year - year);
+      }
+      age = (date.year - year);
+    }
+    return age;
+  }
+
+  void profileclicked(index) {
+    profileclicklist.clear();
+
+    profileclicklist.add(decoded[index]);
+    calculateage(profileclicklist[0].dateOfBirth);
   }
 
   void validateusername(username) async {

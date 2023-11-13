@@ -1,6 +1,7 @@
 import 'package:afroreads/app/styles/fonts.dart';
 import 'package:afroreads/core/constants/app_assets.dart';
 import 'package:afroreads/core/constants/app_colors.dart';
+import 'package:afroreads/features/auth/presentation/provider/authPro.dart';
 import 'package:afroreads/features/getuserdetails/presentation/widgets/help_support_modal.dart';
 import 'package:afroreads/features/getuserdetails/presentation/widgets/settings_modal.dart';
 import 'package:afroreads/provider/theme_provider.dart';
@@ -20,6 +21,7 @@ class Account extends StatelessWidget {
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
     final userdetail = context.watch<userdetails>();
+    final parentdetails = context.watch<AuthPro>();
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -55,13 +57,17 @@ class Account extends StatelessWidget {
                     ),
                     const Gap(10),
                     TextBold(
-                      "Vincent Florence",
+                      parentdetails.parentloading
+                          ? ''
+                          : parentdetails.decoded[0].fullname,
                       color: themeProvider.themeData.primaryColorDark,
                       fontSize: 16,
                     ),
                     const Gap(5),
                     TextBody(
-                      "follybaby1996_12@gmail.com",
+                      parentdetails.parentloading
+                          ? ''
+                          : parentdetails.decoded[0].email,
                       color: AfroReadsColors.grey,
                       fontSize: 12,
                     ),
