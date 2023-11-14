@@ -43,7 +43,7 @@ class _SignUpPageState extends State<SignUpPage> {
   if (picked != null && picked != _selectedDate) {
     setState(() {
       _selectedDate = picked;
-      _dateOfBirthController.text = _selectedDate!.toLocal().toString().split(' ')[0]; // Use the non-nullable assertion operator (!)
+      _dateOfBirthController.text = _selectedDate!.toLocal().toString().split(' ')[0];
     });
   }
 }

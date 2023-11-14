@@ -34,6 +34,7 @@ class _managekidprofileState extends State<managekidprofile> {
         children: [
           Consumer<userdetails>(builder: (context, value, child) {
             return Container(
+             
               height: MediaQuery.of(context).size.height * .8,
               child: ListView.builder(
                 shrinkWrap: true,
