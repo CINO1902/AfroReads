@@ -123,7 +123,6 @@ class _HelpSupportModalState extends State<HelpSupportModal> {
       ),
     );
   }
-
   verifyCode() {
     Future.delayed(
         const Duration(

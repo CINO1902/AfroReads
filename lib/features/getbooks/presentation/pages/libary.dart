@@ -4,13 +4,15 @@ import 'package:afroreads/core/constants/app_assets.dart';
 import 'package:afroreads/core/constants/app_colors.dart';
 import 'package:afroreads/core/navigators/route_name.dart';
 import 'package:afroreads/features/getbooks/presentation/provider/GetbooksPro.dart';
-import 'package:afroreads/features/getbooks/presentation/widgets/searchload.dart';
+import 'package:afroreads/features/search/presentation/widgets/searchload.dart';
 import 'package:afroreads/features/getbooks/presentation/widgets/shimmerwidget.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:provider/provider.dart';
+
+import '../../../search/presentation/Provider/SearchPro.dart';
 
 class Library extends StatefulWidget {
   const Library({super.key});
@@ -42,7 +44,10 @@ class _LibraryState extends State<Library> {
         elevation: 0,
         leading: InkWell(
           onTap: () {
-            showSearch(context: context, delegate: MySearchDelegate());
+            final searchpro = context.read<Searchpro>();
+            final color = Theme.of(context);
+            showSearch(
+                context: context, delegate: MySearchDelegate(searchpro, color));
           },
           child: Icon(
             Icons.search,

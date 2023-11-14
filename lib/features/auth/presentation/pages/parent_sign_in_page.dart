@@ -7,7 +7,6 @@ import 'package:afroreads/core/navigators/route_name.dart';
 import 'package:afroreads/core/usecases/customesnackbar.dart';
 import 'package:afroreads/features/auth/presentation/provider/authPro.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:gap/gap.dart';
 import 'package:provider/provider.dart';
 
@@ -50,7 +49,7 @@ class _ParentSignUpPageState extends State<ParentSignUpPage> {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: CustomeSnackbar(
           topic: 'Oh Snap!',
-          msg: 'Something went wrong',
+          msg: value.errormsg,
           color1: Color.fromARGB(255, 171, 51, 42),
           color2: Color.fromARGB(255, 127, 39, 33),
         ),
@@ -86,7 +85,9 @@ class _ParentSignUpPageState extends State<ParentSignUpPage> {
           backgroundColor: Colors.transparent,
           elevation: 0,
         ));
-        Navigator.pushNamed(context, RouteName.indexPage);
+        // ignore: use_build_context_synchronously
+        Navigator.pushNamedAndRemoveUntil(
+            context, RouteName.indexPage, (Route<dynamic> route) => false);
       }
     }
     }

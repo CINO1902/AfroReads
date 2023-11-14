@@ -1,6 +1,4 @@
 import 'package:afroreads/app/styles/fonts.dart';
-import 'package:afroreads/app/view/widget/input_input.dart';
-import 'package:afroreads/core/constants/app_colors.dart';
 import 'package:afroreads/provider/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';

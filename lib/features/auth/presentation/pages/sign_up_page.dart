@@ -184,11 +184,6 @@ class _SignUpPageState extends State<SignUpPage> {
                   const Gap(16),
                   TextBody('Password', color: AfroReadsColors.textColor),
                   const Gap(8),
-                  // InputField(
-                  //   controller: _passwordController,
-                  //   password: true,
-                  //   placeholder: '6+ characters',
-                  // ),
                   Container(
                     width: MediaQuery.of(context).size.width * 0.9,
                     decoration: BoxDecoration(
@@ -220,11 +215,6 @@ class _SignUpPageState extends State<SignUpPage> {
                   TextBody('Confirm Password',
                       color: AfroReadsColors.textColor),
                   const Gap(8),
-                  // InputField(
-                  //   controller: _confirmPasswordController,
-                  //   password: true,
-                  //   placeholder: '6+ characters',
-                  // ),
                   Container(
                     width: MediaQuery.of(context).size.width * 0.9,
                     decoration: BoxDecoration(

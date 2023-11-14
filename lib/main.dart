@@ -3,12 +3,14 @@ import 'package:afroreads/core/navigators/router.dart';
 import 'package:afroreads/core/service/locator.dart';
 import 'package:afroreads/features/auth/presentation/provider/authPro.dart';
 import 'package:afroreads/features/getbooks/presentation/provider/GetbooksPro.dart';
+import 'package:afroreads/features/search/presentation/Provider/SearchPro.dart';
 import 'package:afroreads/provider/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'features/getuserdetails/presentation/provider/UserDetails.dart';
 
 void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
@@ -50,6 +52,8 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(create: (context) => AuthPro(locator())),
         ChangeNotifierProvider(create: (context) => ThemeProvider()),
         ChangeNotifierProvider(create: (context) => GetbookPro(locator())),
+        ChangeNotifierProvider(create: (context) => Searchpro(locator())),
+        ChangeNotifierProvider(create: (context) => userdetails(locator())),
       ],
       child: Builder(builder: (BuildContext context) {
         final themeProvider = Provider.of<ThemeProvider>(context);
@@ -57,7 +61,7 @@ class _MyAppState extends State<MyApp> {
           theme: themeProvider.themeData,
           navigatorObservers: [FlutterSmartDialog.observer],
           builder: FlutterSmartDialog.init(),
-          title: 'Flutter Demo',
+          title: 'Afro Read',
           debugShowCheckedModeBanner: false,
           initialRoute: widget.value == null
               ? RouteName.onboardingScreen

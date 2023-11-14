@@ -28,4 +28,6 @@ class AppAssets {
   static const String lock = 'assets/images/lock.png';
   static const String mark = 'assets/images/Mark.png';
   static const String filter = 'assets/images/filter.png';
+  static const String addcircle = 'assets/images/add-circle.png';
+  static const String childavatar = 'assets/images/childavatar.png';
 }
