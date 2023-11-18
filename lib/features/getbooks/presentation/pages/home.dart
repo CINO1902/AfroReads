@@ -15,6 +15,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:text_scroll/text_scroll.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -31,17 +32,22 @@ class _HomeState extends State<Home> {
     // TODO: implement initState
     super.initState();
     context.read<GetbookPro>().getbook();
-    context.read<AuthPro>().fetchparentID();
-
+    context.read<userdetails>().getloguser();
     validateuser();
   }
 
   void validateuser() async {
     final pref = await SharedPreferences.getInstance();
     final logparent = pref.getString('tokenlogforparent');
-    final logkid = pref.getString('tokenlogforchild');
+    final logkid = pref.getString('tokenlogforkid');
+    final logpub = pref.getString('tokenlogforpublisher');
     if (logparent != null) {
       context.read<userdetails>().fetchchildID();
+      context.read<AuthPro>().fetchparentID();
+    } else if (logkid != null) {
+      context.read<userdetails>().fetchkidID();
+    } else if (logpub != null) {
+      context.read<userdetails>().fetchpublisherprofile();
     }
   }
 
@@ -273,6 +279,21 @@ class _HomeState extends State<Home> {
                       scrollDirection: Axis.horizontal,
                       itemCount: value.bookdetails.length,
                       itemBuilder: (context, index) {
+                        var span = TextSpan(
+                          text: value.bookdetails[index].bookTitle,
+                        );
+                        var tp = TextPainter(
+                          maxLines: 1,
+                          textAlign: TextAlign.left,
+                          textDirection: TextDirection.ltr,
+                          text: span,
+                        );
+
+                        // trigger it to layout
+                        tp.layout(maxWidth: 100);
+
+                        // whether the text overflowed or not
+                        var exceeded = tp.didExceedMaxLines;
                         return InkWell(
                           onTap: () {
                             context.read<GetbookPro>().getclickedbook(
@@ -306,12 +327,38 @@ class _HomeState extends State<Home> {
                                       ),
                                     ),
                                     const Gap(5),
-                                    Text(
-                                      value.bookdetails[index].bookTitle,
-                                      style: TextStyle(
-                                          fontSize: 13,
-                                          fontWeight: FontWeight.bold),
-                                    ),
+                                    exceeded
+                                        ? SizedBox(
+                                            width: 90,
+                                            child: Align(
+                                                alignment: Alignment.centerLeft,
+                                                child: TextScroll(
+                                                  value.bookdetails[index]
+                                                      .bookTitle,
+                                                  mode: TextScrollMode.bouncing,
+                                                  velocity: Velocity(
+                                                      pixelsPerSecond:
+                                                          Offset(15, 0)),
+                                                  delayBefore: Duration(
+                                                      milliseconds: 300),
+                                                  numberOfReps: 30,
+                                                  pauseBetween: Duration(
+                                                      milliseconds: 50),
+                                                  style: TextStyle(
+                                                      color: Colors.black,
+                                                      fontSize: 13,
+                                                      fontWeight:
+                                                          FontWeight.w500),
+                                                  textAlign: TextAlign.right,
+                                                  selectable: true,
+                                                )),
+                                          )
+                                        : Text(
+                                            value.bookdetails[index].bookTitle,
+                                            style: TextStyle(
+                                                fontSize: 13,
+                                                fontWeight: FontWeight.bold),
+                                          ),
                                     const Gap(5),
                                     Text(
                                       value.bookdetails[index].authorName,

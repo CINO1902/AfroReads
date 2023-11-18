@@ -8,6 +8,7 @@ abstract class AuthReposity {
   Future<List<String>> createacount(CreateAccountModel createaccount);
   Future<List<String>> loginaskid(Loginmodel login);
   Future<List<String>> loginasparent(Loginmodel login);
+  Future<List<String>> loginaspublisher(Loginmodel login);
   Future<List<List>> fetchparent();
 }
 
@@ -32,7 +33,15 @@ class AuthRepositoryImp implements AuthReposity {
     List<String> returnresponse = [];
     try {
       returnresponse = await authDatasource.loginaskid(login);
+      print(returnresponse);
     } catch (e) {
+      if (e.toString().contains('Request')) {
+        returnresponse.add('1');
+      } else if (e.toString().contains('Unexpected')) {
+        returnresponse.add('2');
+      } else {
+        returnresponse.add('3');
+      }
       log(e.toString());
     }
     return returnresponse;
@@ -51,7 +60,6 @@ class AuthRepositoryImp implements AuthReposity {
       } else {
         returnresponse.add('3');
       }
-      //print(NetworkException(e as NetworkExceptionType).type);
       log(e.toString());
     }
     return returnresponse;
@@ -76,5 +84,23 @@ class AuthRepositoryImp implements AuthReposity {
       }
     }
     return returnvalue;
+  }
+
+  @override
+  Future<List<String>> loginaspublisher(Loginmodel login) async {
+    List<String> returnresponse = [];
+    try {
+      returnresponse = await authDatasource.loginaspublisher(login);
+    } catch (e) {
+      if (e.toString().contains('Request')) {
+        returnresponse.add('1');
+      } else if (e.toString().contains('Unexpected')) {
+        returnresponse.add('2');
+      } else {
+        returnresponse.add('3');
+      }
+      log(e.toString());
+    }
+    return returnresponse;
   }
 }

@@ -1,6 +1,9 @@
 import 'package:afroreads/core/navigators/route_name.dart';
+import 'package:afroreads/features/addbooks/presentation/pages/addbooks.dart';
+import 'package:afroreads/features/addbooks/presentation/pages/createnewbook.dart';
 import 'package:afroreads/features/auth/presentation/pages/final_sign_up_verification_page.dart';
 import 'package:afroreads/features/auth/presentation/pages/parent_sign_in_page.dart';
+import 'package:afroreads/features/auth/presentation/pages/publisher.dart';
 import 'package:afroreads/features/auth/presentation/pages/sign_up_verification_page.dart';
 import 'package:afroreads/features/getbooks/presentation/pages/bookdetails.dart';
 import 'package:afroreads/features/getbooks/presentation/pages/home.dart';
@@ -13,6 +16,8 @@ import 'package:afroreads/features/getuserdetails/presentation/pages/managekidpr
 import 'package:afroreads/features/onboarding/pages/onboarding_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:afroreads/features/auth/presentation/pages/sign_up_page.dart';
+
+import '../../features/auth/presentation/pages/kids_sign_in_page.dart';
 
 Route<dynamic> generateRoute(RouteSettings settings) {
   switch (settings.name) {
@@ -80,7 +85,27 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return _getPageRoute(
         routeName: settings.name,
         viewToShow: const ManageKidProfileDetais(),
-      );  
+      );
+    case RouteName.kidloginpage:
+      return _getPageRoute(
+        routeName: settings.name,
+        viewToShow: const KidsSignInPage(),
+      );
+    case RouteName.publisherloginpage:
+      return _getPageRoute(
+        routeName: settings.name,
+        viewToShow: const PublisherSignInPage(),
+      );
+    case RouteName.addbook:
+      return _getPageRoute(
+        routeName: settings.name,
+        viewToShow: const Addbooks(),
+      );
+    case RouteName.createbook:
+      return _getPageRoute(
+        routeName: settings.name,
+        viewToShow: const createbook(),
+      );
     default:
       return MaterialPageRoute<void>(
         builder: (_) => Scaffold(

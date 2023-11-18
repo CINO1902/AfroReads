@@ -30,4 +30,6 @@ class AppAssets {
   static const String filter = 'assets/images/filter.png';
   static const String addcircle = 'assets/images/add-circle.png';
   static const String childavatar = 'assets/images/childavatar.png';
+  static const String imagelook = 'assets/images/image.svg';
+  static const String filelook = 'assets/images/file.svg';
 }

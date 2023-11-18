@@ -1,9 +1,9 @@
-import 'dart:ffi';
-
 import 'package:afroreads/features/getuserdetails/domain/entities/parentkidmodel.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../domain/entities/createkidmodel.dart';
+import '../../domain/entities/publishermodel.dart';
 import '../../domain/repositories/user_repo.dart';
 
 class userdetails extends ChangeNotifier {
@@ -14,12 +14,18 @@ class userdetails extends ChangeNotifier {
   int childyear = DateTime.now().year;
   bool loading = false;
   bool noterror = false;
+  bool kidloading = true;
+  bool publoading = true;
+  String parentlog = '';
+  String kidlog = '';
+  String publisherlog = '';
   bool validated = false;
   bool profilecreated = false;
   bool childprofileexist = false;
 
   List<dynamic> decodedresponse = [];
   List<Msg> decoded = [];
+  List<Pub> decodedpub = [];
   List<Msg> profileclicklist = [];
   String msg = '';
   DateTime childbirth = DateTime.now();
@@ -138,5 +144,54 @@ class userdetails extends ChangeNotifier {
       childprofileexist = false;
     }
     notifyListeners();
+  }
+
+  void fetchkidID() async {
+    kidloading = true;
+    notifyListeners();
+    final response = await userDatarepository.FetchKidProfile();
+    kidloading = false;
+    if (response[0][0] == '1') {
+      decodedresponse = response[1];
+      decoded = Parentkidmodel.fromJson(decodedresponse[0]).msg;
+      childprofileexist = true;
+    } else if (response[0][0] == '2') {
+      childprofileexist = false;
+    } else if (response[0][0] == '3') {
+      childprofileexist = false;
+    } else if (response[0][0] == '4') {
+      childprofileexist = false;
+    } else if (response[0][0] == '5') {
+      childprofileexist = false;
+    }
+    notifyListeners();
+  }
+
+  void fetchpublisherprofile() async {
+    publoading = true;
+    final response = await userDatarepository.FetchpublisherProfile();
+    publoading = false;
+    if (response[0][0] == '1') {
+      decodedresponse = response[1];
+      decodedpub = Publisherdetail.fromJson(decodedresponse[0]).pub;
+      print(decodedpub[0].name);
+      childprofileexist = true;
+    } else if (response[0][0] == '2') {
+      childprofileexist = false;
+    } else if (response[0][0] == '3') {
+      childprofileexist = false;
+    } else if (response[0][0] == '4') {
+      childprofileexist = false;
+    } else if (response[0][0] == '5') {
+      childprofileexist = false;
+    }
+    notifyListeners();
+  }
+
+  void getloguser() async {
+    final pref = await SharedPreferences.getInstance();
+    parentlog = pref.getString('tokenlogforparent') ?? '';
+    kidlog = pref.getString('tokenlogforkid') ?? '';
+    publisherlog = pref.getString('tokenlogforpublisher') ?? '';
   }
 }

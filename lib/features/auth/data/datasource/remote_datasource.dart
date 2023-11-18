@@ -47,19 +47,22 @@ class AuthDatasouceImp implements AuthDatasource {
     List<String> returnvalue = [];
 
     final response = await httpService.request(
-        url: '/loginparent',
+        url: '/loginkid',
         methodrequest: RequestMethod.post,
         data: loginmodelToJson(login));
 
-    if (response.data['status'] != 'fail') {
-      result = response.data['status'];
+    if (response.data['success'] != 'false') {
+      result = response.data['success'];
       msg = response.data['msg'];
       token = response.data['token'];
+      print(token);
+      final pref = await SharedPreferences.getInstance();
+      pref.setString('tokenlogforkid', token);
       returnvalue.add(result);
       returnvalue.add(msg);
       returnvalue.add(token);
     } else {
-      result = response.data['status'];
+      result = response.data['success'];
       msg = response.data['msg'];
       returnvalue.add(result);
       returnvalue.add(msg);
@@ -104,7 +107,7 @@ class AuthDatasouceImp implements AuthDatasource {
     List<List> returnvalue = [];
     final pref = await SharedPreferences.getInstance();
     final parenttoken = pref.getString('tokenlogforparent');
-   
+
     httpService.header = {'authorization': 'Bearer $parenttoken'};
     final response = await httpService.request(
       url: '/fetchparentprofile',
@@ -125,6 +128,37 @@ class AuthDatasouceImp implements AuthDatasource {
       final errorvalue = ['3'];
       returnvalue.add(errorvalue);
     }
+    return returnvalue;
+  }
+
+  @override
+  Future<List<String>> loginaspublisher(Loginmodel login) async {
+    String result = '';
+    String msg = '';
+    String token = '';
+    List<String> returnvalue = [];
+
+    final response = await httpService.request(
+        url: '/loginpublisher',
+        methodrequest: RequestMethod.post,
+        data: loginmodelToJson(login));
+
+    if (response.data['success'] != 'false') {
+      result = response.data['success'];
+      msg = response.data['msg'];
+      token = response.data['token'];
+      final pref = await SharedPreferences.getInstance();
+      pref.setString('tokenlogforpublisher', token);
+      returnvalue.add(result);
+      returnvalue.add(msg);
+      returnvalue.add(token);
+    } else {
+      result = response.data['success'];
+      msg = response.data['msg'];
+      returnvalue.add(result);
+      returnvalue.add(msg);
+    }
+
     return returnvalue;
   }
 }

@@ -16,18 +16,27 @@ void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   SharedPreferences pref = await SharedPreferences.getInstance();
   final value = pref.getString('tokenlogforparent');
+  final value1 = pref.getString('tokenlogforkid');
+  final value2 = pref.getString('tokenlogforpublisher');
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   runApp(MyApp(
     value: value,
+    value1: value1,
+    value2: value2,
   ));
   setup();
 }
 
 class MyApp extends StatefulWidget {
-  const MyApp({super.key, required this.value});
+  const MyApp(
+      {super.key,
+      required this.value,
+      required this.value1,
+      required this.value2});
 
   final String? value;
-
+  final String? value1;
+  final String? value2;
   @override
   State<MyApp> createState() => _MyAppState();
 }
@@ -63,7 +72,9 @@ class _MyAppState extends State<MyApp> {
           builder: FlutterSmartDialog.init(),
           title: 'Afro Read',
           debugShowCheckedModeBanner: false,
-          initialRoute: widget.value == null
+          initialRoute: (widget.value == null &&
+                  widget.value1 == null &&
+                  widget.value2 == null)
               ? RouteName.onboardingScreen
               : RouteName.indexPage,
           onGenerateRoute: generateRoute,

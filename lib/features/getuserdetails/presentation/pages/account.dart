@@ -14,14 +14,38 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../core/navigators/route_name.dart';
 import '../provider/UserDetails.dart';
 
-class Account extends StatelessWidget {
+class Account extends StatefulWidget {
   const Account({super.key});
+
+  @override
+  State<Account> createState() => _AccountState();
+}
+
+class _AccountState extends State<Account> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getloguser();
+  }
+
+  String parentlog = '';
+  String kidlog = '';
+  String publisherlog = '';
+  void getloguser() async {
+    final pref = await SharedPreferences.getInstance();
+    parentlog = pref.getString('tokenlogforparent') ?? '';
+    kidlog = pref.getString('tokenlogforkid') ?? '';
+    publisherlog = pref.getString('tokenlogforpublisher') ?? '';
+    print(publisherlog);
+  }
 
   @override
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
     final userdetail = context.watch<userdetails>();
     final parentdetails = context.watch<AuthPro>();
+
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -56,37 +80,92 @@ class Account extends StatelessWidget {
                       ),
                     ),
                     const Gap(10),
-                    TextBold(
-                      parentdetails.parentloading
-                          ? ''
-                          : parentdetails.decoded[0].fullname,
-                      color: themeProvider.themeData.primaryColorDark,
-                      fontSize: 16,
-                    ),
+                    kidlog != ''
+                        ? TextBold(
+                            userdetail.kidloading
+                                ? ''
+                                : userdetail.decoded[0].username,
+                            color: themeProvider.themeData.primaryColorDark,
+                            fontSize: 16,
+                          )
+                        : publisherlog != ''
+                            ? TextBold(
+                                userdetail.publoading
+                                    ? ''
+                                    : userdetail.decodedpub[0].name,
+                                color: themeProvider.themeData.primaryColorDark,
+                                fontSize: 16,
+                              )
+                            : parentlog != ''
+                                ? TextBold(
+                                    parentdetails.parentloading
+                                        ? ''
+                                        : parentdetails.decoded[0].fullname,
+                                    color: themeProvider
+                                        .themeData.primaryColorDark,
+                                    fontSize: 16,
+                                  )
+                                : SizedBox(),
                     const Gap(5),
-                    TextBody(
-                      parentdetails.parentloading
-                          ? ''
-                          : parentdetails.decoded[0].email,
-                      color: AfroReadsColors.grey,
-                      fontSize: 12,
-                    ),
+                    kidlog != ''
+                        ? SizedBox()
+                        : publisherlog != ''
+                            ? TextBody(
+                                userdetail.publoading
+                                    ? ''
+                                    : userdetail.decodedpub[0].email,
+                                color: AfroReadsColors.grey,
+                                fontSize: 12,
+                              )
+                            : parentlog != ''
+                                ? TextBody(
+                                    parentdetails.parentloading
+                                        ? ''
+                                        : parentdetails.decoded[0].email,
+                                    color: AfroReadsColors.grey,
+                                    fontSize: 12,
+                                  )
+                                : SizedBox(),
                   ],
                 ),
               ),
               const Gap(30),
-              myAccountContainer(
-                  context: context,
-                  text: "Child Profile",
-                  textt: "Manage your personal information",
-                  image: AppAssets.profile,
-                  onTap: () {
-                    userdetail.childprofileexist
-                        ? Navigator.pushNamed(
-                            context, RouteName.managekidprofile)
-                        : Navigator.pushNamed(
-                            context, RouteName.kidprofilesetting);
-                  }),
+              kidlog != ''
+                  ? myAccountContainer(
+                      context: context,
+                      text: "My Profile",
+                      textt: "Manage your personal information",
+                      image: AppAssets.profile,
+                      onTap: () {
+                        userdetail.childprofileexist
+                            ? Navigator.pushNamed(
+                                context, RouteName.managekidprofile)
+                            : Navigator.pushNamed(
+                                context, RouteName.kidprofilesetting);
+                      })
+                  : parentlog != ''
+                      ? myAccountContainer(
+                          context: context,
+                          text: "Child Profile",
+                          textt: "Manage your Child's information",
+                          image: AppAssets.profile,
+                          onTap: () {
+                            userdetail.childprofileexist
+                                ? Navigator.pushNamed(
+                                    context, RouteName.managekidprofile)
+                                : Navigator.pushNamed(
+                                    context, RouteName.kidprofilesetting);
+                          })
+                      : publisherlog != ''
+                          ? myAccountContainer(
+                              context: context,
+                              text: "My books",
+                              textt: "Manage your Book information",
+                              image: AppAssets.profile,
+                              onTap: () {
+                                Navigator.pushNamed(context, RouteName.addbook);
+                              })
+                          : SizedBox(),
               const Gap(5),
               Divider(color: Colors.grey.withOpacity(0.3)),
               myAccountContainer(
@@ -163,6 +242,8 @@ class Account extends StatelessWidget {
                       btnOkOnPress: () async {
                         final pref = await SharedPreferences.getInstance();
                         pref.remove('tokenlogforparent');
+                        pref.remove('tokenlogforkid');
+                        pref.remove('tokenlogforpublisher');
                         Navigator.pushNamed(
                             context, RouteName.onboardingScreen);
                       },

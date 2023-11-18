@@ -5,5 +5,6 @@ abstract class AuthDatasource {
   Future<List<String>> createacount(CreateAccountModel createaccount);
   Future<List<String>> loginaskid(Loginmodel login);
   Future<List<String>> loginasparent(Loginmodel login);
+  Future<List<String>> loginaspublisher(Loginmodel login);
   Future<List<List>> fetchparent();
 }

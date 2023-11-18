@@ -57,10 +57,70 @@ class UserDatasourceimp implements UserDataSource {
     final pref = await SharedPreferences.getInstance();
     final parenttoken = pref.getString('tokenlogforparent');
 
-    print(parenttoken);
+    //print(parenttoken);
     httpService.header = {'authorization': 'Bearer $parenttoken'};
     final response = await httpService.request(
       url: '/fetchchildprofile',
+      methodrequest: RequestMethod.post,
+    );
+    if (response.data['status'] == '1') {
+      final errorvalue = ['1'];
+      List value = [];
+      value.add(response.data);
+      // List valuesent = response.data;
+      returnvalue.add(errorvalue);
+      returnvalue.add(value);
+    } else if (response.data['status'] == '2') {
+      final errorvalue = ['2'];
+
+      returnvalue.add(errorvalue);
+    } else {
+      final errorvalue = ['3'];
+      returnvalue.add(errorvalue);
+    }
+    return returnvalue;
+  }
+
+  @override
+  Future<List<List>> FetchKidProfile() async {
+    List<List> returnvalue = [];
+    final pref = await SharedPreferences.getInstance();
+    final kidtoken = pref.getString('tokenlogforkid');
+
+    print(kidtoken);
+    httpService.header = {'authorization': 'Bearer $kidtoken'};
+    final response = await httpService.request(
+      url: '/fetchkidprofile',
+      methodrequest: RequestMethod.post,
+    );
+    if (response.data['status'] == '1') {
+      final errorvalue = ['1'];
+      List value = [];
+      value.add(response.data);
+      // List valuesent = response.data;
+      returnvalue.add(errorvalue);
+      returnvalue.add(value);
+    } else if (response.data['status'] == '2') {
+      final errorvalue = ['2'];
+
+      returnvalue.add(errorvalue);
+    } else {
+      final errorvalue = ['3'];
+      returnvalue.add(errorvalue);
+    }
+    return returnvalue;
+  }
+  
+  @override
+  Future<List<List>> FetchpublisherProfile() async{
+    List<List> returnvalue = [];
+    final pref = await SharedPreferences.getInstance();
+    final pubtoken = pref.getString('tokenlogforpublisher');
+
+    print(pubtoken);
+    httpService.header = {'authorization': 'Bearer $pubtoken'};
+    final response = await httpService.request(
+      url: '/fetchpublisheraccount',
       methodrequest: RequestMethod.post,
     );
     if (response.data['status'] == '1') {

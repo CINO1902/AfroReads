@@ -24,8 +24,8 @@ class FinalSignUpVerificationPage extends StatelessWidget {
               children: [
                 const Gap(30),
                 const Align(
-                  alignment: Alignment.centerLeft,
-                  child: AfroReadsBackButton()),
+                    alignment: Alignment.centerLeft,
+                    child: AfroReadsBackButton()),
                 const Gap(20),
                 FittedBox(
                   child: TextBold(
@@ -34,26 +34,34 @@ class FinalSignUpVerificationPage extends StatelessWidget {
                   ),
                 ),
                 const Gap(30),
-                loginContainer(
-                  context,
-                  text: 'Dive into exciting stories and adventures!',
-                  textt:
-                      'Log in as a kid to explore our curated collection,\nboookmark favorites, and ennjoy a world of captivating',
-                  texttt: 'African tales',
-                  textttt: "Kid Log in",
-                  image: AppAssets.kidOnBoardingImage,
-                ),
+                loginContainer(context,
+                    text: 'Dive into exciting stories and adventures!',
+                    textt:
+                        'Log in as a kid to explore our curated collection,\nboookmark favorites, and ennjoy a world of captivating',
+                    texttt: 'African tales',
+                    textttt: "Kid Log in",
+                    image: AppAssets.kidOnBoardingImage,
+                    routename: RouteName.kidloginpage),
                 const Gap(70),
-                loginContainer(
-                  context,
-                  text:
-                      'Manage settings, curate book lists, and monitor\n reading progress',
-                  textt:
-                      'Log in as a parent to customize the reading experience,\nfor your child, set timers, and gain insight into their',
-                  texttt: 'literaty journey',
-                  textttt: "Parent Log in",
-                  image: AppAssets.parentOnBoardingImage2,
-                ),
+                loginContainer(context,
+                    text:
+                        'Manage settings, curate book lists, and monitor\n reading progress',
+                    textt:
+                        'Log in as a parent to customize the reading experience,\nfor your child, set timers, and gain insight into their',
+                    texttt: 'literaty journey',
+                    textttt: "Parent Log in",
+                    image: AppAssets.parentOnBoardingImage2,
+                    routename: RouteName.parentSignUpPage),
+                const Gap(70),
+                loginContainer(context,
+                    text:
+                        'Create Books, Edit book lists, and monitor\n your book progress',
+                    textt:
+                        'Log in as a publisher to customize the reading experience,\nfor your child, set timers, and gain insight into their',
+                    texttt: 'literaty journey',
+                    textttt: "Publisher Log in",
+                    image: AppAssets.parentOnBoardingImage2,
+                    routename: RouteName.publisherloginpage),
               ],
             ),
           ),
@@ -62,7 +70,8 @@ class FinalSignUpVerificationPage extends StatelessWidget {
     );
   }
 
-  Column loginContainer(BuildContext context , {text, textt, texttt, textttt, image, }) {
+  Column loginContainer(BuildContext context,
+      {text, textt, texttt, textttt, image, routename}) {
     return Column(
       children: [
         Container(
@@ -106,9 +115,7 @@ class FinalSignUpVerificationPage extends StatelessWidget {
               borderColor: AfroReadsColors.primaryColor,
               buttonColor: AfroReadsColors.background,
               title: textttt,
-              onTap: () =>
-                Navigator.pushNamed(context, RouteName.parentSignUpPage)
-              ),
+              onTap: () => Navigator.pushNamed(context, routename)),
         )
       ],
     );

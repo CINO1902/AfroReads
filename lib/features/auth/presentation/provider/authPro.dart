@@ -43,6 +43,59 @@ class AuthPro extends ChangeNotifier {
     loadingloginparent = true;
     returnvalue = await authReposity.loginasparent(login);
     loadingloginparent = false;
+
+    if (returnvalue.contains('1')) {
+      loginerror = true;
+      errormsg = 'Request Timed Out';
+    } else if (returnvalue.contains('2')) {
+      loginerror = true;
+      errormsg = 'It seems you are out of network';
+    } else if (returnvalue.contains('3')) {
+      loginerror = true;
+      errormsg = 'Something went wrong';
+    } else {
+      msg = returnvalue[1];
+      status = returnvalue[0];
+    }
+    notifyListeners();
+  }
+
+  Future<void> loginkid(email, password) async {
+    loginerror = false;
+    Loginmodel login = Loginmodel(
+      email: email,
+      password: password,
+    );
+    loadingloginparent = true;
+    returnvalue = await authReposity.loginaskid(login);
+    loadingloginparent = false;
+
+    if (returnvalue.contains('1')) {
+      loginerror = true;
+      errormsg = 'Request Timed Out';
+    } else if (returnvalue.contains('2')) {
+      loginerror = true;
+      errormsg = 'It seems you are out of network';
+    } else if (returnvalue.contains('3')) {
+      loginerror = true;
+      errormsg = 'Something went wrong';
+    } else {
+      msg = returnvalue[1];
+      status = returnvalue[0];
+    }
+    notifyListeners();
+  }
+
+  Future<void> loginpub(email, password) async {
+    loginerror = false;
+    Loginmodel login = Loginmodel(
+      email: email,
+      password: password,
+    );
+    loadingloginparent = true;
+    returnvalue = await authReposity.loginaspublisher(login);
+    loadingloginparent = false;
+
     print(returnvalue);
     if (returnvalue.contains('1')) {
       loginerror = true;

@@ -6,6 +6,8 @@ abstract class UserDatarepository {
   Future<List<String>> Validateusername(username);
   Future<List<String>> CreatekidAcount(createaccount);
   Future<List<List>> FetchProfile();
+  Future<List<List>> FetchKidProfile();
+  Future<List<List>> FetchpublisherProfile();
 }
 
 class UserDatarepositoryimp implements UserDatarepository {
@@ -52,6 +54,48 @@ class UserDatarepositoryimp implements UserDatarepository {
     List<List> returnvalue = [];
     try {
       returnvalue = await userDataSource.FetchProfile();
+    } catch (e) {
+      log(e.toString());
+      if (e.toString().contains('Request')) {
+        final errorvalue = ['3'];
+        returnvalue.add(errorvalue);
+      } else if (e.toString().contains('Unexpected')) {
+        final errorvalue = ['4'];
+        returnvalue.add(errorvalue);
+      } else {
+        final errorvalue = ['5'];
+        returnvalue.add(errorvalue);
+      }
+    }
+    return returnvalue;
+  }
+
+  @override
+  Future<List<List>> FetchKidProfile() async {
+    List<List> returnvalue = [];
+    try {
+      returnvalue = await userDataSource.FetchKidProfile();
+    } catch (e) {
+      log(e.toString());
+      if (e.toString().contains('Request')) {
+        final errorvalue = ['3'];
+        returnvalue.add(errorvalue);
+      } else if (e.toString().contains('Unexpected')) {
+        final errorvalue = ['4'];
+        returnvalue.add(errorvalue);
+      } else {
+        final errorvalue = ['5'];
+        returnvalue.add(errorvalue);
+      }
+    }
+    return returnvalue;
+  }
+
+  @override
+  Future<List<List>> FetchpublisherProfile() async {
+    List<List> returnvalue = [];
+    try {
+      returnvalue = await userDataSource.FetchpublisherProfile();
     } catch (e) {
       log(e.toString());
       if (e.toString().contains('Request')) {
