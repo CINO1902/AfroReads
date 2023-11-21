@@ -1,7 +1,7 @@
 import 'package:afroreads/app/styles/fonts.dart';
 import 'package:afroreads/app/view/widget/busy_button.dart';
 import 'package:afroreads/core/constants/app_colors.dart';
-
+import 'package:afroreads/features/getuserdetails/presentation/widgets/daily_screen_time_modal.dart';
 import 'package:afroreads/provider/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
@@ -47,6 +47,21 @@ class ScreenTimeModal extends StatelessWidget {
                       context: context,
                       text: "Daily screen time",
                       textt: "Set daily checkpoint for screen time",
+                      onTap: () {
+                  showModalBottomSheet(
+                      shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(8),
+                          topRight: Radius.circular(8),
+                        ),
+                      ),
+                      context: context,
+                      builder: (context) {
+                        return DailyScreenTimeModal(
+                          themeProvider: themeProvider,
+                        );
+                      });
+                }
                     ),
                     const Gap(5),
                     Divider(color: Colors.grey.withOpacity(0.3)),
@@ -55,6 +70,21 @@ class ScreenTimeModal extends StatelessWidget {
                       text: "Screen time breaks",
                       textt:
                           "Set reminder for Ibidapo to take break from reading.",
+                          onTap: () {
+                  showModalBottomSheet(
+                      shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(8),
+                          topRight: Radius.circular(8),
+                        ),
+                      ),
+                      context: context,
+                      builder: (context) {
+                        return ScreenTimeModal(
+                          themeProvider: themeProvider,
+                        );
+                      });
+                },
                     ),
                     const Gap(5),
                     Divider(color: Colors.grey.withOpacity(0.3)),

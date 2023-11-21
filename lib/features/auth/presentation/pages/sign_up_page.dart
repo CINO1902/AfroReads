@@ -30,6 +30,26 @@ class _SignUpPageState extends State<SignUpPage> {
   final TextEditingController _answerController = TextEditingController();
   final TextEditingController _securityController = TextEditingController();
 
+  DateTime ? _selectedDate;
+
+  Future<void> _selectDate(BuildContext context) async {
+  DateTime? picked = await showDatePicker(
+    context: context,
+    initialDate: DateTime.now(),
+    firstDate: DateTime(1900),
+    lastDate: DateTime.now(),
+  );
+
+  if (picked != null && picked != _selectedDate) {
+    setState(() {
+      _selectedDate = picked;
+      _dateOfBirthController.text = _selectedDate!.toLocal().toString().split(' ')[0];
+    });
+  }
+}
+
+
+
   void handlerequest(AuthPro value) async {
     if (_formKey.currentState!.validate()) {
       showDialog(
@@ -235,6 +255,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         border: Border.all(color: Colors.grey.shade300),
                         borderRadius: BorderRadius.circular(7)),
                     child: TextFormField(
+                      readOnly: true,
                       controller: _dateOfBirthController,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
@@ -242,11 +263,20 @@ class _SignUpPageState extends State<SignUpPage> {
                         }
                         return null;
                       },
-                      decoration: const InputDecoration(
+                      decoration: InputDecoration(
+                          suffixIcon: GestureDetector(
+                            onTap: () => _selectDate(context),
+                            child: const Icon(
+                              Icons.date_range,
+                              color: Colors.black,
+                            ),
+                          ),
                           floatingLabelBehavior: FloatingLabelBehavior.never,
-                          contentPadding: EdgeInsets.symmetric(horizontal: 10),
+                          contentPadding:
+                              const EdgeInsets.symmetric(horizontal: 10),
+                               hintText: 'Select date using the button',
                           labelText: 'DD/MM/YYYY',
-                          labelStyle: TextStyle(
+                          labelStyle: const TextStyle(
                               fontSize: 14,
                               color: Colors.grey,
                               fontWeight: FontWeight.w400),
