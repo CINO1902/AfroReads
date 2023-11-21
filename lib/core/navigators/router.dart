@@ -9,6 +9,7 @@ import 'package:afroreads/features/getbooks/presentation/pages/index.dart';
 import 'package:afroreads/features/getbooks/presentation/pages/pdfscreen.dart';
 import 'package:afroreads/features/getuserdetails/presentation/pages/createkidprofile.dart';
 import 'package:afroreads/features/getuserdetails/presentation/pages/kidprofilesetting.dart';
+import 'package:afroreads/features/getuserdetails/presentation/pages/manage_kid_profile_details.dart';
 import 'package:afroreads/features/getuserdetails/presentation/pages/managekidprofile.dart';
 import 'package:afroreads/features/onboarding/pages/onboarding_screen.dart';
 import 'package:flutter/material.dart';
@@ -81,6 +82,11 @@ Route<dynamic> generateRoute(RouteSettings settings) {
         routeName: settings.name,
         viewToShow: const managekidprofile(),
       );
+    case RouteName.managekidprofiledetails:
+      return _getPageRoute(
+        routeName: settings.name,
+        viewToShow: const ManageKidProfileDetais(),
+      );  
     default:
       return MaterialPageRoute<void>(
         builder: (_) => Scaffold(

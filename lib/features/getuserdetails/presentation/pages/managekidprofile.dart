@@ -43,12 +43,12 @@ class _managekidprofileState extends State<managekidprofile> {
                   return Container(
                     padding: EdgeInsets.symmetric(
                         horizontal: MediaQuery.of(context).size.width * 0.1),
-                    height: 250,
+                    height: 290,
                     child: Column(
                       children: [
                         SizedBox(
-                            height: 50,
-                            width: 50,
+                            height: 90,
+                            width: 90,
                             child: Image.asset(AppAssets.childavatar)),
                         Gap(10),
                         Text(
@@ -70,15 +70,19 @@ class _managekidprofileState extends State<managekidprofile> {
                             child: Consumer<userdetails>(
                                 builder: (context, value, child) {
                               return BusyButton(
-                                  title: "Create Profile",
+                                  title: "Manage Account",
                                   onTap: () async {
-                                    // handlerequest(value);
+                                    value.profileclicked(index);
+                                    Navigator.pushNamed(context,
+                                        RouteName.managekidprofiledetails);
                                   });
                             })),
+                        Gap(20),
                         const Text(
                           'Remove Account',
                           style: TextStyle(fontSize: 15, color: Colors.red),
                         ),
+                        Gap(40),
                       ],
                     ),
                   );

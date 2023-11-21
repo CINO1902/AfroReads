@@ -2,6 +2,7 @@ import 'package:afroreads/app/view/widget/input_input.dart';
 import 'package:afroreads/core/constants/app_assets.dart';
 import 'package:afroreads/core/constants/app_colors.dart';
 import 'package:afroreads/core/navigators/route_name.dart';
+import 'package:afroreads/features/auth/presentation/provider/authPro.dart';
 import 'package:afroreads/features/getbooks/presentation/provider/GetbooksPro.dart';
 import 'package:afroreads/features/getuserdetails/presentation/provider/UserDetails.dart';
 import 'package:afroreads/features/search/presentation/Provider/SearchPro.dart';
@@ -30,6 +31,7 @@ class _HomeState extends State<Home> {
     // TODO: implement initState
     super.initState();
     context.read<GetbookPro>().getbook();
+    context.read<AuthPro>().fetchparentID();
 
     validateuser();
   }

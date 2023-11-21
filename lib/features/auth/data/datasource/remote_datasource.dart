@@ -98,4 +98,33 @@ class AuthDatasouceImp implements AuthDatasource {
 
     return returnvalue;
   }
+
+  @override
+  Future<List<List>> fetchparent() async {
+    List<List> returnvalue = [];
+    final pref = await SharedPreferences.getInstance();
+    final parenttoken = pref.getString('tokenlogforparent');
+   
+    httpService.header = {'authorization': 'Bearer $parenttoken'};
+    final response = await httpService.request(
+      url: '/fetchparentprofile',
+      methodrequest: RequestMethod.post,
+    );
+    if (response.data['status'] == '1') {
+      final errorvalue = ['1'];
+      List value = [];
+      value.add(response.data);
+      // List valuesent = response.data;
+      returnvalue.add(errorvalue);
+      returnvalue.add(value);
+    } else if (response.data['status'] == '2') {
+      final errorvalue = ['2'];
+
+      returnvalue.add(errorvalue);
+    } else {
+      final errorvalue = ['3'];
+      returnvalue.add(errorvalue);
+    }
+    return returnvalue;
+  }
 }

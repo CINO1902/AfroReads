@@ -1,5 +1,6 @@
 import 'package:afroreads/features/auth/domain/model/createAccountModel.dart';
 import 'package:afroreads/features/auth/domain/model/login.dart';
+import 'package:afroreads/features/auth/domain/model/parentmodel.dart';
 import 'package:afroreads/features/auth/domain/repositories/auth_repo.dart';
 import 'package:flutter/foundation.dart';
 
@@ -10,7 +11,10 @@ class AuthPro extends ChangeNotifier {
   bool loading = false;
   bool loginerror = false;
   bool loadingloginparent = false;
+  bool parentloading = false;
+  List<dynamic> decodedresponse = [];
   String errormsg = '';
+  List<Msg> decoded = [];
   List<String> returnvalue = [];
   String msg = '';
   String status = '';
@@ -52,6 +56,28 @@ class AuthPro extends ChangeNotifier {
     } else {
       msg = returnvalue[1];
       status = returnvalue[0];
+    }
+    notifyListeners();
+  }
+
+  void fetchparentID() async {
+    parentloading = true;
+
+    final response = await authReposity.fetchparent();
+    parentloading = false;
+    if (response[0][0] == '1') {
+      decodedresponse = response[1];
+      decoded = Parentdetails.fromJson(decodedresponse[0]).msg;
+
+      //  childprofileexist = true;
+    } else if (response[0][0] == '2') {
+      // childprofileexist = false;
+    } else if (response[0][0] == '3') {
+      // childprofileexist = false;
+    } else if (response[0][0] == '4') {
+      //  childprofileexist = false;
+    } else if (response[0][0] == '5') {
+      // childprofileexist = false;
     }
     notifyListeners();
   }
