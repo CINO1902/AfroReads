@@ -8,14 +8,20 @@ class GetbookPro extends ChangeNotifier {
   GetbookPro(this.getbookrepository);
   bool error = false;
   bool errorlibrary = false;
+  bool mybookerrorerror = false;
   bool loading = true;
   bool loadinglibrary = true;
   String bookurl = '';
   int page = 1;
+  int mybookspage = 1;
+  bool mybookloading = true;
+  bool mybookisloadmore = false;
+  bool mybookhasnextpage = true;
   bool isloadmore = false;
   bool hasnextpage = true;
   List<Pagnitedbook> bookdetails = [];
   List<Pagnitedbook> bookdetailslibrary = [];
+  List<Pagnitedbook> mybookdetails = [];
   List clickedbooks = [];
   void getbook() async {
     final response = await getbookrepository.getbook(1, 5);
@@ -60,6 +66,47 @@ class GetbookPro extends ChangeNotifier {
         hasnextpage = false;
       } else {
         hasnextpage = true;
+      }
+      notifyListeners();
+    }
+  }
+
+  void getmybooks() async {
+    mybookloading = true;
+    final response = await getbookrepository.callmybooks(1, 10);
+
+    mybookloading = false;
+    mybookerrorerror = response[0][0];
+    final decodedbookdetails = Notific.fromJson(response[1][0]);
+    mybookdetails = decodedbookdetails.pagnitedbooks;
+    print(mybookdetails);
+    final loadmore = decodedbookdetails.next;
+    if (loadmore.page == page) {
+      mybookhasnextpage = false;
+    } else {
+      mybookhasnextpage = true;
+    }
+    notifyListeners();
+  }
+
+  void getmybooksmore() async {
+    if (mybookhasnextpage == true &&
+        mybookisloadmore == false &&
+        mybookloading == false) {
+      mybookisloadmore = true;
+      mybookspage += 1;
+      notifyListeners();
+      final response = await getbookrepository.callmybooks(mybookspage, 10);
+      mybookisloadmore = false;
+      mybookloading = false;
+      mybookerrorerror = response[0][0];
+      final decodedbookdetails = Notific.fromJson(response[1][0]);
+      mybookdetails.addAll(decodedbookdetails.pagnitedbooks);
+      final loadmore = decodedbookdetails.next;
+      if (loadmore.page == page) {
+        mybookhasnextpage = false;
+      } else {
+        mybookhasnextpage = true;
       }
       notifyListeners();
     }

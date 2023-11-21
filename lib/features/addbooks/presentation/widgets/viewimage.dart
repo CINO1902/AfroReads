@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:file_picker/file_picker.dart';
@@ -11,7 +12,7 @@ import '../../../../provider/theme_provider.dart';
 class ViewImage extends StatelessWidget {
   const ViewImage({super.key, required this.image});
 
-  final PlatformFile? image;
+  final File? image;
   @override
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
@@ -39,10 +40,10 @@ class ViewImage extends StatelessWidget {
               ),
             ),
             const Gap(20),
-            Image.memory(
-              Uint8List.fromList(image!.bytes!),
+            Image.file(
+              image!,
+              height: 300,
               width: 200,
-              height: 400,
             )
           ],
         ),

@@ -1,6 +1,7 @@
 import 'package:afroreads/core/navigators/route_name.dart';
 import 'package:afroreads/core/navigators/router.dart';
 import 'package:afroreads/core/service/locator.dart';
+import 'package:afroreads/features/addbooks/presentation/provider/uploadimageprovider.dart';
 import 'package:afroreads/features/auth/presentation/provider/authPro.dart';
 import 'package:afroreads/features/getbooks/presentation/provider/GetbooksPro.dart';
 import 'package:afroreads/features/search/presentation/Provider/SearchPro.dart';
@@ -63,6 +64,8 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(create: (context) => GetbookPro(locator())),
         ChangeNotifierProvider(create: (context) => Searchpro(locator())),
         ChangeNotifierProvider(create: (context) => userdetails(locator())),
+        ChangeNotifierProvider(
+            create: (context) => uploadimageprovider(locator())),
       ],
       child: Builder(builder: (BuildContext context) {
         final themeProvider = Provider.of<ThemeProvider>(context);

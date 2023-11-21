@@ -2,6 +2,7 @@ import 'package:afroreads/app/styles/fonts.dart';
 import 'package:afroreads/core/constants/app_assets.dart';
 import 'package:afroreads/core/constants/app_colors.dart';
 import 'package:afroreads/features/auth/presentation/provider/authPro.dart';
+import 'package:afroreads/features/getbooks/presentation/provider/GetbooksPro.dart';
 import 'package:afroreads/features/getuserdetails/presentation/widgets/help_support_modal.dart';
 import 'package:afroreads/features/getuserdetails/presentation/widgets/settings_modal.dart';
 import 'package:afroreads/provider/theme_provider.dart';
@@ -45,7 +46,7 @@ class _AccountState extends State<Account> {
     final themeProvider = Provider.of<ThemeProvider>(context);
     final userdetail = context.watch<userdetails>();
     final parentdetails = context.watch<AuthPro>();
-
+    final pubbooks = context.watch<GetbookPro>();
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -163,7 +164,11 @@ class _AccountState extends State<Account> {
                               textt: "Manage your Book information",
                               image: AppAssets.profile,
                               onTap: () {
-                                Navigator.pushNamed(context, RouteName.addbook);
+                                pubbooks.bookdetails.isEmpty
+                                    ? Navigator.pushNamed(
+                                        context, RouteName.addbook)
+                                    : Navigator.pushNamed(
+                                        context, RouteName.managebooks);
                               })
                           : SizedBox(),
               const Gap(5),

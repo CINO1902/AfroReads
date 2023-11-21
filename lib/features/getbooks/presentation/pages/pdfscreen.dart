@@ -39,7 +39,6 @@ class _PdfScreenState extends State<PdfScreen> {
     final getbooksdetails = context.read<GetbookPro>();
     Future<EpubBook> doucument =
         EpubDocument.openData(await InternetFile.get(getbooksdetails.bookurl));
-
     return doucument;
   }
 

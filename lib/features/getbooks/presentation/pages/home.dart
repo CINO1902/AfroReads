@@ -48,6 +48,7 @@ class _HomeState extends State<Home> {
       context.read<userdetails>().fetchkidID();
     } else if (logpub != null) {
       context.read<userdetails>().fetchpublisherprofile();
+      context.read<GetbookPro>().getmybooks();
     }
   }
 

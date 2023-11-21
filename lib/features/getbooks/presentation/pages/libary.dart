@@ -111,7 +111,7 @@ class _LibraryState extends State<Library> {
                         controller: controller,
                         shrinkWrap: true,
                         padding: EdgeInsets.zero,
-                        primary: Platform.isAndroid ? true : false,
+                        //   primary: Platform.isAndroid ? true : false,
                         itemCount: value.bookdetailslibrary.length,
                         gridDelegate:
                             const SliverGridDelegateWithFixedCrossAxisCount(

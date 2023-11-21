@@ -15,7 +15,7 @@ class userdetails extends ChangeNotifier {
   bool loading = false;
   bool noterror = false;
   bool kidloading = true;
-  bool publoading = true;
+  bool publoading = false;
   String parentlog = '';
   String kidlog = '';
   String publisherlog = '';
@@ -169,6 +169,7 @@ class userdetails extends ChangeNotifier {
 
   void fetchpublisherprofile() async {
     publoading = true;
+    notifyListeners();
     final response = await userDatarepository.FetchpublisherProfile();
     publoading = false;
     if (response[0][0] == '1') {

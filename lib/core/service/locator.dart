@@ -11,6 +11,10 @@ import 'package:afroreads/features/search/domain/repositories/searchrepo.dart';
 import 'package:afroreads/features/search/presentation/Provider/SearchPro.dart';
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
+import '../../features/addbooks/data/datasources/remote_datasource.dart';
+import '../../features/addbooks/data/repositories/uploadrepo.dart';
+import '../../features/addbooks/domain/repositories/uploadbook_repo.dart';
+import '../../features/addbooks/presentation/provider/uploadimageprovider.dart';
 import '../../features/getuserdetails/data/datasources/remote_datasource.dart';
 import '../../features/getuserdetails/data/repositories/userrepo.dart';
 import '../../features/getuserdetails/domain/repositories/user_repo.dart';
@@ -34,6 +38,13 @@ void setup() {
     ..registerLazySingleton<UserDatarepository>(
         () => UserDatarepositoryimp(locator()))
     ..registerLazySingleton(() => userdetails(locator()))
+    //Uploadbook
+    ..registerLazySingleton<UploadBookDatasourceImp>(
+        () => UploadBookDatasourceImp(locator()))
+    ..registerLazySingleton<UploadBookDatasource>(
+        () => UploadBookDatasourceImp(locator()))
+    ..registerLazySingleton<UploadBookRepo>(() => UploadBookRepoImp(locator()))
+    ..registerLazySingleton(() => uploadimageprovider(locator()))
     //GetBook
     ..registerLazySingleton<GetbookDatasourceImp>(
         () => GetbookDatasourceImp(locator()))
