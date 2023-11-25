@@ -103,7 +103,7 @@ class GetbookPro extends ChangeNotifier {
       final decodedbookdetails = Notific.fromJson(response[1][0]);
       mybookdetails.addAll(decodedbookdetails.pagnitedbooks);
       final loadmore = decodedbookdetails.next;
-      if (loadmore.page == page) {
+      if (loadmore.page == mybookspage) {
         mybookhasnextpage = false;
       } else {
         mybookhasnextpage = true;

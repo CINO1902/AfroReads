@@ -5,6 +5,7 @@ import 'package:gap/gap.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../core/constants/app_assets.dart';
+import '../../../../core/constants/app_colors.dart';
 import '../../../../core/navigators/route_name.dart';
 import '../../../getuserdetails/presentation/provider/UserDetails.dart';
 
@@ -16,9 +17,21 @@ class managebooks extends StatefulWidget {
 }
 
 class _managebooksState extends State<managebooks> {
+  late ScrollController controller;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    controller = ScrollController()
+      ..addListener(() {
+        if (controller.position.maxScrollExtent == controller.position.pixels) {
+          context.read<GetbookPro>().getmybooksmore();
+        }
+      });
+  }
+
   @override
   Widget build(BuildContext context) {
-    final pubbooks = context.watch<GetbookPro>();
     return Scaffold(
       appBar: AppBar(
         iconTheme: IconThemeData(color: Theme.of(context).primaryColorDark),
@@ -37,60 +50,114 @@ class _managebooksState extends State<managebooks> {
           Consumer<GetbookPro>(builder: (context, value, child) {
             return Container(
               height: MediaQuery.of(context).size.height * .8,
-              child: ListView.builder(
-                shrinkWrap: true,
-                itemCount: value.mybookdetails.length,
-                itemBuilder: (context, index) {
-                  print(value.mybookdetails.length);
-                  return Container(
-                    margin: EdgeInsets.only(
-                        bottom: 10,
-                        top: 3,
-                        left: MediaQuery.of(context).size.width * 0.03,
-                        right: MediaQuery.of(context).size.width * 0.03),
-                    padding: EdgeInsets.symmetric(
-                        horizontal: MediaQuery.of(context).size.width * 0.02),
-                    height: 80,
-                    decoration: BoxDecoration(
-                        border: Border(top: BorderSide(color: Colors.grey))),
-                    child: Row(
-                      children: [
-                        SizedBox(
-                          height: 70,
-                          width: 70,
-                          child: Align(
-                            alignment: Alignment.center,
-                            child: CachedNetworkImage(
-                              fit: BoxFit.fill,
-                              imageUrl: value.mybookdetails[index].imageUrl,
-                              width: 130,
-                              height: 163,
+              child: Stack(
+                children: [
+                  Container(
+                    height: MediaQuery.of(context).size.height * .8,
+                    child: ListView.builder(
+                      controller: controller,
+                      shrinkWrap: true,
+                      itemCount: value.mybookdetails.length,
+                      itemBuilder: (context, index) {
+                        print(value.mybookdetails.length);
+                        return Container(
+                          margin: EdgeInsets.only(
+                              bottom: 10,
+                              top: 3,
+                              left: MediaQuery.of(context).size.width * 0.03,
+                              right: MediaQuery.of(context).size.width * 0.03),
+                          padding: EdgeInsets.symmetric(
+                              horizontal:
+                                  MediaQuery.of(context).size.width * 0.02),
+                          height: 80,
+                          decoration: BoxDecoration(
+                              border:
+                                  Border(top: BorderSide(color: Colors.grey))),
+                          child: Row(
+                            children: [
+                              SizedBox(
+                                height: 70,
+                                width: 70,
+                                child: Align(
+                                  alignment: Alignment.center,
+                                  child: CachedNetworkImage(
+                                    fit: BoxFit.fill,
+                                    imageUrl:
+                                        value.mybookdetails[index].imageUrl,
+                                    width: 130,
+                                    height: 163,
+                                  ),
+                                ),
+                              ),
+                              Gap(10),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: [
+                                  Text(
+                                    'Title: ${value.mybookdetails[index].bookTitle}',
+                                    style: TextStyle(
+                                        fontSize: 13,
+                                        color:
+                                            Theme.of(context).primaryColorDark),
+                                  ),
+                                  Text(
+                                    'By: ${value.mybookdetails[index].authorName}',
+                                    style: TextStyle(
+                                        fontSize: 13,
+                                        color:
+                                            Theme.of(context).primaryColorDark),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                  value.mybookisloadmore == true
+                      ? Align(
+                          alignment: Alignment.bottomCenter,
+                          child: Container(
+                            height: 70,
+                            margin: const EdgeInsets.only(top: 0, bottom: 60),
+                            child: Center(
+                              child: CircularProgressIndicator(
+                                color: AfroReadsColors.primaryColor,
+                              ),
                             ),
                           ),
-                        ),
-                        Gap(10),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            Text(
-                              'Title: ${value.mybookdetails[index].bookTitle}',
+                        )
+                      : Container(
+                          // height: 70,
+                          ),
+                  value.mybookhasnextpage == false
+                      ? Align(
+                          alignment: Alignment.bottomCenter,
+                          child: Container(
+                            height: 70,
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                                color: Colors.amber,
+                                borderRadius: BorderRadius.circular(10)),
+                            child: Center(
+                                child: Text(
+                              'You have fetched all content',
                               style: TextStyle(
-                                  fontSize: 13,
-                                  color: Theme.of(context).primaryColorDark),
-                            ),
-                            Text(
-                              'By: ${value.mybookdetails[index].authorName}',
-                              style: TextStyle(
-                                  fontSize: 13,
-                                  color: Theme.of(context).primaryColorDark),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  );
-                },
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16,
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .onSecondary),
+                            )),
+                          ),
+                        )
+                      : Container(
+                          //height: 70,
+                          )
+                ],
               ),
             );
           }),
