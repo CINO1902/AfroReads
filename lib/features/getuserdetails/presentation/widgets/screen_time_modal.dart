@@ -44,25 +44,24 @@ class ScreenTimeModal extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     myAccountContainer(
-                      context: context,
-                      text: "Daily screen time",
-                      textt: "Set daily checkpoint for screen time",
-                      onTap: () {
-                  showModalBottomSheet(
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(8),
-                          topRight: Radius.circular(8),
-                        ),
-                      ),
-                      context: context,
-                      builder: (context) {
-                        return DailyScreenTimeModal(
-                          themeProvider: themeProvider,
-                        );
-                      });
-                }
-                    ),
+                        context: context,
+                        text: "Daily screen time",
+                        textt: "Set daily checkpoint for screen time",
+                        onTap: () {
+                          showModalBottomSheet(
+                              shape: const RoundedRectangleBorder(
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(8),
+                                  topRight: Radius.circular(8),
+                                ),
+                              ),
+                              context: context,
+                              builder: (context) {
+                                return DailyScreenTimeModal(
+                                  themeProvider: themeProvider,
+                                );
+                              });
+                        }),
                     const Gap(5),
                     Divider(color: Colors.grey.withOpacity(0.3)),
                     myAccountContainer(
@@ -70,21 +69,7 @@ class ScreenTimeModal extends StatelessWidget {
                       text: "Screen time breaks",
                       textt:
                           "Set reminder for Ibidapo to take break from reading.",
-                          onTap: () {
-                  showModalBottomSheet(
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(8),
-                          topRight: Radius.circular(8),
-                        ),
-                      ),
-                      context: context,
-                      builder: (context) {
-                        return ScreenTimeModal(
-                          themeProvider: themeProvider,
-                        );
-                      });
-                },
+                      onTap: () {},
                     ),
                     const Gap(5),
                     Divider(color: Colors.grey.withOpacity(0.3)),

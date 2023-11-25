@@ -12,7 +12,7 @@ class userdetails extends ChangeNotifier {
   int childdate = DateTime.now().day;
   int childmonth = DateTime.now().month;
   int childyear = DateTime.now().year;
-  bool loading = false;
+  bool loading = true;
   bool noterror = false;
   bool kidloading = true;
   bool publoading = false;
@@ -128,6 +128,7 @@ class userdetails extends ChangeNotifier {
 
   void fetchchildID() async {
     loading = true;
+    notifyListeners();
     final response = await userDatarepository.FetchProfile();
     loading = false;
     if (response[0][0] == '1') {

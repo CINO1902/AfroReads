@@ -15,12 +15,14 @@ class DailyScreenTimeModal extends StatefulWidget {
 }
 
 class _DailyScreenTimeModalState extends State<DailyScreenTimeModal> {
+ 
   bool isSwitched = false;
-  int? selectedValue;
+  bool isCustomSwitched = false;
+  int? selectedValue = 1;
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: MediaQuery.of(context).size.height * 0.42,
+      height: MediaQuery.of(context).size.height * 0.52,
       width: double.infinity,
       decoration: BoxDecoration(
         color: widget.themeProvider.themeData.primaryColor,
@@ -43,7 +45,7 @@ class _DailyScreenTimeModalState extends State<DailyScreenTimeModal> {
             ),
             const Gap(20),
             SizedBox(
-              height: MediaQuery.of(context).size.height * 0.21,
+              // height: MediaQuery.of(context).size.height * 0.21,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -58,29 +60,39 @@ class _DailyScreenTimeModalState extends State<DailyScreenTimeModal> {
                           onChanged: (value) {
                             setState(() {
                               isSwitched = false;
+                              isCustomSwitched = false;
                               selectedValue = value;
                             });
                           }),
                     ],
                   ),
+                  const Divider(),
                   if (!isSwitched)
-                    Container(
-                      color: Colors.red,
+                    SizedBox(
                       child: Visibility(
                         visible: !isSwitched,
                         maintainSize: false,
                         maintainAnimation: false,
-                        child: const Column(
+                        child: Column(
                           children: [
-                            Divider(),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text("Time"),
-                                Text("2h"),
+                                const Text("Time"),
+                                GestureDetector(
+                                  child: Row(
+                                    children: [
+                                      MyPopupMenuButton(
+                                        label: '2h',
+                                        options: const ['1h', '2h', '3h', '4h', '5h', '6h'],
+                                        onChanged: (value) {},
+                                      ),
+                                    ],
+                                  ),
+                                ),
                               ],
                             ),
-                            Divider(),
+                            const Divider(),
                           ],
                         ),
                       ),
@@ -95,6 +107,7 @@ class _DailyScreenTimeModalState extends State<DailyScreenTimeModal> {
                           groupValue: selectedValue,
                           onChanged: (value) {
                             setState(() {
+                              isCustomSwitched = true;
                               isSwitched = true;
                               selectedValue = value;
                             });
@@ -104,15 +117,217 @@ class _DailyScreenTimeModalState extends State<DailyScreenTimeModal> {
                 ],
               ),
             ),
-            const Gap(30),
-            BusyButton(
-                title: "Done",
-                onTap: () {
-                  Navigator.of(context).pop();
-                })
+            Expanded(
+              child: Visibility(
+                visible: isCustomSwitched,
+                child: SizedBox(
+                  child: ListView(
+                    children: [
+                      Column(
+                        children: [
+                          const Divider(),
+                          const SizedBox(
+                            height: 3,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              const Text("Monday"),
+                              Row(
+                                children: [
+                                 MyPopupMenuButton(
+                                        label: '2h',
+                                        options: const ['1h', '2h', '3h', '4h', '5h', '6h'],
+                                        onChanged: (value) {},
+                                      ),
+                                ],
+                              ),
+                            ],
+                          ),
+                          const Divider(),
+                          const SizedBox(
+                            height: 3,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              const Text("Tuesday"),
+                              Row(
+                                children: [
+                                  MyPopupMenuButton(
+                                        label: '2h',
+                                        options: const ['1h', '2h', '3h', '4h', '5h', '6h'],
+                                        onChanged: (value) {},
+                                      ),
+                                ],
+                              ),
+                            ],
+                          ),
+                          const Divider(),
+                          const SizedBox(
+                            height: 3,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              const Text("Wednesday"),
+                              Row(
+                                children: [
+                                   MyPopupMenuButton(
+                                        label: '2h',
+                                        options: const ['1h', '2h', '3h', '4h', '5h', '6h'],
+                                        onChanged: (value) {},
+                                      ),
+                                ],
+                              ),
+                            ],
+                          ),
+                          const Divider(),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              const Text("Thursady"),
+                              Row(
+                                children: [
+                                   MyPopupMenuButton(
+                                        label: '2h',
+                                        options: const ['1h', '2h', '3h', '4h', '5h', '6h'],
+                                        onChanged: (value) {},
+                                      ),
+                                ],
+                              ),
+                            ],
+                          ),
+                          const Divider(),
+                          const SizedBox(
+                            height: 3,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              const Text("Friday"),
+                              Row(
+                                children: [
+                                 MyPopupMenuButton(
+                                        label: '2h',
+                                        options: const ['1h', '2h', '3h', '4h', '5h', '6h'],
+                                        onChanged: (value) {},
+                                      ),
+                                ],
+                              ),
+                            ],
+                          ),
+                          const Divider(),
+                          const SizedBox(
+                            height: 3,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              const Text("Saturday"),
+                              Row(
+                                children: [
+                                   MyPopupMenuButton(
+                                        label: '2h',
+                                        options: const ['1h', '2h', '3h', '4h', '5h', '6h'],
+                                        onChanged: (value) {},
+                                      ),
+                                ],
+                              ),
+                            ],
+                          ),
+                          const Divider(),
+                          const SizedBox(
+                            height: 3,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              const Text("Sunday"),
+                              Row(
+                                children: [
+                                   MyPopupMenuButton(
+                                        label: '2h',
+                                        options: const ['1h', '2h', '3h', '4h', '5h', '6h'],
+                                        onChanged: (value) {},
+                                      ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: BusyButton(
+                  title: "Done",
+                  onTap: () {
+                    Navigator.of(context).pop();
+                  }),
+            )
           ],
         ),
       ),
+    );
+  }
+
+  
+  
+}
+
+class MyPopupMenuButton extends StatefulWidget {
+  final String label;
+  final List<String> options;
+  final void Function(String) onChanged;
+
+  MyPopupMenuButton({
+    required this.label,
+    required this.options,
+    required this.onChanged,
+  });
+
+  @override
+  _MyPopupMenuButtonState createState() => _MyPopupMenuButtonState();
+}
+
+class _MyPopupMenuButtonState extends State<MyPopupMenuButton> {
+  String selectedOption = '';
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Text(selectedOption.isEmpty ? widget.label : ''),
+        Text(selectedOption),
+        PopupMenuButton<String>(
+          icon: const Icon(
+            Icons.keyboard_arrow_right,
+            color: Colors.grey,
+          ),
+          onSelected: (value) {
+            setState(() {
+              selectedOption = value;
+            });
+            widget.onChanged(value);
+          },
+          itemBuilder: (BuildContext context) {
+            return widget.options.map((String item) {
+              return PopupMenuItem<String>(
+                value: item,
+                child: Text(item),
+              );
+            }).toList();
+          },
+        ),
+      ],
     );
   }
 }
