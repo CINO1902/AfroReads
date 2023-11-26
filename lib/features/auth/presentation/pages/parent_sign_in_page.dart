@@ -20,7 +20,7 @@ class ParentSignUpPage extends StatefulWidget {
 }
 
 class _ParentSignUpPageState extends State<ParentSignUpPage> {
-    final _formKey = GlobalKey<FormState>();
+  final _formKey = GlobalKey<FormState>();
 
   final TextEditingController _parentEmailController = TextEditingController();
   final TextEditingController _parentPasswordController =
@@ -29,42 +29,27 @@ class _ParentSignUpPageState extends State<ParentSignUpPage> {
 
   void handlerequest(AuthPro value) async {
     if (_formKey.currentState!.validate()) {
-    showDialog(
-        context: context,
-        builder: (context) {
-          return Dialog(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20),
-            ),
-            child: const AppLoadingDialog(
-              text: 'Loading...',
-            ),
-          );
-        });
-    await context
-        .read<AuthPro>()
-        .login(_parentEmailController.text, _parentPasswordController.text);
+      showDialog(
+          context: context,
+          builder: (context) {
+            return Dialog(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: const AppLoadingDialog(
+                text: 'Loading...',
+              ),
+            );
+          });
+      await context
+          .read<AuthPro>()
+          .login(_parentEmailController.text, _parentPasswordController.text);
 
-    if (value.loginerror == true) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: CustomeSnackbar(
-          topic: 'Oh Snap!',
-          msg: value.errormsg,
-          color1: Color.fromARGB(255, 171, 51, 42),
-          color2: Color.fromARGB(255, 127, 39, 33),
-        ),
-        behavior: SnackBarBehavior.floating,
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-      ));
-      Navigator.pop(context);
-    } else {
-      Navigator.pop(context);
-      if (value.status == 'false') {
+      if (value.loginerror == true) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: CustomeSnackbar(
             topic: 'Oh Snap!',
-            msg: value.msg,
+            msg: value.errormsg,
             color1: Color.fromARGB(255, 171, 51, 42),
             color2: Color.fromARGB(255, 127, 39, 33),
           ),
@@ -72,26 +57,42 @@ class _ParentSignUpPageState extends State<ParentSignUpPage> {
           backgroundColor: Colors.transparent,
           elevation: 0,
         ));
+        Navigator.pop(context);
       } else {
         Navigator.pop(context);
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: CustomeSnackbar(
-            topic: 'Great!',
-            msg: value.msg,
-            color1: Color.fromARGB(255, 25, 107, 52),
-            color2: Color.fromARGB(255, 19, 95, 40),
-          ),
-          behavior: SnackBarBehavior.floating,
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-        ));
-        // ignore: use_build_context_synchronously
-        Navigator.pushNamedAndRemoveUntil(
-            context, RouteName.indexPage, (Route<dynamic> route) => false);
+        if (value.status == 'false') {
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: CustomeSnackbar(
+              topic: 'Oh Snap!',
+              msg: value.msg,
+              color1: Color.fromARGB(255, 171, 51, 42),
+              color2: Color.fromARGB(255, 127, 39, 33),
+            ),
+            behavior: SnackBarBehavior.floating,
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+          ));
+        } else {
+          Navigator.pop(context);
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: CustomeSnackbar(
+              topic: 'Great!',
+              msg: value.msg,
+              color1: Color.fromARGB(255, 25, 107, 52),
+              color2: Color.fromARGB(255, 19, 95, 40),
+            ),
+            behavior: SnackBarBehavior.floating,
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+          ));
+          // ignore: use_build_context_synchronously
+          Navigator.pushNamedAndRemoveUntil(
+              context, RouteName.indexPage, (Route<dynamic> route) => false);
+        }
       }
     }
-    }
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -131,35 +132,35 @@ class _ParentSignUpPageState extends State<ParentSignUpPage> {
                   const Gap(30),
                   TextBody('Email Address', color: AfroReadsColors.textColor),
                   const Gap(8),
-                   Container(
-                      width: MediaQuery.of(context).size.width * 0.9,
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          border: Border.all(color: Colors.grey.shade300),
-                          borderRadius: BorderRadius.circular(7)),
-                      child: TextFormField(
-                        controller: _parentEmailController,
-                        validator: (value) {
-                          if (value == null ||
-                              value.isEmpty ||
-                              !value.contains('@')) {
-                            return 'Please enter a valid email';
-                          }
-                          return null;
-                        },
-                        decoration: const InputDecoration(
-                            floatingLabelBehavior: FloatingLabelBehavior.never,
-                            contentPadding: EdgeInsets.symmetric(horizontal: 10),
-                            labelText: 'Ibidapodavid10@gmail.com',
-                            labelStyle: TextStyle(
-                                fontSize: 14,
-                                color: Colors.grey,
-                                fontWeight: FontWeight.w400),
-                            border: InputBorder.none,
-                            fillColor: Colors.black54,
-                            focusColor: Colors.black54),
-                      ),
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.9,
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        border: Border.all(color: Colors.grey.shade300),
+                        borderRadius: BorderRadius.circular(7)),
+                    child: TextFormField(
+                      controller: _parentEmailController,
+                      validator: (value) {
+                        if (value == null ||
+                            value.isEmpty ||
+                            !value.contains('@')) {
+                          return 'Please enter a valid email';
+                        }
+                        return null;
+                      },
+                      decoration: const InputDecoration(
+                          floatingLabelBehavior: FloatingLabelBehavior.never,
+                          contentPadding: EdgeInsets.symmetric(horizontal: 10),
+                          labelText: 'Ibidapodavid10@gmail.com',
+                          labelStyle: TextStyle(
+                              fontSize: 14,
+                              color: Colors.grey,
+                              fontWeight: FontWeight.w400),
+                          border: InputBorder.none,
+                          fillColor: Colors.black54,
+                          focusColor: Colors.black54),
                     ),
+                  ),
                   // InputField(
                   //   controller: _parentEmailController,
                   //   placeholder: 'abcdef@gmail.com',
@@ -173,32 +174,32 @@ class _ParentSignUpPageState extends State<ParentSignUpPage> {
                   //   placeholder: '6+ characters',
                   // ),
                   Container(
-                      width: MediaQuery.of(context).size.width * 0.9,
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          border: Border.all(color: Colors.grey.shade300),
-                          borderRadius: BorderRadius.circular(7)),
-                      child: TextFormField(
-                        controller: _parentPasswordController,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'This Field is required';
-                          }
-                          return null;
-                        },
-                        decoration: const InputDecoration(
-                            floatingLabelBehavior: FloatingLabelBehavior.never,
-                            contentPadding: EdgeInsets.symmetric(horizontal: 10),
-                            labelText: '6+ characters',
-                            labelStyle: TextStyle(
-                                fontSize: 14,
-                                color: Colors.grey,
-                                fontWeight: FontWeight.w400),
-                            border: InputBorder.none,
-                            fillColor: Colors.black54,
-                            focusColor: Colors.black54),
-                      ),
+                    width: MediaQuery.of(context).size.width * 0.9,
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        border: Border.all(color: Colors.grey.shade300),
+                        borderRadius: BorderRadius.circular(7)),
+                    child: TextFormField(
+                      controller: _parentPasswordController,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'This Field is required';
+                        }
+                        return null;
+                      },
+                      decoration: const InputDecoration(
+                          floatingLabelBehavior: FloatingLabelBehavior.never,
+                          contentPadding: EdgeInsets.symmetric(horizontal: 10),
+                          labelText: '6+ characters',
+                          labelStyle: TextStyle(
+                              fontSize: 14,
+                              color: Colors.grey,
+                              fontWeight: FontWeight.w400),
+                          border: InputBorder.none,
+                          fillColor: Colors.black54,
+                          focusColor: Colors.black54),
                     ),
+                  ),
                   const Gap(16),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -259,6 +260,4 @@ class _ParentSignUpPageState extends State<ParentSignUpPage> {
       ),
     );
   }
-
-  
 }
