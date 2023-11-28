@@ -298,16 +298,17 @@ class _HomeState extends State<Home> {
                         return InkWell(
                           onTap: () {
                             context.read<GetbookPro>().getclickedbook(
-                                  value.bookdetails[index].id,
-                                  value.bookdetails[index].bookTitle,
-                                  value.bookdetails[index].authorName,
-                                  value.bookdetails[index].review,
-                                  value.bookdetails[index].noRated,
-                                  value.bookdetails[index].link,
-                                  value.bookdetails[index].addedBy,
-                                  value.bookdetails[index].imageUrl,
-                                  value.bookdetails[index].preview,
-                                );
+                                value.bookdetails[index].id,
+                                value.bookdetails[index].bookTitle,
+                                value.bookdetails[index].authorName,
+                                value.bookdetails[index].review,
+                                value.bookdetails[index].noRated,
+                                value.bookdetails[index].link,
+                                value.bookdetails[index].addedBy,
+                                value.bookdetails[index].imageUrl,
+                                value.bookdetails[index].preview,
+                                value.bookdetails[index].suitableAge,
+                                value.bookdetails[index].genre);
                             Navigator.pushNamed(context, RouteName.bookdetails);
                           },
                           child: Row(

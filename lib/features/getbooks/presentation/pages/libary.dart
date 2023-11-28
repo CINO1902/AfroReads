@@ -132,6 +132,8 @@ class _LibraryState extends State<Library> {
                                     value.bookdetailslibrary[index].addedBy,
                                     value.bookdetailslibrary[index].imageUrl,
                                     value.bookdetailslibrary[index].preview,
+                                    value.bookdetailslibrary[index].suitableAge,
+                                     value.bookdetailslibrary[index].genre,
                                   );
                               Navigator.pushNamed(
                                   context, RouteName.bookdetails);

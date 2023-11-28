@@ -1,6 +1,9 @@
 import 'dart:developer';
 
 import 'package:afroreads/features/getuserdetails/data/repositories/userrepo.dart';
+import 'package:afroreads/features/getuserdetails/domain/entities/Timechange.dart';
+
+import '../entities/Restrictionmode.dart';
 
 abstract class UserDatarepository {
   Future<List<String>> Validateusername(username);
@@ -8,6 +11,10 @@ abstract class UserDatarepository {
   Future<List<List>> FetchProfile();
   Future<List<List>> FetchKidProfile();
   Future<List<List>> FetchpublisherProfile();
+  Future<List> ChangeRestrictionAge(RestrictMode restrict);
+  Future<List> ChangeUnsuitableGenres(RestrictMode restrict);
+  Future<List> ChangeReadingLevel(RestrictMode restric);
+  Future<List> changeCustomTime(TimeModel time);
 }
 
 class UserDatarepositoryimp implements UserDatarepository {
@@ -96,6 +103,90 @@ class UserDatarepositoryimp implements UserDatarepository {
     List<List> returnvalue = [];
     try {
       returnvalue = await userDataSource.FetchpublisherProfile();
+    } catch (e) {
+      log(e.toString());
+      if (e.toString().contains('Request')) {
+        final errorvalue = ['3'];
+        returnvalue.add(errorvalue);
+      } else if (e.toString().contains('Unexpected')) {
+        final errorvalue = ['4'];
+        returnvalue.add(errorvalue);
+      } else {
+        final errorvalue = ['5'];
+        returnvalue.add(errorvalue);
+      }
+    }
+    return returnvalue;
+  }
+
+  @override
+  Future<List> ChangeRestrictionAge(RestrictMode restrict) async {
+    List returnvalue = [];
+    try {
+      returnvalue = await userDataSource.ChangeRestrictionAge(restrict);
+    } catch (e) {
+      log(e.toString());
+      if (e.toString().contains('Request')) {
+        final errorvalue = ['3'];
+        returnvalue.add(errorvalue);
+      } else if (e.toString().contains('Unexpected')) {
+        final errorvalue = ['4'];
+        returnvalue.add(errorvalue);
+      } else {
+        final errorvalue = ['5'];
+        returnvalue.add(errorvalue);
+      }
+    }
+    return returnvalue;
+  }
+
+  @override
+  Future<List> ChangeUnsuitableGenres(RestrictMode restrict) async {
+    List returnvalue = [];
+    try {
+      returnvalue = await userDataSource.ChangeUnsuitableGenres(restrict);
+    } catch (e) {
+      log(e.toString());
+      if (e.toString().contains('Request')) {
+        final errorvalue = ['3'];
+        returnvalue.add(errorvalue);
+      } else if (e.toString().contains('Unexpected')) {
+        final errorvalue = ['4'];
+        returnvalue.add(errorvalue);
+      } else {
+        final errorvalue = ['5'];
+        returnvalue.add(errorvalue);
+      }
+    }
+    return returnvalue;
+  }
+
+  @override
+  Future<List> ChangeReadingLevel(RestrictMode restric) async {
+    List returnvalue = [];
+    try {
+      returnvalue = await userDataSource.ChangeReadingLevel(restric);
+    } catch (e) {
+      log(e.toString());
+      if (e.toString().contains('Request')) {
+        final errorvalue = ['3'];
+        returnvalue.add(errorvalue);
+      } else if (e.toString().contains('Unexpected')) {
+        final errorvalue = ['4'];
+        returnvalue.add(errorvalue);
+      } else {
+        final errorvalue = ['5'];
+        returnvalue.add(errorvalue);
+      }
+    }
+    return returnvalue;
+  }
+
+  @override
+  Future<List> changeCustomTime(TimeModel time) async {
+    List returnvalue = [];
+    try {
+      returnvalue = await userDataSource.changeCustomTime(time);
     } catch (e) {
       log(e.toString());
       if (e.toString().contains('Request')) {

@@ -1,6 +1,9 @@
 import 'package:afroreads/app/styles/fonts.dart';
+import 'package:afroreads/app/view/widget/app_loading_dialog.dart';
 import 'package:afroreads/app/view/widget/busy_button.dart';
 import 'package:afroreads/core/constants/app_colors.dart';
+import 'package:afroreads/core/usecases/customesnackbar.dart';
+import 'package:afroreads/features/getuserdetails/presentation/provider/UserDetails.dart';
 import 'package:afroreads/features/getuserdetails/presentation/widgets/daily_screen_time_modal.dart';
 import 'package:afroreads/provider/theme_provider.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +17,7 @@ class ScreenTimeModal extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final userdetail = context.watch<userdetails>();
     return SingleChildScrollView(
       child: Container(
         height: MediaQuery.of(context).size.height * 0.42,
@@ -44,25 +48,36 @@ class ScreenTimeModal extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     myAccountContainer(
-                      context: context,
-                      text: "Daily screen time",
-                      textt: "Set daily checkpoint for screen time",
-                      onTap: () {
-                  showModalBottomSheet(
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(8),
-                          topRight: Radius.circular(8),
-                        ),
-                      ),
-                      context: context,
-                      builder: (context) {
-                        return DailyScreenTimeModal(
-                          themeProvider: themeProvider,
-                        );
-                      });
-                }
-                    ),
+                        context: context,
+                        text: "Daily screen time",
+                        textt: "Set daily checkpoint for screen time",
+                        onTap: () {
+                          showModalBottomSheet(
+                              shape: const RoundedRectangleBorder(
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(8),
+                                  topRight: Radius.circular(8),
+                                ),
+                              ),
+                              context: context,
+                              builder: (context) {
+                                return DailyScreenTimeModal(
+                                  themeProvider: themeProvider,
+                                  customTime: userdetail
+                                              .profileclicklist[0].customTime !=
+                                          null
+                                      ? userdetail
+                                          .profileclicklist[0].customTime!
+                                      : false,
+                                  Weektime: userdetail.profileclicklist[0].time,
+                                  gentime: userdetail
+                                              .profileclicklist[0].gentime !=
+                                          null
+                                      ? userdetail.profileclicklist[0].gentime!
+                                      : 2,
+                                );
+                              });
+                        }),
                     const Gap(5),
                     Divider(color: Colors.grey.withOpacity(0.3)),
                     myAccountContainer(
@@ -70,21 +85,7 @@ class ScreenTimeModal extends StatelessWidget {
                       text: "Screen time breaks",
                       textt:
                           "Set reminder for Ibidapo to take break from reading.",
-                          onTap: () {
-                  showModalBottomSheet(
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(8),
-                          topRight: Radius.circular(8),
-                        ),
-                      ),
-                      context: context,
-                      builder: (context) {
-                        return ScreenTimeModal(
-                          themeProvider: themeProvider,
-                        );
-                      });
-                },
+                      onTap: () {},
                     ),
                     const Gap(5),
                     Divider(color: Colors.grey.withOpacity(0.3)),
@@ -98,11 +99,60 @@ class ScreenTimeModal extends StatelessWidget {
                 ),
               ),
               const Gap(30),
-              BusyButton(
-                  title: "Done",
-                  onTap: () {
-                    Navigator.of(context).pop();
-                  })
+              Consumer<userdetails>(builder: (context, value, child) {
+                return BusyButton(
+                    title: "Done",
+                    onTap: () async {
+                      showDialog(
+                          context: context,
+                          builder: (context) {
+                            return Dialog(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              child: const AppLoadingDialog(
+                                text: 'Loading...',
+                              ),
+                            );
+                          });
+                      // await context.read<userdetails>().changeCustomTime();
+
+                      if (value.restricterror == true) {
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          dismissDirection: DismissDirection.up,
+                          margin: EdgeInsets.only(
+                              bottom: MediaQuery.of(context).size.height - 200),
+                          content: CustomeSnackbar(
+                            topic: 'Oh Snap!',
+                            msg: value.msg,
+                            color1: Color.fromARGB(255, 171, 51, 42),
+                            color2: Color.fromARGB(255, 127, 39, 33),
+                          ),
+                          behavior: SnackBarBehavior.floating,
+                          backgroundColor: Colors.transparent,
+                          elevation: 0,
+                        ));
+                      } else if (value.restricterror == false) {
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          dismissDirection: DismissDirection.up,
+                          margin: EdgeInsets.only(
+                              bottom: MediaQuery.of(context).size.height - 200),
+                          content: CustomeSnackbar(
+                            topic: 'Great!',
+                            msg: value.msg,
+                            color1: Color.fromARGB(255, 25, 107, 52),
+                            color2: Color.fromARGB(255, 19, 95, 40),
+                          ),
+                          behavior: SnackBarBehavior.floating,
+                          backgroundColor: Colors.transparent,
+                          elevation: 0,
+                        ));
+
+                        // ignore: use_build_context_synchronously
+                      }
+                      Navigator.of(context).pop();
+                    });
+              })
             ],
           ),
         ),

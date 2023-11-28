@@ -8,6 +8,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:gap/gap.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../../getuserdetails/presentation/provider/UserDetails.dart';
 
 class BookDetails extends StatefulWidget {
   const BookDetails({super.key});
@@ -24,12 +27,30 @@ class _BookDetailsState extends State<BookDetails> {
     context.read<GetbookPro>().disposeclickedbook();
   }
 
+  String kidlog = '';
+  void getloguser() async {
+    final pref = await SharedPreferences.getInstance();
+
+    kidlog = pref.getString('tokenlogforkid') ?? '';
+    print(kidlog);
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    getloguser();
+  }
+
   bool clicked = false;
   int maxlinebox = 8;
 
   @override
   Widget build(BuildContext context) {
     final getbooksdetails = Provider.of<GetbookPro>(context);
+    final userdetail = context.watch<userdetails>();
+
     return Scaffold(
       body: SafeArea(
         child: SizedBox(
@@ -54,6 +75,7 @@ class _BookDetailsState extends State<BookDetails> {
                       ),
                       Text(
                         getbooksdetails.clickedbooks[1],
+                        textAlign: TextAlign.center,
                         style: TextStyle(
                             fontSize: 24, fontWeight: FontWeight.bold),
                       ),
@@ -65,7 +87,7 @@ class _BookDetailsState extends State<BookDetails> {
                       ),
                       const Gap(10),
                       Text(
-                        'Genre: African Fiction',
+                        'Genre: ${getbooksdetails.clickedbooks[10]}',
                         style: TextStyle(
                             fontSize: 20, fontWeight: FontWeight.w500),
                       ),
@@ -100,28 +122,61 @@ class _BookDetailsState extends State<BookDetails> {
                           Text(
                             getbooksdetails.clickedbooks[3],
                             style: TextStyle(
-                                fontSize: 16, fontWeight: FontWeight.w500),
+                                fontSize: 16, fontWeight: FontWeight.w900),
                           ),
                           Gap(10),
                           Text(
                             '${getbooksdetails.clickedbooks[4]} Ratings',
                             style: TextStyle(
-                                fontSize: 16, fontWeight: FontWeight.w500),
+                                fontSize: 16, fontWeight: FontWeight.w400),
                           ),
                         ],
                       ),
                       Gap(15),
-                      SizedBox(
-                          height: 30,
-                          width: 70,
-                          child: BusyButton(
-                              title: 'Read Now',
-                              fontsize: 12,
-                              onTap: () {
-                                context.read<GetbookPro>().clickbookurl(
-                                    getbooksdetails.clickedbooks[5]);
-                                Navigator.pushNamed(context, RouteName.pdfpage);
-                              })),
+                      userdetail.kidlog != ''
+                          ? userdetail.canreadbook()
+                              ? SizedBox(
+                                  height: 30,
+                                  width: 70,
+                                  child: BusyButton(
+                                      title: 'Read Now',
+                                      fontsize: 12,
+                                      onTap: () {
+                                        context.read<GetbookPro>().clickbookurl(
+                                            getbooksdetails.clickedbooks[5]);
+                                        Navigator.pushNamed(
+                                            context, RouteName.pdfpage);
+                                      }))
+                              : Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(8),
+                                    border: Border.all(color: Colors.grey),
+                                    color: const Color.fromARGB(
+                                        255, 199, 199, 199),
+                                  ),
+                                  height: 40,
+                                  width: 130,
+                                  child: Center(
+                                    child: Text(
+                                      'Not Suitable For \n Your age',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ))
+                          : SizedBox(
+                              height: 30,
+                              width: 70,
+                              child: BusyButton(
+                                  title: 'Read Now',
+                                  fontsize: 12,
+                                  onTap: () {
+                                    context.read<GetbookPro>().clickbookurl(
+                                        getbooksdetails.clickedbooks[5]);
+                                    Navigator.pushNamed(
+                                        context, RouteName.pdfpage);
+                                  })),
                       Gap(15),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 20.0),

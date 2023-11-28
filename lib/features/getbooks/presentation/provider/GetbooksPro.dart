@@ -1,5 +1,6 @@
 import 'package:afroreads/features/getbooks/domain/entities/getbookpromodel.dart';
 import 'package:afroreads/features/getbooks/domain/repositories/getbook_repo.dart';
+import 'package:afroreads/features/getuserdetails/presentation/provider/UserDetails.dart';
 import 'package:flutter/material.dart';
 
 class GetbookPro extends ChangeNotifier {
@@ -113,7 +114,7 @@ class GetbookPro extends ChangeNotifier {
   }
 
   void getclickedbook(id, booktitle, authorname, review, norated, link, addedby,
-      imageurl, preview) {
+      imageurl, preview, agebracket, genre) {
     clickedbooks.add(id);
     clickedbooks.add(booktitle);
     clickedbooks.add(authorname);
@@ -123,6 +124,8 @@ class GetbookPro extends ChangeNotifier {
     clickedbooks.add(addedby);
     clickedbooks.add(imageurl);
     clickedbooks.add(preview);
+    clickedbooks.add(agebracket);
+    clickedbooks.add(genre);
   }
 
   void clickbookurl(url) {

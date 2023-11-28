@@ -1,14 +1,25 @@
 import 'package:afroreads/app/view/widget/busy_button.dart';
 import 'package:afroreads/core/constants/app_colors.dart';
+import 'package:afroreads/core/usecases/customesnackbar.dart';
 
 import 'package:afroreads/provider/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:provider/provider.dart';
+
+import '../../../../app/view/widget/app_loading_dialog.dart';
+import '../provider/UserDetails.dart';
 
 class KidUnsuitableGenresModal extends StatefulWidget {
   final ThemeProvider themeProvider;
+  int selectedvalue;
+  bool restrict;
 
-  const KidUnsuitableGenresModal({super.key, required this.themeProvider});
+  KidUnsuitableGenresModal(
+      {super.key,
+      required this.themeProvider,
+      required this.selectedvalue,
+      required this.restrict});
 
   @override
   State<KidUnsuitableGenresModal> createState() =>
@@ -55,10 +66,10 @@ class _KidUnsuitableGenresModalState extends State<KidUnsuitableGenresModal> {
                         Radio(
                             activeColor: AfroReadsColors.primaryColor,
                             value: 1,
-                            groupValue: selectedValue,
+                            groupValue: widget.selectedvalue,
                             onChanged: (value) {
                               setState(() {
-                                selectedValue = value;
+                                widget.selectedvalue = value!;
                               });
                             }),
                       ],
@@ -71,10 +82,10 @@ class _KidUnsuitableGenresModalState extends State<KidUnsuitableGenresModal> {
                         Radio(
                             activeColor: AfroReadsColors.primaryColor,
                             value: 2,
-                            groupValue: selectedValue,
+                            groupValue: widget.selectedvalue,
                             onChanged: (value) {
                               setState(() {
-                                selectedValue = value;
+                                widget.selectedvalue = value!;
                               });
                             }),
                       ],
@@ -87,10 +98,10 @@ class _KidUnsuitableGenresModalState extends State<KidUnsuitableGenresModal> {
                         Radio(
                             activeColor: AfroReadsColors.primaryColor,
                             value: 3,
-                            groupValue: selectedValue,
+                            groupValue: widget.selectedvalue,
                             onChanged: (value) {
                               setState(() {
-                                selectedValue = value;
+                                widget.selectedvalue = value!;
                               });
                             }),
                       ],
@@ -99,11 +110,61 @@ class _KidUnsuitableGenresModalState extends State<KidUnsuitableGenresModal> {
                 ),
               ),
               const Gap(30),
-              BusyButton(
-                  title: "Done",
-                  onTap: () {
-                    Navigator.of(context).pop();
-                  })
+              Consumer<userdetails>(builder: (context, value, child) {
+                return BusyButton(
+                    title: "Done",
+                    onTap: () async {
+                      showDialog(
+                          context: context,
+                          builder: (context) {
+                            return Dialog(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              child: const AppLoadingDialog(
+                                text: 'Loading...',
+                              ),
+                            );
+                          });
+                      await context.read<userdetails>().changeunsuitablegenres(
+                          widget.restrict, widget.selectedvalue);
+
+                      if (value.restricterror == true) {
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          dismissDirection: DismissDirection.up,
+                          margin: EdgeInsets.only(
+                              bottom: MediaQuery.of(context).size.height - 200),
+                          content: CustomeSnackbar(
+                            topic: 'Oh Snap!',
+                            msg: value.msg,
+                            color1: Color.fromARGB(255, 171, 51, 42),
+                            color2: Color.fromARGB(255, 127, 39, 33),
+                          ),
+                          behavior: SnackBarBehavior.floating,
+                          backgroundColor: Colors.transparent,
+                          elevation: 0,
+                        ));
+                      } else if (value.restricterror == false) {
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          dismissDirection: DismissDirection.up,
+                          margin: EdgeInsets.only(
+                              bottom: MediaQuery.of(context).size.height - 200),
+                          content: CustomeSnackbar(
+                            topic: 'Great!',
+                            msg: value.msg,
+                            color1: Color.fromARGB(255, 25, 107, 52),
+                            color2: Color.fromARGB(255, 19, 95, 40),
+                          ),
+                          behavior: SnackBarBehavior.floating,
+                          backgroundColor: Colors.transparent,
+                          elevation: 0,
+                        ));
+
+                        // ignore: use_build_context_synchronously
+                      }
+                      Navigator.of(context).pop();
+                    });
+              })
             ],
           ),
         ),

@@ -66,6 +66,13 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(create: (context) => userdetails(locator())),
         ChangeNotifierProvider(
             create: (context) => uploadimageprovider(locator())),
+        ChangeNotifierProxyProvider<GetbookPro, userdetails>(
+            create: (context) => userdetails(locator()),
+            update: (BuildContext context, GetbookPro getbookPro,
+                userdetails? userdetail) {
+              userdetail!.update(getbookPro);
+              return userdetail;
+            }),
       ],
       child: Builder(builder: (BuildContext context) {
         final themeProvider = Provider.of<ThemeProvider>(context);

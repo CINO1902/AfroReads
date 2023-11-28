@@ -18,6 +18,13 @@ class ManageKidProfileDetais extends StatefulWidget {
 
 class _ManageKidProfileDetaisState extends State<ManageKidProfileDetais> {
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    context.read<userdetails>().fetchchildID();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
     final userdetail = context.watch<userdetails>();
@@ -28,7 +35,7 @@ class _ManageKidProfileDetaisState extends State<ManageKidProfileDetais> {
         elevation: 0,
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         title: Text(
-          userdetail.profileclicklist[0].name,
+          userdetail.loading ? '' : userdetail.profileclicklist[0].name,
           style: TextStyle(
               color: Theme.of(context).primaryColorDark,
               fontSize: 18,
@@ -59,7 +66,7 @@ class _ManageKidProfileDetaisState extends State<ManageKidProfileDetais> {
                       children: [
                         Text("Name: ${userdetail.profileclicklist[0].name}"),
                         Text(
-                            "Age:  ${userdetail.calculateage(userdetail.profileclicklist[0].dateOfBirth)} years"),
+                            "Age:  ${userdetail.calculateage(userdetail.profileclicklist[0].dateOfBirth).toString()} years"),
                         Text("Last seen: 2 hours ago")
                       ],
                     ),

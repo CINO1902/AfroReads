@@ -5,7 +5,9 @@ import 'package:afroreads/core/constants/app_assets.dart';
 import 'package:afroreads/core/navigators/route_name.dart';
 import 'package:afroreads/features/addbooks/presentation/pages/viewbook.dart';
 import 'package:afroreads/features/addbooks/presentation/provider/uploadimageprovider.dart';
+import 'package:afroreads/features/addbooks/presentation/widgets/select_age.dart';
 import 'package:afroreads/features/getbooks/presentation/provider/GetbooksPro.dart';
+import 'package:afroreads/provider/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
@@ -32,6 +34,7 @@ class _createbookState extends State<createbook> {
 
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
     final uploadprovider = context.watch<uploadimageprovider>();
     return Scaffold(
       appBar: AppBar(
@@ -127,15 +130,6 @@ class _createbookState extends State<createbook> {
                 borderRadius: BorderRadius.circular(7)),
             child: TextFormField(
               controller: descriptioncontroller,
-              // validator: (value) {
-              //   if (value != _passwordController.text) {
-              //     return 'Passwords do not match';
-              //   }
-              //   if (value == null || value.isEmpty) {
-              //     return 'This Field is required';
-              //   }
-              //   return null;
-              // },
               maxLines: 10,
               decoration: const InputDecoration(
 
@@ -234,6 +228,43 @@ class _createbookState extends State<createbook> {
                 )),
           ),
           Gap(20),
+          TextBody('Book Appropraite Age', color: AfroReadsColors.textColor),
+          const Gap(8),
+          InkWell(
+            onTap: () {
+              showModalBottomSheet(
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(8),
+                      topRight: Radius.circular(8),
+                    ),
+                  ),
+                  context: context,
+                  builder: (context) {
+                    return SelectAgeModal(
+                      themeProvider: themeProvider,
+                    );
+                  });
+            },
+            child: Container(
+                height: 60,
+                decoration: BoxDecoration(
+                    border: Border.all(
+                        width: 1, color: Color.fromARGB(255, 219, 219, 219)),
+                    borderRadius: BorderRadius.circular(5)),
+                child: Center(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Text(
+                      items[context.watch<uploadimageprovider>().group],
+                      style: TextStyle(
+                        fontSize: 15,
+                      ),
+                    ),
+                  ),
+                )),
+          ),
+          Gap(20),
           InkWell(
             onTap: () {
               uploadprovider.image == null
@@ -266,28 +297,28 @@ class _createbookState extends State<createbook> {
           ),
           Gap(30),
           InkWell(
-            onTap: () {
-              uploadprovider.book == null
-                  ? uploadprovider.pickfile()
-                  : Navigator.push(context, MaterialPageRoute(
-                      builder: (context) {
-                        return ViewBook(path: uploadprovider.book!);
-                      },
-                    ));
-              if (uploadprovider.errorbook == true) {
-                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                  content: CustomeSnackbar(
-                    topic: 'Oh Snap!',
-                    msg: uploadprovider.es,
-                    color1: Color.fromARGB(255, 171, 51, 42),
-                    color2: Color.fromARGB(255, 127, 39, 33),
-                  ),
-                  behavior: SnackBarBehavior.floating,
-                  backgroundColor: Colors.transparent,
-                  elevation: 0,
-                ));
-              }
-            },
+            // onTap: () {
+            //   uploadprovider.book == null
+            //       ? uploadprovider.pickfile()
+            //       : Navigator.push(context, MaterialPageRoute(
+            //           builder: (context) {
+            //             return ViewBook(path: uploadprovider.book!);
+            //           },
+            //         ));
+            //   if (uploadprovider.errorbook == true) {
+            //     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            //       content: CustomeSnackbar(
+            //         topic: 'Oh Snap!',
+            //         msg: uploadprovider.es,
+            //         color1: Color.fromARGB(255, 171, 51, 42),
+            //         color2: Color.fromARGB(255, 127, 39, 33),
+            //       ),
+            //       behavior: SnackBarBehavior.floating,
+            //       backgroundColor: Colors.transparent,
+            //       elevation: 0,
+            //     ));
+            //   }
+            // },
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
               child: UseCaseUpload(

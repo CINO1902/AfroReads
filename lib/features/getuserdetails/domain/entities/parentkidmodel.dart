@@ -10,11 +10,11 @@ Parentkidmodel parentkidmodelFromJson(String str) =>
 String parentkidmodelToJson(Parentkidmodel data) => json.encode(data.toJson());
 
 class Parentkidmodel {
-  String? status;
+  String status;
   List<Msg> msg;
 
   Parentkidmodel({
-    this.status,
+    required this.status,
     required this.msg,
   });
 
@@ -31,40 +31,112 @@ class Parentkidmodel {
 
 class Msg {
   String id;
+  String name;
   String dateOfBirth;
   String username;
   String parentEmail;
   String password;
   int v;
-  String name;
+  String? allowedBookAge;
+  List<Time> time;
+  bool? restrictionMode;
+  String? unsuitableGenres;
+  String? readingLevel;
+  bool? customTime;
+  int? gentime;
 
   Msg({
     required this.id,
+    required this.name,
     required this.dateOfBirth,
     required this.username,
     required this.parentEmail,
     required this.password,
     required this.v,
-    required this.name,
+    this.allowedBookAge,
+    required this.time,
+    this.restrictionMode,
+    this.unsuitableGenres,
+    this.readingLevel,
+    this.customTime,
+    this.gentime,
   });
 
   factory Msg.fromJson(Map<String, dynamic> json) => Msg(
         id: json["_id"],
+        name: json["Name"],
         dateOfBirth: json["Date_of_birth"],
         username: json["Username"],
         parentEmail: json["parent_email"],
         password: json["password"],
         v: json["__v"],
-        name: json["Name"],
+        allowedBookAge: json["allowed_book_age"],
+        time: List<Time>.from(json["time"].map((x) => Time.fromJson(x))),
+        restrictionMode: json["Restriction_mode"],
+        unsuitableGenres: json["unsuitable_genres"],
+        readingLevel: json["reading_level"],
+        customTime: json["custom_time"],
+        gentime: json["gentime"],
       );
 
   Map<String, dynamic> toJson() => {
         "_id": id,
+        "Name": name,
         "Date_of_birth": dateOfBirth,
         "Username": username,
         "parent_email": parentEmail,
         "password": password,
         "__v": v,
-        "Name": name,
+        "allowed_book_age": allowedBookAge,
+        "time": List<dynamic>.from(time.map((x) => x.toJson())),
+        "Restriction_mode": restrictionMode,
+        "unsuitable_genres": unsuitableGenres,
+        "reading_level": readingLevel,
+        "custom_time": customTime,
+        "gentime": gentime,
+      };
+}
+
+class Time {
+  int? monday;
+  String id;
+  int? tuesday;
+  int? wednesday;
+  int? thursday;
+  int? friday;
+  int? saturday;
+  int? sunday;
+
+  Time({
+    this.monday,
+    required this.id,
+    this.tuesday,
+    this.wednesday,
+    this.thursday,
+    this.friday,
+    this.saturday,
+    this.sunday,
+  });
+
+  factory Time.fromJson(Map<String, dynamic> json) => Time(
+        monday: json["Monday"],
+        id: json["_id"],
+        tuesday: json["Tuesday"],
+        wednesday: json["Wednesday"],
+        thursday: json["Thursday"],
+        friday: json["Friday"],
+        saturday: json["Saturday"],
+        sunday: json["Sunday"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "Monday": monday,
+        "_id": id,
+        "Tuesday": tuesday,
+        "Wednesday": wednesday,
+        "Thursday": thursday,
+        "Friday": friday,
+        "Saturday": saturday,
+        "Sunday": sunday,
       };
 }

@@ -1,20 +1,32 @@
 import 'package:afroreads/app/view/widget/busy_button.dart';
 import 'package:afroreads/core/constants/app_colors.dart';
+import 'package:afroreads/features/getuserdetails/presentation/provider/UserDetails.dart';
 
 import 'package:afroreads/provider/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:provider/provider.dart';
+
+import '../../../../app/view/widget/app_loading_dialog.dart';
+import '../../../../core/usecases/customesnackbar.dart';
+
 class AgeContentModal extends StatefulWidget {
   final ThemeProvider themeProvider;
+  int selectedvalue;
+  bool restrict;
 
-  const AgeContentModal({super.key, required this.themeProvider});
+  AgeContentModal(
+      {super.key,
+      required this.themeProvider,
+      required this.selectedvalue,
+      required this.restrict});
 
   @override
   State<AgeContentModal> createState() => _AgeContentModalState();
 }
 
 class _AgeContentModalState extends State<AgeContentModal> {
-  int? selectedValue;
+  int? selectedValuess;
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -43,8 +55,7 @@ class _AgeContentModalState extends State<AgeContentModal> {
               const Gap(20),
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.21,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                child: ListView(
                   children: [
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -53,10 +64,10 @@ class _AgeContentModalState extends State<AgeContentModal> {
                         Radio(
                             activeColor: AfroReadsColors.primaryColor,
                             value: 1,
-                            groupValue: selectedValue,
+                            groupValue: widget.selectedvalue,
                             onChanged: (value) {
                               setState(() {
-                                selectedValue = value;
+                                widget.selectedvalue = value!;
                               });
                             }),
                       ],
@@ -65,14 +76,14 @@ class _AgeContentModalState extends State<AgeContentModal> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text("Age  9 - 10"),
+                        const Text("Age  9 - 13"),
                         Radio(
                             activeColor: AfroReadsColors.primaryColor,
                             value: 2,
-                            groupValue: selectedValue,
+                            groupValue: widget.selectedvalue,
                             onChanged: (value) {
                               setState(() {
-                                selectedValue = value;
+                                widget.selectedvalue = value!;
                               });
                             }),
                       ],
@@ -81,14 +92,30 @@ class _AgeContentModalState extends State<AgeContentModal> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text("Age 11 - 17"),
+                        const Text("Age 13 - 16"),
                         Radio(
                             activeColor: AfroReadsColors.primaryColor,
                             value: 3,
-                            groupValue: selectedValue,
+                            groupValue: widget.selectedvalue,
                             onChanged: (value) {
                               setState(() {
-                                selectedValue = value;
+                                widget.selectedvalue = value!;
+                              });
+                            }),
+                      ],
+                    ),
+                    const Divider(),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text("Any Age"),
+                        Radio(
+                            activeColor: AfroReadsColors.primaryColor,
+                            value: 4,
+                            groupValue: widget.selectedvalue,
+                            onChanged: (value) {
+                              setState(() {
+                                widget.selectedvalue = value!;
                               });
                             }),
                       ],
@@ -97,11 +124,62 @@ class _AgeContentModalState extends State<AgeContentModal> {
                 ),
               ),
               const Gap(30),
-              BusyButton(
-                  title: "Done",
-                  onTap: () {
-                    Navigator.of(context).pop();
-                  })
+              Consumer<userdetails>(builder: (context, value, child) {
+                return BusyButton(
+                    title: "Done",
+                    onTap: () async {
+                      showDialog(
+                          context: context,
+                          builder: (context) {
+                            return Dialog(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              child: const AppLoadingDialog(
+                                text: 'Loading...',
+                              ),
+                            );
+                          });
+                      await context.read<userdetails>().updaterestrictmode(
+                          widget.restrict, widget.selectedvalue);
+
+                      if (value.restricterror == true) {
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          dismissDirection: DismissDirection.up,
+                          margin: EdgeInsets.only(
+                              bottom: MediaQuery.of(context).size.height - 200),
+                          content: CustomeSnackbar(
+                            topic: 'Oh Snap!',
+                            msg: value.msg,
+                            color1: Color.fromARGB(255, 171, 51, 42),
+                            color2: Color.fromARGB(255, 127, 39, 33),
+                          ),
+                          behavior: SnackBarBehavior.floating,
+                          backgroundColor: Colors.transparent,
+                          elevation: 0,
+                        ));
+                      } else if (value.restricterror == false) {
+                        print('object');
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          dismissDirection: DismissDirection.up,
+                          margin: EdgeInsets.only(
+                              bottom: MediaQuery.of(context).size.height - 200),
+                          content: CustomeSnackbar(
+                            topic: 'Great!',
+                            msg: value.msg,
+                            color1: Color.fromARGB(255, 25, 107, 52),
+                            color2: Color.fromARGB(255, 19, 95, 40),
+                          ),
+                          behavior: SnackBarBehavior.floating,
+                          backgroundColor: Colors.transparent,
+                          elevation: 0,
+                        ));
+
+                        // ignore: use_build_context_synchronously
+                      }
+                      Navigator.pop(context);
+                    });
+              })
             ],
           ),
         ),

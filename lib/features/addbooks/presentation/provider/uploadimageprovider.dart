@@ -12,6 +12,7 @@ class uploadimageprovider extends ChangeNotifier {
   File? book;
   bool error = false;
   String msg = '';
+  String bookage = '';
   bool uploadingimage = false;
   bool uploadingbook = false;
   bool errorbook = false;
@@ -101,6 +102,7 @@ class uploadimageprovider extends ChangeNotifier {
         authorName: author,
         preview: description,
         link: bookurl,
+        bookage: bookage,
         addedBy: addedby,
         imageUrl: imageurl,
         genre: genre);
@@ -142,9 +144,20 @@ class uploadimageprovider extends ChangeNotifier {
 
       final url = jsonMap['url'];
       bookurl = url;
-     
+
       notifyListeners();
     }
+  }
+
+  void collectbookage(book) {
+    if (book == 1) {
+      bookage = "0-8";
+    } else if (book == 2) {
+      bookage = "9-13";
+    } else if (book == 3) {
+      bookage = '14-16';
+    }
+    notifyListeners();
   }
 
   void deleteimage() {

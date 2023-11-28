@@ -38,7 +38,7 @@ class _AccountState extends State<Account> {
     parentlog = pref.getString('tokenlogforparent') ?? '';
     kidlog = pref.getString('tokenlogforkid') ?? '';
     publisherlog = pref.getString('tokenlogforpublisher') ?? '';
-    print(publisherlog);
+    
   }
 
   @override

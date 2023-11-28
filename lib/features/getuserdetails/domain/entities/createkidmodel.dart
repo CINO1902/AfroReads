@@ -23,13 +23,13 @@ class Createkidprofile {
 
   factory Createkidprofile.fromJson(Map<String, dynamic> json) =>
       Createkidprofile(
-        fullname: json["fullname"],
+        fullname: json["Name"],
         dateOfBirth: json["Date_of_birth"],
         username: json["username"],
       );
 
   Map<String, dynamic> toJson() => {
-        "fullname": fullname,
+        "Name": fullname,
         "Date_of_birth": dateOfBirth,
         "username": username,
       };

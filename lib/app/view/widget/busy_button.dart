@@ -39,7 +39,8 @@ class _BusyButtonState extends State<BusyButton> {
               ? widget.buttonColor
               : widget.buttonColor.withOpacity(0.4),
         ),
-        child: Center(
+        child: Align(
+          alignment: Alignment.center,
           child: TextBold(
             widget.title,
             color: widget.titleColor,

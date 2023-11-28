@@ -101,6 +101,8 @@ class MySearchDelegate extends SearchDelegate {
                                           snapshot.data![index].addedBy,
                                           snapshot.data![index].imageUrl,
                                           snapshot.data![index].preview,
+                                          snapshot.data![index].suitableAge,
+                                          snapshot.data![index].genre,
                                         );
                                     Navigator.pushNamed(
                                         context, RouteName.bookdetails);

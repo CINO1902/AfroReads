@@ -83,9 +83,9 @@ class Pagnitedbook {
     String link;
     String addedBy;
     String imageUrl;
-    String? genre;
+    String genre;
     int v;
-    String? pagnitedbookGenre;
+    String suitableAge;
 
     Pagnitedbook({
         required this.id,
@@ -98,9 +98,9 @@ class Pagnitedbook {
         required this.link,
         required this.addedBy,
         required this.imageUrl,
-        this.genre,
+        required this.genre,
         required this.v,
-        this.pagnitedbookGenre,
+        required this.suitableAge,
     });
 
     factory Pagnitedbook.fromJson(Map<String, dynamic> json) => Pagnitedbook(
@@ -116,7 +116,7 @@ class Pagnitedbook {
         imageUrl: json["image_url"],
         genre: json["Genre"],
         v: json["__v"],
-        pagnitedbookGenre: json["genre"],
+        suitableAge: json["suitable_age"],
     );
 
     Map<String, dynamic> toJson() => {
@@ -132,6 +132,6 @@ class Pagnitedbook {
         "image_url": imageUrl,
         "Genre": genre,
         "__v": v,
-        "genre": pagnitedbookGenre,
+        "suitable_age": suitableAge,
     };
 }
