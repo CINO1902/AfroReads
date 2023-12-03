@@ -23,6 +23,7 @@ class uploadimageprovider extends ChangeNotifier {
   bool loading = false;
   int _value = 0;
   int _group = 0;
+  List CreditClickedBook = [];
   int _index = 0;
   final UploadBookRepo uploadBookRepo;
   uploadimageprovider(this.uploadBookRepo);
@@ -147,6 +148,18 @@ class uploadimageprovider extends ChangeNotifier {
 
       notifyListeners();
     }
+  }
+
+  void creditclickbook(bookimage, title, genre, bookid, author, link) {
+    CreditClickedBook.add(bookimage);
+    CreditClickedBook.add(title);
+    CreditClickedBook.add(genre);
+    CreditClickedBook.add(bookid);
+    CreditClickedBook.add(author);
+    CreditClickedBook.add(link);
+
+
+    print(genre);
   }
 
   void collectbookage(book) {

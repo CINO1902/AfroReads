@@ -325,24 +325,20 @@ class userdetails extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> changeunsuitablegenres(bool restrict, age) async {
+  Future<void> changeunsuitablegenres(bool restrict, List age) async {
     loadingrestrict = true;
     notifyListeners();
-    String getagebracket(age) {
-      String agebracket = '';
-      if (age == 1) {
-        agebracket = 'Violent';
-      } else if (age == 2) {
-        agebracket = 'Horror';
-      } else if (age == 3) {
-        agebracket = 'Sexual';
+    String liststring = '';
+    if (age.isNotEmpty) {
+      for (var i = 0; i < age.length; i++) {
+        liststring = liststring + ',' + age[i];
       }
-      return agebracket;
+      liststring = liststring.substring(1);
     }
 
     RestrictMode restric = RestrictMode(
         restrict: restrict,
-        age: getagebracket(age),
+        age: liststring,
         username: profileclicklist[0].username);
     final response = await userDatarepository.ChangeUnsuitableGenres(restric);
     loadingrestrict = false;
@@ -387,7 +383,7 @@ class userdetails extends ChangeNotifier {
       }
       return agebracket;
     }
-    
+
     TimeModel restric = TimeModel(
         custom: custom,
         time: weeklyHours,

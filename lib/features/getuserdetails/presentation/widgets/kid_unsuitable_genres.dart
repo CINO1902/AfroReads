@@ -9,10 +9,11 @@ import 'package:provider/provider.dart';
 
 import '../../../../app/view/widget/app_loading_dialog.dart';
 import '../provider/UserDetails.dart';
+import 'package:group_button/group_button.dart';
 
 class KidUnsuitableGenresModal extends StatefulWidget {
   final ThemeProvider themeProvider;
-  int selectedvalue;
+  String selectedvalue;
   bool restrict;
 
   KidUnsuitableGenresModal(
@@ -27,12 +28,21 @@ class KidUnsuitableGenresModal extends StatefulWidget {
 }
 
 class _KidUnsuitableGenresModalState extends State<KidUnsuitableGenresModal> {
+  List<String> selectedOptions = [];
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    selectedOptions = widget.selectedvalue.split(',');
+    print(selectedOptions);
+  }
+
   int? selectedValue;
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Container(
-        height: MediaQuery.of(context).size.height * 0.42,
+        height: MediaQuery.of(context).size.height * 0.40,
         width: double.infinity,
         decoration: BoxDecoration(
           color: widget.themeProvider.themeData.primaryColor,
@@ -55,56 +65,41 @@ class _KidUnsuitableGenresModalState extends State<KidUnsuitableGenresModal> {
               ),
               const Gap(20),
               SizedBox(
-                height: MediaQuery.of(context).size.height * 0.21,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                height: MediaQuery.of(context).size.height * 0.20,
+                child: ListView(
+                  //  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Text("Violent"),
-                        Radio(
-                            activeColor: AfroReadsColors.primaryColor,
-                            value: 1,
-                            groupValue: widget.selectedvalue,
-                            onChanged: (value) {
-                              setState(() {
-                                widget.selectedvalue = value!;
-                              });
-                            }),
-                      ],
+                    CheckboxListTile(
+                      activeColor: AfroReadsColors.primaryColor,
+                      title: const Text('Violent'),
+                      value: widget.selectedvalue.contains('Violent'),
+                      onChanged: (value) {
+                        setState(() {
+                          updateSelectedOptions('Violent', value!);
+                        });
+                      },
                     ),
                     const Divider(),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Text("Horror"),
-                        Radio(
-                            activeColor: AfroReadsColors.primaryColor,
-                            value: 2,
-                            groupValue: widget.selectedvalue,
-                            onChanged: (value) {
-                              setState(() {
-                                widget.selectedvalue = value!;
-                              });
-                            }),
-                      ],
+                    CheckboxListTile(
+                      activeColor: AfroReadsColors.primaryColor,
+                      title: const Text('Horror'),
+                      value: widget.selectedvalue.contains('Horror'),
+                      onChanged: (value) {
+                        setState(() {
+                          updateSelectedOptions('Horror', value!);
+                        });
+                      },
                     ),
                     const Divider(),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Text("Sexual"),
-                        Radio(
-                            activeColor: AfroReadsColors.primaryColor,
-                            value: 3,
-                            groupValue: widget.selectedvalue,
-                            onChanged: (value) {
-                              setState(() {
-                                widget.selectedvalue = value!;
-                              });
-                            }),
-                      ],
+                    CheckboxListTile(
+                      activeColor: AfroReadsColors.primaryColor,
+                      title: const Text('Sexual'),
+                      value: widget.selectedvalue.contains('Sexual'),
+                      onChanged: (value) {
+                        setState(() {
+                          updateSelectedOptions('Sexual', value!);
+                        });
+                      },
                     ),
                   ],
                 ),
@@ -127,7 +122,7 @@ class _KidUnsuitableGenresModalState extends State<KidUnsuitableGenresModal> {
                             );
                           });
                       await context.read<userdetails>().changeunsuitablegenres(
-                          widget.restrict, widget.selectedvalue);
+                          widget.restrict, selectedOptions);
 
                       if (value.restricterror == true) {
                         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -170,5 +165,21 @@ class _KidUnsuitableGenresModalState extends State<KidUnsuitableGenresModal> {
         ),
       ),
     );
+  }
+
+  void updateSelectedOptions(String option, bool selected) {
+    if (selected) {
+      selectedOptions.add(option);
+      for (var i = 0; i < selectedOptions.length; i++) {
+        widget.selectedvalue = widget.selectedvalue + ',' + selectedOptions[i];
+      }
+      print(selectedOptions);
+    } else {
+      List<String> words = widget.selectedvalue.split(',');
+      words.removeWhere((word) => word == option);
+      widget.selectedvalue = words.join(',');
+      selectedOptions.remove(option);
+      print(selectedOptions);
+    }
   }
 }

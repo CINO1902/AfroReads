@@ -297,28 +297,28 @@ class _createbookState extends State<createbook> {
           ),
           Gap(30),
           InkWell(
-            // onTap: () {
-            //   uploadprovider.book == null
-            //       ? uploadprovider.pickfile()
-            //       : Navigator.push(context, MaterialPageRoute(
-            //           builder: (context) {
-            //             return ViewBook(path: uploadprovider.book!);
-            //           },
-            //         ));
-            //   if (uploadprovider.errorbook == true) {
-            //     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            //       content: CustomeSnackbar(
-            //         topic: 'Oh Snap!',
-            //         msg: uploadprovider.es,
-            //         color1: Color.fromARGB(255, 171, 51, 42),
-            //         color2: Color.fromARGB(255, 127, 39, 33),
-            //       ),
-            //       behavior: SnackBarBehavior.floating,
-            //       backgroundColor: Colors.transparent,
-            //       elevation: 0,
-            //     ));
-            //   }
-            // },
+            onTap: () {
+              uploadprovider.book == null
+                  ? uploadprovider.pickfile()
+                  : Navigator.push(context, MaterialPageRoute(
+                      builder: (context) {
+                        return ViewBook(path: uploadprovider.book!);
+                      },
+                    ));
+              if (uploadprovider.errorbook == true) {
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  content: CustomeSnackbar(
+                    topic: 'Oh Snap!',
+                    msg: uploadprovider.es,
+                    color1: Color.fromARGB(255, 171, 51, 42),
+                    color2: Color.fromARGB(255, 127, 39, 33),
+                  ),
+                  behavior: SnackBarBehavior.floating,
+                  backgroundColor: Colors.transparent,
+                  elevation: 0,
+                ));
+              }
+            },
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
               child: UseCaseUpload(

@@ -117,20 +117,8 @@ class _RestrictedBooksModalState extends State<RestrictedBooksModal> {
                                                     .unsuitableGenres !=
                                                 null
                                             ? userdetail.profileclicklist[0]
-                                                    .unsuitableGenres!
-                                                    .contains('Violent')
-                                                ? 1
-                                                : userdetail.profileclicklist[0]
-                                                        .unsuitableGenres!
-                                                        .contains('Horror')
-                                                    ? 2
-                                                    : userdetail
-                                                            .profileclicklist[0]
-                                                            .unsuitableGenres!
-                                                            .contains('Sexual')
-                                                        ? 3
-                                                        : 4
-                                            : 4,
+                                                .unsuitableGenres!
+                                            : '',
                                         restrict: isSwitched,
                                       );
                                     });

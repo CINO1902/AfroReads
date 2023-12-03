@@ -19,4 +19,6 @@ class RouteName {
   static const String addbook = '/addbook';
   static const String createbook = '/createbook';
   static const String managebooks = '/managebooks';
+  static const String publishersignup = '/publishersignup';
+  static const String bookcredit = '/bookcredit';
 }

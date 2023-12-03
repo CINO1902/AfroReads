@@ -8,6 +8,7 @@ import 'package:afroreads/features/getuserdetails/presentation/widgets/settings_
 import 'package:afroreads/provider/theme_provider.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -38,7 +39,6 @@ class _AccountState extends State<Account> {
     parentlog = pref.getString('tokenlogforparent') ?? '';
     kidlog = pref.getString('tokenlogforkid') ?? '';
     publisherlog = pref.getString('tokenlogforpublisher') ?? '';
-    
   }
 
   @override
@@ -127,6 +127,29 @@ class _AccountState extends State<Account> {
                                     fontSize: 12,
                                   )
                                 : SizedBox(),
+                    Gap(10),
+                    Container(
+                      height: 30,
+                      width: 140,
+                      padding: EdgeInsets.symmetric(horizontal: 10),
+                      decoration: BoxDecoration(
+                          color: Colors.red,
+                          borderRadius: BorderRadius.circular(15)),
+                      child: Align(
+                        alignment: Alignment.center,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            SvgPicture.asset(AppAssets.verified),
+                            const Text('Verified User',
+                                style: TextStyle(
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white)),
+                          ],
+                        ),
+                      ),
+                    )
                   ],
                 ),
               ),
@@ -173,12 +196,19 @@ class _AccountState extends State<Account> {
                           : SizedBox(),
               const Gap(5),
               Divider(color: Colors.grey.withOpacity(0.3)),
-              myAccountContainer(
-                context: context,
-                text: "Saved Books",
-                textt: "Access comics you have bookmarked to read later",
-                image: AppAssets.mylibrary,
-              ),
+              publisherlog != ''
+                  ? myAccountContainer(
+                      context: context,
+                      text: "View Income",
+                      textt: "Access comics you have bookmarked to read later",
+                      image: AppAssets.mylibrary,
+                    )
+                  : myAccountContainer(
+                      context: context,
+                      text: "Saved Books",
+                      textt: "Access comics you have bookmarked to read later",
+                      image: AppAssets.mylibrary,
+                    ),
               const Gap(5),
               Divider(color: Colors.grey.withOpacity(0.3)),
               myAccountContainer(

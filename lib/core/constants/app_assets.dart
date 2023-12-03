@@ -32,4 +32,5 @@ class AppAssets {
   static const String childavatar = 'assets/images/childavatar.png';
   static const String imagelook = 'assets/images/image.svg';
   static const String filelook = 'assets/images/file.svg';
+  static const String verified = 'assets/images/Vector-5.svg';
 }

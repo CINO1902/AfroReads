@@ -34,6 +34,24 @@ class AuthPro extends ChangeNotifier {
     status = returnvalue[0];
   }
 
+  Future<void> publishercreateaccount(
+      fullname, email, password, dateofbirth, securityquestion, answer) async {
+    //print(dateofbirth);
+    CreateAccountModel createAccount = CreateAccountModel(
+        fullname: fullname,
+        email: email,
+        password: password,
+        dateOfBirth: dateofbirth,
+        securityQuestion: securityquestion,
+        securityAns: answer);
+    loading = true;
+    returnvalue = await authReposity.publishercreateacount(createAccount);
+    loading = false;
+    msg = returnvalue[1];
+    status = returnvalue[0];
+    print(status);
+  }
+
   Future<void> login(email, password) async {
     loginerror = false;
     Loginmodel login = Loginmodel(

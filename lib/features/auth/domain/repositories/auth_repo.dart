@@ -10,6 +10,7 @@ abstract class AuthReposity {
   Future<List<String>> loginasparent(Loginmodel login);
   Future<List<String>> loginaspublisher(Loginmodel login);
   Future<List<List>> fetchparent();
+  Future<List<String>> publishercreateacount(CreateAccountModel createaccount);
 }
 
 class AuthRepositoryImp implements AuthReposity {
@@ -98,6 +99,29 @@ class AuthRepositoryImp implements AuthReposity {
         returnresponse.add('2');
       } else {
         returnresponse.add('3');
+      }
+      log(e.toString());
+    }
+    return returnresponse;
+  }
+
+  @override
+  Future<List<String>> publishercreateacount(
+      CreateAccountModel createaccount) async {
+    List<String> returnresponse = [];
+    try {
+      returnresponse =
+          await authDatasource.publishercreateacount(createaccount);
+    } catch (e) {
+      if (e.toString().contains('Request')) {
+        returnresponse.add('3');
+        returnresponse.add('Request TimedOut');
+      } else if (e.toString().contains('Unexpected')) {
+        returnresponse.add('4');
+        returnresponse.add('It seems you are not connected to the internet');
+      } else {
+        returnresponse.add('5');
+        returnresponse.add('Something went wrong');
       }
       log(e.toString());
     }

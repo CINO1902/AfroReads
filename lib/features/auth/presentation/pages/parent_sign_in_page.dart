@@ -245,10 +245,15 @@ class _ParentSignUpPageState extends State<ParentSignUpPage> {
                         "Don't have an account? ",
                         fontSize: 14,
                       ),
-                      TextSemiBold(
-                        "Create Account",
-                        fontSize: 14,
-                        color: AfroReadsColors.primaryColor,
+                      InkWell(
+                        onTap: () {
+                          Navigator.pushNamed(context, RouteName.signUpPage);
+                        },
+                        child: TextSemiBold(
+                          "Create Account",
+                          fontSize: 14,
+                          color: AfroReadsColors.primaryColor,
+                        ),
                       ),
                     ],
                   )

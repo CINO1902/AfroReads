@@ -63,7 +63,7 @@ class _PublisherSignInPageState extends State<PublisherSignInPage> {
                 const Gap(8),
                 InputField(
                   controller: _parentEmailController,
-                  placeholder: 'CINO',
+                  placeholder: 'caleboruta.co@gmail.com',
                 ),
                 const Gap(16),
                 TextBody('Password', color: AfroReadsColors.textColor),
@@ -118,10 +118,15 @@ class _PublisherSignInPageState extends State<PublisherSignInPage> {
                       "Don't have an account? ",
                       fontSize: 14,
                     ),
-                    TextSemiBold(
-                      "Create Account",
-                      fontSize: 14,
-                      color: AfroReadsColors.primaryColor,
+                    InkWell(
+                      onTap: () {
+                        Navigator.pushNamed(context, RouteName.publishersignup);
+                      },
+                      child: TextSemiBold(
+                        "Create Account",
+                        fontSize: 14,
+                        color: AfroReadsColors.primaryColor,
+                      ),
                     ),
                   ],
                 )

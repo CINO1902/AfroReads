@@ -161,4 +161,32 @@ class AuthDatasouceImp implements AuthDatasource {
 
     return returnvalue;
   }
+
+  @override
+  Future<List<String>> publishercreateacount(
+      CreateAccountModel createaccount) async {
+    print(createaccount.dateOfBirth);
+    String result = '';
+    String msg = '';
+    List<String> returnvalue = [];
+
+    final response = await httpService.request(
+        url: '/createpublisheraccount',
+        methodrequest: RequestMethod.post,
+        data: createAccountModelToJson(createaccount));
+
+    if (response.data['status'] == '1') {
+      result = response.data['status'];
+      msg = response.data['msg'];
+      returnvalue.add(result);
+      returnvalue.add(msg);
+    } else if (response.data['status'] == '2') {
+      result = response.data['status'];
+      msg = response.data['msg'];
+      returnvalue.add(result);
+      returnvalue.add(msg);
+    }
+
+    return returnvalue;
+  }
 }

@@ -1,3 +1,4 @@
+import 'package:afroreads/features/addbooks/presentation/provider/uploadimageprovider.dart';
 import 'package:afroreads/features/getbooks/presentation/provider/GetbooksPro.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -59,7 +60,6 @@ class _managebooksState extends State<managebooks> {
                       shrinkWrap: true,
                       itemCount: value.mybookdetails.length,
                       itemBuilder: (context, index) {
-                        print(value.mybookdetails.length);
                         return Container(
                           margin: EdgeInsets.only(
                               bottom: 10,
@@ -75,42 +75,68 @@ class _managebooksState extends State<managebooks> {
                                   Border(top: BorderSide(color: Colors.grey))),
                           child: Row(
                             children: [
-                              SizedBox(
-                                height: 70,
-                                width: 70,
-                                child: Align(
-                                  alignment: Alignment.center,
-                                  child: CachedNetworkImage(
-                                    fit: BoxFit.fill,
-                                    imageUrl:
-                                        value.mybookdetails[index].imageUrl,
-                                    width: 130,
-                                    height: 163,
-                                  ),
+                              Align(
+                                alignment: Alignment.center,
+                                child: CachedNetworkImage(
+                                  fit: BoxFit.fill,
+                                  imageUrl: value.mybookdetails[index].imageUrl,
+                                  imageBuilder: (context, imageProvider) {
+                                    return Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(7),
+                                        image: DecorationImage(
+                                            image: imageProvider,
+                                            fit: BoxFit.cover),
+                                      ),
+                                    );
+                                  },
+                                  width: 60,
+                                  height: 60,
                                 ),
                               ),
                               Gap(10),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                children: [
-                                  Text(
-                                    'Title: ${value.mybookdetails[index].bookTitle}',
-                                    style: TextStyle(
-                                        fontSize: 13,
-                                        color:
-                                            Theme.of(context).primaryColorDark),
-                                  ),
-                                  Text(
-                                    'By: ${value.mybookdetails[index].authorName}',
-                                    style: TextStyle(
-                                        fontSize: 13,
-                                        color:
-                                            Theme.of(context).primaryColorDark),
-                                  ),
-                                ],
+                              SizedBox(
+                                width: MediaQuery.of(context).size.width * 0.65,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: [
+                                    Text(
+                                      'Title: ${value.mybookdetails[index].bookTitle}',
+                                      style: TextStyle(
+                                          fontSize: 13,
+                                          color: Theme.of(context)
+                                              .primaryColorDark),
+                                    ),
+                                    Text(
+                                      'By: ${value.mybookdetails[index].authorName}',
+                                      style: TextStyle(
+                                          fontSize: 13,
+                                          color: Theme.of(context)
+                                              .primaryColorDark),
+                                    ),
+                                  ],
+                                ),
                               ),
+                              InkWell(
+                                  onTap: () {
+                                    context
+                                        .read<uploadimageprovider>()
+                                        .creditclickbook(
+                                            value.mybookdetails[index].imageUrl,
+                                            value
+                                                .mybookdetails[index].bookTitle,
+                                            value.mybookdetails[index].genre,
+                                            value.mybookdetails[index]
+                                                .pagnitedbookId,
+                                                value.mybookdetails[index].authorName,
+                                                  value.mybookdetails[index].link,
+                                                );
+                                    Navigator.pushNamed(
+                                        context, RouteName.bookcredit);
+                                  },
+                                  child: Icon(Icons.more))
                             ],
                           ),
                         );
@@ -137,6 +163,7 @@ class _managebooksState extends State<managebooks> {
                       ? Align(
                           alignment: Alignment.bottomCenter,
                           child: Container(
+                            margin: EdgeInsets.only(top: 30),
                             height: 70,
                             width: double.infinity,
                             decoration: BoxDecoration(

@@ -1,6 +1,5 @@
 import 'package:afroreads/features/getbooks/domain/entities/getbookpromodel.dart';
 import 'package:afroreads/features/getbooks/domain/repositories/getbook_repo.dart';
-import 'package:afroreads/features/getuserdetails/presentation/provider/UserDetails.dart';
 import 'package:flutter/material.dart';
 
 class GetbookPro extends ChangeNotifier {
