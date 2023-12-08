@@ -21,4 +21,6 @@ class RouteName {
   static const String managebooks = '/managebooks';
   static const String publishersignup = '/publishersignup';
   static const String bookcredit = '/bookcredit';
+  static const String viewincomepage = '/viewincomepage';
+  static const String debitCardScreen = '/debit_card_screen';
 }

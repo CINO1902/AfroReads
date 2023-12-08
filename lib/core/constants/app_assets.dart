@@ -33,4 +33,7 @@ class AppAssets {
   static const String imagelook = 'assets/images/image.svg';
   static const String filelook = 'assets/images/file.svg';
   static const String verified = 'assets/images/Vector-5.svg';
+  static const String bankIcon = 'assets/icons/bankIcon.svg';
+  static const String cardIcon = 'assets/icons/cardIcon.svg';
+  static const String walletIcon = 'assets/icons/walletIcon.svg';
 }
