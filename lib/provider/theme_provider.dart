@@ -1,5 +1,6 @@
 import 'package:afroreads/core/constants/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 enum ThemeModeType { light, dark, system }
@@ -40,16 +41,53 @@ class ThemeProvider with ChangeNotifier {
   ThemeData get themeData {
     switch (_themeModeType) {
       case ThemeModeType.light:
-        return ThemeData.light().copyWith(
-            primaryColor: AfroReadsColors.background,
-            primaryColorDark: AfroReadsColors.darkBackground,
-            hintColor: AfroReadsColors.white);
+        return ThemeData(
+            scaffoldBackgroundColor: Colors.white,
+            primaryColor: AfroReadsColors.primaryColor,
+            iconTheme: const IconThemeData(
+              color: AfroReadsColors.primaryColor,
+            ),
+            textSelectionTheme: const TextSelectionThemeData(
+              cursorColor: AfroReadsColors.primaryColor,
+              selectionColor: AfroReadsColors.primaryColor,
+            ),
+            primaryColorLight: Colors.white,
+            appBarTheme: const AppBarTheme(
+                backgroundColor: Colors.white,
+                systemOverlayStyle: SystemUiOverlayStyle(
+                  statusBarBrightness: Brightness.light,
+                )),
+            primaryColorDark: Colors.black,
+            colorScheme: const ColorScheme.light(
+              onBackground: Color.fromARGB(255, 114, 114, 114),
+              onInverseSurface: Color.fromARGB(255, 224, 224, 224),
+              onTertiary: Color.fromARGB(255, 255, 255, 255),
+              primaryContainer: Colors.white,
+            ));
       case ThemeModeType.dark:
-        return ThemeData.dark().copyWith(
-          primaryColor: AfroReadsColors.semidarkBackground,
-          primaryColorDark: AfroReadsColors.background,
-          hintColor: AfroReadsColors.semidarkBackground,
-        );
+        return ThemeData(
+            scaffoldBackgroundColor: Color.fromARGB(255, 34, 34, 34),
+            primaryColor: AfroReadsColors.primaryColor,
+            primaryColorLight: Colors.black,
+            textSelectionTheme: const TextSelectionThemeData(
+              cursorColor: AfroReadsColors.primaryColor,
+              selectionColor: AfroReadsColors.primaryColor,
+            ),
+            iconTheme: const IconThemeData(
+              color: AfroReadsColors.primaryColor,
+            ),
+            appBarTheme: const AppBarTheme(
+                backgroundColor: Colors.black,
+                systemOverlayStyle: SystemUiOverlayStyle(
+                    statusBarBrightness: Brightness.dark,
+                    systemNavigationBarColor: Colors.black)),
+            primaryColorDark: Colors.white,
+            colorScheme: const ColorScheme.dark(
+              onBackground: Color.fromARGB(255, 229, 229, 229),
+              onTertiary: Color.fromARGB(255, 231, 231, 231),
+              onInverseSurface: Color.fromARGB(255, 199, 199, 199),
+              primaryContainer: Color.fromARGB(255, 28, 28, 28),
+            ));
       case ThemeModeType.system:
         return ThemeData.light();
     }

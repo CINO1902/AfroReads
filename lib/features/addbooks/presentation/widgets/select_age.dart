@@ -100,14 +100,16 @@ class _SelectAgeModalState extends State<SelectAgeModal> {
                 ),
               ),
               const Gap(30),
-              BusyButton(
-                  title: "Done",
-                  onTap: () {
-                    context
-                        .read<uploadimageprovider>()
-                        .collectbookage(selectedValue);
-                    Navigator.of(context).pop();
-                  })
+              SafeArea(
+                child: BusyButton(
+                    title: "Done",
+                    onTap: () {
+                      context
+                          .read<uploadimageprovider>()
+                          .collectbookage(selectedValue);
+                      Navigator.of(context).pop();
+                    }),
+              )
             ],
           ),
         ),

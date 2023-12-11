@@ -11,6 +11,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:provider/provider.dart';
+import 'package:text_scroll/text_scroll.dart';
 
 import '../../../search/presentation/Provider/SearchPro.dart';
 
@@ -120,6 +121,21 @@ class _LibraryState extends State<Library> {
                                 crossAxisSpacing: 10,
                                 mainAxisSpacing: 20),
                         itemBuilder: (context, index) {
+                          var span = TextSpan(
+                            text: value.bookdetailslibrary[index].bookTitle,
+                          );
+                          var tp = TextPainter(
+                            maxLines: 1,
+                            textAlign: TextAlign.left,
+                            textDirection: TextDirection.ltr,
+                            text: span,
+                          );
+
+                          // trigger it to layout
+                          tp.layout(maxWidth: 100);
+
+                          // whether the text overflowed or not
+                          var exceeded = tp.didExceedMaxLines;
                           return InkWell(
                             onTap: () {
                               context.read<GetbookPro>().getclickedbook(
@@ -133,7 +149,7 @@ class _LibraryState extends State<Library> {
                                     value.bookdetailslibrary[index].imageUrl,
                                     value.bookdetailslibrary[index].preview,
                                     value.bookdetailslibrary[index].suitableAge,
-                                     value.bookdetailslibrary[index].genre,
+                                    value.bookdetailslibrary[index].genre,
                                   );
                               Navigator.pushNamed(
                                   context, RouteName.bookdetails);
@@ -171,18 +187,51 @@ class _LibraryState extends State<Library> {
                                         ),
                                       ),
                                       const Gap(5),
-                                      Text(
-                                        value.bookdetailslibrary[index]
-                                            .bookTitle,
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                            fontSize: 13,
-                                            fontWeight: FontWeight.bold),
-                                      ),
+                                      exceeded
+                                          ? SizedBox(
+                                              width: 90,
+                                              child: Align(
+                                                  alignment:
+                                                      Alignment.centerLeft,
+                                                  child: TextScroll(
+                                                    value.bookdetailslibrary[index]
+                                                        .bookTitle,
+                                                    mode:
+                                                        TextScrollMode.bouncing,
+                                                    velocity: Velocity(
+                                                        pixelsPerSecond:
+                                                            Offset(10, 0)),
+                                                    delayBefore: Duration(
+                                                        milliseconds: 200),
+                                                    numberOfReps: 30,
+                                                    pauseBetween: Duration(
+                                                        milliseconds: 50),
+                                                    style: TextStyle(
+                                                        color: Theme.of(context)
+                                                            .primaryColorDark,
+                                                        fontSize: 13,
+                                                        fontWeight:
+                                                            FontWeight.w500),
+                                                    textAlign: TextAlign.right,
+                                                    selectable: true,
+                                                  )),
+                                            )
+                                          : FittedBox(
+                                              child: Text(
+                                                value.bookdetailslibrary[index]
+                                                    .bookTitle,
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                    fontSize: 13,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
+                                            ),
                                       const Gap(5),
                                       Text(
                                         value.bookdetailslibrary[index]
                                             .authorName,
+                                        textAlign: TextAlign.center,
                                         style: TextStyle(fontSize: 10),
                                       ),
                                     ],

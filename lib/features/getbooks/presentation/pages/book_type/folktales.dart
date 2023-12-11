@@ -238,14 +238,15 @@ class _FolktalesState extends State<Folktales> {
                                             value.bookdetails[index].bookTitle,
                                             mode: TextScrollMode.bouncing,
                                             velocity: Velocity(
-                                                pixelsPerSecond: Offset(15, 0)),
+                                                pixelsPerSecond: Offset(10, 0)),
                                             delayBefore:
-                                                Duration(milliseconds: 300),
+                                                Duration(milliseconds: 200),
                                             numberOfReps: 30,
                                             pauseBetween:
                                                 Duration(milliseconds: 50),
                                             style: TextStyle(
-                                                color: Colors.black,
+                                                color: Theme.of(context)
+                                                    .primaryColorDark,
                                                 fontSize: 13,
                                                 fontWeight: FontWeight.w500),
                                             textAlign: TextAlign.right,

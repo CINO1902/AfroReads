@@ -23,6 +23,7 @@ import '../../features/search/data/repositories/search_repo.dart';
 import 'dio_service.dart';
 import 'http_service.dart';
 
+
 GetIt locator = GetIt.instance;
 
 void setup() {
