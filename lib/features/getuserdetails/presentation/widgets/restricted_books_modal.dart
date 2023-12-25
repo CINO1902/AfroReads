@@ -46,7 +46,7 @@ class _RestrictedBooksModalState extends State<RestrictedBooksModal> {
         height: MediaQuery.of(context).size.height * 0.6,
         width: double.infinity,
         decoration: BoxDecoration(
-          color: widget.themeProvider.themeData.primaryColor,
+          color: widget.themeProvider.themeData.colorScheme.primaryContainer,
           borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(20),
             topRight: Radius.circular(20),

@@ -27,11 +27,31 @@ class createbook extends StatefulWidget {
 
 class _createbookState extends State<createbook> {
   List items = ['Fiction', 'Non-Fiction', 'History', 'Folktales', 'Lifestyle'];
+  List age = ['Below age 8', 'Age 9-13', 'Age 14 -16'];
   final TextEditingController booktitlecontroller = TextEditingController();
   final TextEditingController authorcontroller = TextEditingController();
   final TextEditingController descriptioncontroller = TextEditingController();
   final TextEditingController addedbycontroller = TextEditingController();
+  List selecteditems = [];
+  String selectedGenre = '';
   int? selectedValue;
+  late StateSetter _setState;
+  late StateSetter _setState1;
+  void updateSelectedOptions(String option, bool selected) {
+    if (selected) {
+      selecteditems.add(option);
+      for (var i = 0; i < selecteditems.length; i++) {
+        selectedGenre = selectedGenre + ',' + selecteditems[i];
+      }
+      print(selecteditems);
+    } else {
+      List<String> words = selectedGenre.split(',');
+      words.removeWhere((word) => word == option);
+      selectedGenre = words.join(',');
+      selecteditems.remove(option);
+      print(selecteditems);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -154,63 +174,105 @@ class _createbookState extends State<createbook> {
           InkWell(
             onTap: () {
               showModalBottomSheet(
-                  isDismissible: false,
-                  context: context,
-                  backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-                  builder: (context) => Container(
-                        height: MediaQuery.of(context).size.height * 0.5,
-                        child: Column(
-                          children: [
-                            Container(
-                              padding: EdgeInsets.all(20),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    'Select Genre',
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 18),
-                                  ),
-                                  InkWell(
-                                      onTap: () {
-                                        Navigator.pop(context);
-                                      },
-                                      child: Icon(Icons.cancel))
-                                ],
-                              ),
-                            ),
-                            Expanded(
-                              child: ListView.builder(
-                                  itemCount: items.length,
-                                  shrinkWrap: true,
-                                  itemBuilder:
-                                      (BuildContext context, int index) {
-                                    return InkWell(
-                                      onTap: () {
-                                        context
-                                            .read<uploadimageprovider>()
-                                            .showindex(index);
-                                      },
-                                      child: picknetwork(context, index),
-                                    );
-                                  }),
-                            ),
-                            SafeArea(
-                              child: SizedBox(
-                                width: 150,
-                                height: 40,
-                                child: BusyButton(
-                                    title: 'Done',
-                                    onTap: () {
-                                      Navigator.pop(context);
-                                    }),
-                              ),
-                            )
-                          ],
+                isDismissible: false,
+                context: context,
+                backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+                builder: (context) {
+                  return StatefulBuilder(
+                      builder: (context, StateSetter setstate) {
+                    _setState1 = setstate;
+                    return SingleChildScrollView(
+                      child: Container(
+                        height: MediaQuery.of(context).size.height * 0.40,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          color: Theme.of(context).colorScheme.primaryContainer,
+                          borderRadius: const BorderRadius.only(
+                            topLeft: Radius.circular(20),
+                            topRight: Radius.circular(20),
+                          ),
                         ),
-                      ));
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 20),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              const Text(
+                                "Select genres",
+                                style: TextStyle(
+                                  fontSize: 18.0,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              const Gap(20),
+                              SizedBox(
+                                height:
+                                    MediaQuery.of(context).size.height * 0.20,
+                                child: ListView(
+                                  //  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    CheckboxListTile(
+                                      activeColor: AfroReadsColors.primaryColor,
+                                      title: const Text('Violent'),
+                                      value: selecteditems.contains('Violent'),
+                                      onChanged: (value) {
+                                        setState(() {
+                                          updateSelectedOptions(
+                                              'Violent', value!);
+                                        });
+                                        _setState1(
+                                          () {},
+                                        );
+                                      },
+                                    ),
+                                    const Divider(),
+                                    CheckboxListTile(
+                                      activeColor: AfroReadsColors.primaryColor,
+                                      title: const Text('Horror'),
+                                      value: selecteditems.contains('Horror'),
+                                      onChanged: (value) {
+                                        setState(() {
+                                          updateSelectedOptions(
+                                              'Horror', value!);
+                                        });
+                                        _setState1(
+                                          () {},
+                                        );
+                                      },
+                                    ),
+                                    const Divider(),
+                                    CheckboxListTile(
+                                      activeColor: AfroReadsColors.primaryColor,
+                                      title: const Text('Sexual'),
+                                      value: selecteditems.contains('Sexual'),
+                                      onChanged: (value) {
+                                        setState(() {
+                                          updateSelectedOptions(
+                                              'Sexual', value!);
+                                        });
+                                        _setState1(
+                                          () {},
+                                        );
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              const Gap(30),
+                              BusyButton(
+                                  title: "Done",
+                                  onTap: () async {
+                                    Navigator.of(context).pop();
+                                  })
+                            ],
+                          ),
+                        ),
+                      ),
+                    );
+                  });
+                },
+              );
             },
             child: Container(
                 height: 60,
@@ -244,108 +306,115 @@ class _createbookState extends State<createbook> {
                   ),
                   context: context,
                   builder: (context) {
-                    return SingleChildScrollView(
-                      child: Container(
-                        height: MediaQuery.of(context).size.height * 0.45,
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                          borderRadius: const BorderRadius.only(
-                            topLeft: Radius.circular(20),
-                            topRight: Radius.circular(20),
+                    return StatefulBuilder(
+                        builder: (context, StateSetter setstate) {
+                      _setState = setstate;
+                      return SingleChildScrollView(
+                        child: Container(
+                          height: MediaQuery.of(context).size.height * 0.45,
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                            borderRadius: const BorderRadius.only(
+                              topLeft: Radius.circular(20),
+                              topRight: Radius.circular(20),
+                            ),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 20, vertical: 20),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                const Text(
+                                  "Select Appropraite age For this book",
+                                  style: TextStyle(
+                                    fontSize: 18.0,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                const Gap(20),
+                                SizedBox(
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.21,
+                                  child: ListView(
+                                    //  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          const Text("Below age 8"),
+                                          Radio(
+                                              activeColor:
+                                                  AfroReadsColors.primaryColor,
+                                              value: 1,
+                                              groupValue: selectedValue,
+                                              onChanged: (value) {
+                                                setState(() {
+                                                  selectedValue = value;
+                                                });
+                                                _setState(() {});
+                                              }),
+                                        ],
+                                      ),
+                                      const Divider(),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          const Text("Age  9 - 13"),
+                                          Radio(
+                                              activeColor:
+                                                  AfroReadsColors.primaryColor,
+                                              value: 2,
+                                              groupValue: selectedValue,
+                                              onChanged: (value) {
+                                                setState(() {
+                                                  selectedValue = value;
+                                                });
+                                                _setState(() {});
+                                              }),
+                                        ],
+                                      ),
+                                      const Divider(),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          const Text("Age 13 - 16"),
+                                          Radio(
+                                              activeColor:
+                                                  AfroReadsColors.primaryColor,
+                                              value: 3,
+                                              groupValue: selectedValue,
+                                              onChanged: (value) {
+                                                setState(() {
+                                                  selectedValue = value;
+                                                });
+                                                _setState(() {});
+                                              }),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                const Gap(30),
+                                SafeArea(
+                                  child: BusyButton(
+                                      title: "Done",
+                                      onTap: () {
+                                        context
+                                            .read<uploadimageprovider>()
+                                            .collectbookage(selectedValue);
+                                        Navigator.of(context).pop();
+                                      }),
+                                )
+                              ],
+                            ),
                           ),
                         ),
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 20, vertical: 20),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              const Text(
-                                "Select Appropraite age For this book",
-                                style: TextStyle(
-                                  fontSize: 18.0,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              const Gap(20),
-                              SizedBox(
-                                height:
-                                    MediaQuery.of(context).size.height * 0.21,
-                                child: ListView(
-                                  //  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        const Text("Below age 8"),
-                                        Radio(
-                                            activeColor:
-                                                AfroReadsColors.primaryColor,
-                                            value: 1,
-                                            groupValue: selectedValue,
-                                            onChanged: (value) {
-                                              setState(() {
-                                                selectedValue = value;
-                                              });
-                                            }),
-                                      ],
-                                    ),
-                                    const Divider(),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        const Text("Age  9 - 13"),
-                                        Radio(
-                                            activeColor:
-                                                AfroReadsColors.primaryColor,
-                                            value: 2,
-                                            groupValue: selectedValue,
-                                            onChanged: (value) {
-                                              setState(() {
-                                                selectedValue = value;
-                                              });
-                                            }),
-                                      ],
-                                    ),
-                                    const Divider(),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        const Text("Age 13 - 16"),
-                                        Radio(
-                                            activeColor:
-                                                AfroReadsColors.primaryColor,
-                                            value: 3,
-                                            groupValue: selectedValue,
-                                            onChanged: (value) {
-                                              setState(() {
-                                                selectedValue = value;
-                                              });
-                                            }),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              const Gap(30),
-                              SafeArea(
-                                child: BusyButton(
-                                    title: "Done",
-                                    onTap: () {
-                                      context
-                                          .read<uploadimageprovider>()
-                                          .collectbookage(selectedValue);
-                                      Navigator.of(context).pop();
-                                    }),
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                    );
+                      );
+                    });
                   });
             },
             child: Container(
@@ -358,7 +427,7 @@ class _createbookState extends State<createbook> {
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: Text(
-                      items[context.watch<uploadimageprovider>().group],
+                      context.watch<uploadimageprovider>().bookage,
                       style: TextStyle(
                         fontSize: 15,
                       ),
@@ -384,7 +453,6 @@ class _createbookState extends State<createbook> {
                           image: uploadprovider.image!,
                         );
                       });
-              ;
             },
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
@@ -399,28 +467,28 @@ class _createbookState extends State<createbook> {
           ),
           Gap(30),
           InkWell(
-            onTap: () {
-              uploadprovider.book == null
-                  ? uploadprovider.pickfile()
-                  : Navigator.push(context, MaterialPageRoute(
-                      builder: (context) {
-                        return ViewBook(path: uploadprovider.book!);
-                      },
-                    ));
-              if (uploadprovider.errorbook == true) {
-                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                  content: CustomeSnackbar(
-                    topic: 'Oh Snap!',
-                    msg: uploadprovider.es,
-                    color1: Color.fromARGB(255, 171, 51, 42),
-                    color2: Color.fromARGB(255, 127, 39, 33),
-                  ),
-                  behavior: SnackBarBehavior.floating,
-                  backgroundColor: Colors.transparent,
-                  elevation: 0,
-                ));
-              }
-            },
+            // onTap: () {
+            //   uploadprovider.book == null
+            //       ? uploadprovider.pickfile()
+            //       : Navigator.push(context, MaterialPageRoute(
+            //           builder: (context) {
+            //             return ViewBook(path: uploadprovider.book!);
+            //           },
+            //         ));
+            //   if (uploadprovider.errorbook == true) {
+            //     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            //       content: CustomeSnackbar(
+            //         topic: 'Oh Snap!',
+            //         msg: uploadprovider.es,
+            //         color1: Color.fromARGB(255, 171, 51, 42),
+            //         color2: Color.fromARGB(255, 127, 39, 33),
+            //       ),
+            //       behavior: SnackBarBehavior.floating,
+            //       backgroundColor: Colors.transparent,
+            //       elevation: 0,
+            //     ));
+            //   }
+            // },
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
               child: UseCaseUpload(
@@ -462,7 +530,7 @@ class _createbookState extends State<createbook> {
                         booktitlecontroller.text,
                         authorcontroller.text,
                         descriptioncontroller.text,
-                        items[value.group],
+                        selecteditems,
                         addedbycontroller.text);
                     Navigator.pop(context);
                     if (value.uploaderror == true) {
@@ -579,7 +647,8 @@ class UseCaseUpload extends StatelessWidget {
             ),
             Text(
               title,
-              style: TextStyle(fontWeight: FontWeight.bold),
+              style:
+                  TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
             ),
             file == null
                 ? SizedBox()

@@ -33,7 +33,7 @@ class _HelpSupportModalState extends State<HelpSupportModal> {
         height: 500,
         width: double.infinity,
         decoration: BoxDecoration(
-          color: themeProvider.themeData.primaryColor,
+          color: Theme.of(context).colorScheme.primaryContainer,
           borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(20),
             topRight: Radius.circular(20),
@@ -123,6 +123,7 @@ class _HelpSupportModalState extends State<HelpSupportModal> {
       ),
     );
   }
+
   verifyCode() {
     Future.delayed(
         const Duration(

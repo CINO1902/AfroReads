@@ -139,7 +139,8 @@ class _LibraryState extends State<Library> {
                           return InkWell(
                             onTap: () {
                               context.read<GetbookPro>().getclickedbook(
-                                    value.bookdetailslibrary[index].id,
+                                    value.bookdetailslibrary[index]
+                                        .pagnitedbookId,
                                     value.bookdetailslibrary[index].bookTitle,
                                     value.bookdetailslibrary[index].authorName,
                                     value.bookdetailslibrary[index].review,
@@ -194,7 +195,9 @@ class _LibraryState extends State<Library> {
                                                   alignment:
                                                       Alignment.centerLeft,
                                                   child: TextScroll(
-                                                    value.bookdetailslibrary[index]
+                                                    value
+                                                        .bookdetailslibrary[
+                                                            index]
                                                         .bookTitle,
                                                     mode:
                                                         TextScrollMode.bouncing,

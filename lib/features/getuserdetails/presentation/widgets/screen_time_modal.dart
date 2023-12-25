@@ -23,7 +23,7 @@ class ScreenTimeModal extends StatelessWidget {
         height: MediaQuery.of(context).size.height * 0.42,
         width: double.infinity,
         decoration: BoxDecoration(
-          color: themeProvider.themeData.primaryColor,
+          color: themeProvider.themeData.colorScheme.primaryContainer,
           borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(20),
             topRight: Radius.circular(20),

@@ -38,6 +38,8 @@ class _PdfScreenState extends State<PdfScreen> {
 
       //  epubCfi: 'epubcfi(/6/0[pgepubid00000]!/4/6[pgepubid00000])',
     );
+
+    checkexist();
   }
 
   Future<Epubview.EpubBook> document() async {
@@ -50,7 +52,30 @@ class _PdfScreenState extends State<PdfScreen> {
   @override
   void dispose() {
     _epubController.dispose();
+
     super.dispose();
+  }
+
+  @override
+  void deactivate() {
+    // TODO: implement deactivate
+    super.deactivate();
+    context.read<GetbookPro>().GetReadBook();
+  }
+
+  void checkexist() async {
+    final pref = await SharedPreferences.getInstance();
+    // pref.remove('progress');
+    final saveprogress = pref.getStringList('progress');
+    final progress = saveprogress ?? [];
+
+    final getbooksdetails = Provider.of<GetbookPro>(context, listen: false);
+    final bookexit = getbooksdetails.clickedbooks[0];
+    print(bookexit);
+    print(progress);
+    if (progress.contains(bookexit)) {
+      print(true);
+    }
   }
 
   String selectedOption = 'Match Device';
@@ -68,6 +93,7 @@ class _PdfScreenState extends State<PdfScreen> {
   bool boldwords = false;
   @override
   Widget build(BuildContext context) {
+    final getbooksdetails = Provider.of<GetbookPro>(context);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AfroReadsColors.grey,
@@ -503,10 +529,15 @@ class _PdfScreenState extends State<PdfScreen> {
               List e = _epubController.tableOfContentsListenable.value.where(
                 (element) {
                   return element.title == 'Chapter One' ||
-                      element.title == 'CHAPTER ONE';
+                      element.title == 'CHAPTER ONE' ||
+                      element.title!.contains('Chapter');
                 },
               ).toList();
-              print(e[0].startIndex);
+              context.read<GetbookPro>().savebookprogress(
+                  getbooksdetails.clickedbooks[0],
+                  _epubController.generateEpubCfi());
+
+              // print(e[0].startIndex);
               Future.delayed(Duration(milliseconds: 100), () {
                 _epubController.scrollTo(index: e[0].startIndex);
               });
@@ -515,6 +546,10 @@ class _PdfScreenState extends State<PdfScreen> {
             onChapterChanged: (value) async {
               setState(() {
                 pagenumber = value?.progress.ceil() ?? 0;
+
+                context.read<GetbookPro>().savebookprogress(
+                    getbooksdetails.clickedbooks[0],
+                    _epubController.generateEpubCfi());
               });
 
               // print(_epubController.generateEpubCfi());

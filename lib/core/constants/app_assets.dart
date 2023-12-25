@@ -37,4 +37,8 @@ class AppAssets {
   static const String darktheme = 'assets/images/darktheme.svg';
   static const String lighttheme = 'assets/images/lighttheme.svg';
   static const String tick = 'assets/images/tick.svg';
+  static const String bankIcon = 'assets/icons/bankIcon.svg';
+  static const String cardIcon = 'assets/icons/cardIcon.svg';
+  static const String walletIcon = 'assets/icons/walletIcon.svg';
+  static const String more = 'assets/images/more.svg';
 }

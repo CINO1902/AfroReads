@@ -96,7 +96,7 @@ class myContainer extends StatelessWidget {
       decoration: BoxDecoration(
         border: Border.all(color: Colors.grey.withOpacity(.3)),
         borderRadius: BorderRadius.circular(10),
-        color: themeProvider.themeData.primaryColor,
+        color: Theme.of(context).colorScheme.primaryContainer,
       ),
       height: 110,
       width: MediaQuery.of(context).size.width * 0.9,

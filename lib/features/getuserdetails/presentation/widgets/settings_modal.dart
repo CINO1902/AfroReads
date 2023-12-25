@@ -17,7 +17,7 @@ class SettingsModal extends StatelessWidget {
       height: 200,
       width: double.infinity,
       decoration: BoxDecoration(
-        color: themeProvider.themeData.primaryColor,
+        color: themeProvider.themeData.colorScheme.primaryContainer,
         borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(8),
           topRight: Radius.circular(8),

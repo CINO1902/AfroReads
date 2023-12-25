@@ -92,7 +92,7 @@ class MySearchDelegate extends SearchDelegate {
                                 return InkWell(
                                   onTap: () {
                                     context.read<GetbookPro>().getclickedbook(
-                                          snapshot.data![index].id,
+                                          snapshot.data![index].pagnitedbookId,
                                           snapshot.data![index].bookTitle,
                                           snapshot.data![index].authorName,
                                           snapshot.data![index].review,

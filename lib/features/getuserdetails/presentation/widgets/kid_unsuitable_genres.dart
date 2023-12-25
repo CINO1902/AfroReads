@@ -9,7 +9,7 @@ import 'package:provider/provider.dart';
 
 import '../../../../app/view/widget/app_loading_dialog.dart';
 import '../provider/UserDetails.dart';
-import 'package:group_button/group_button.dart';
+
 
 class KidUnsuitableGenresModal extends StatefulWidget {
   final ThemeProvider themeProvider;
@@ -45,7 +45,7 @@ class _KidUnsuitableGenresModalState extends State<KidUnsuitableGenresModal> {
         height: MediaQuery.of(context).size.height * 0.40,
         width: double.infinity,
         decoration: BoxDecoration(
-          color: widget.themeProvider.themeData.primaryColor,
+          color: widget.themeProvider.themeData.colorScheme.primaryContainer,
           borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(20),
             topRight: Radius.circular(20),

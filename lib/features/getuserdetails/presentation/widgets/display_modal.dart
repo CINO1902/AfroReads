@@ -12,13 +12,13 @@ class DisplayModal extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-        final themeProvider = Provider.of<ThemeProvider>(context);
+    final themeProvider = Provider.of<ThemeProvider>(context);
     return SingleChildScrollView(
       child: Container(
         height: MediaQuery.of(context).size.height * 0.4,
         width: double.infinity,
-        decoration:  BoxDecoration(
-          color: themeProvider.themeData.primaryColor,
+        decoration: BoxDecoration(
+          color: themeProvider.themeData.colorScheme.primaryContainer,
           borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(20),
             topRight: Radius.circular(20),

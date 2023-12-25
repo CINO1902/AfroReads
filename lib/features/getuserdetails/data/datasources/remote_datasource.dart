@@ -125,6 +125,7 @@ class UserDatasourceimp implements UserDataSource {
       url: '/fetchpublisheraccount',
       methodrequest: RequestMethod.post,
     );
+    print(response);
     if (response.data['status'] == '1') {
       final errorvalue = ['1'];
       List value = [];

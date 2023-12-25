@@ -2,6 +2,7 @@ import 'package:afroreads/app/styles/fonts.dart';
 import 'package:afroreads/core/constants/app_assets.dart';
 import 'package:afroreads/core/constants/app_colors.dart';
 import 'package:afroreads/features/getuserdetails/presentation/provider/UserDetails.dart';
+import 'package:afroreads/features/getuserdetails/presentation/widgets/childpasswordModal.dart';
 import 'package:afroreads/features/getuserdetails/presentation/widgets/restricted_books_modal.dart';
 import 'package:afroreads/features/getuserdetails/presentation/widgets/screen_time_modal.dart';
 import 'package:afroreads/provider/theme_provider.dart';
@@ -81,6 +82,29 @@ class _ManageKidProfileDetaisState extends State<ManageKidProfileDetais> {
               fontSize: 14,
             ),
             const Gap(35),
+            Divider(color: Colors.grey.withOpacity(0.3)),
+            myAccountContainer(
+                context: context,
+                text: "Account Details",
+                textt: "Get Details on the child activity",
+                image: AppAssets.about,
+                onTap: () {
+                  showModalBottomSheet(
+                      shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(8),
+                          topRight: Radius.circular(8),
+                        ),
+                      ),
+                      context: context,
+                      builder: (context) {
+                        return ChildPassword(
+                          themeProvider: themeProvider,
+                        );
+                      });
+                }),
+            Divider(color: Colors.grey.withOpacity(0.3)),
+            const Gap(5),
             myAccountContainer(
                 context: context,
                 text: "Category List",

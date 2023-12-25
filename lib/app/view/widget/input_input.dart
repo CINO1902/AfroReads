@@ -75,14 +75,13 @@ class _InputFieldState extends State<InputField> {
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
 
-
     return Container(
       height: widget.fieldHeight,
       alignment: Alignment.centerLeft,
       padding: const EdgeInsets.symmetric(horizontal: 10),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8),
-        color: widget.fieldColor,
+        color: Theme.of(context).colorScheme.primaryContainer,
         border: Border.all(
           color: widget.validationColor.withOpacity(0.2),
         ),
@@ -101,12 +100,9 @@ class _InputFieldState extends State<InputField> {
               onTap: widget.ontap,
               style: TextStyle(
                   fontSize: 14,
-                  // fontFamily: IklinFont.euclid,
-                  // color: AfroReadsColors.grey,
-                  color: themeProvider.themeData.primaryColorDark,
-                  fontWeight: FontWeight.w400
-                  ),
-            
+                  color: Colors.black,
+                  fontWeight: FontWeight.w400),
+
               onEditingComplete: () {
                 if (widget.enterPressed != null) {
                   FocusScope.of(context).requestFocus(FocusNode());
@@ -127,11 +123,11 @@ class _InputFieldState extends State<InputField> {
                 // contentPadding: EdgeInsets.only(top: 10),
                 hintText: widget.placeholder,
                 border: InputBorder.none,
-            
-                hintStyle: const TextStyle(
+
+                hintStyle: TextStyle(
                   fontSize: 14,
                   // fontFamily: IklinFont.euclid,
-                  color: AfroReadsColors.grey,
+                  color: Theme.of(context).primaryColorDark,
                   fontWeight: FontWeight.w400,
                 ),
                 // suffix:

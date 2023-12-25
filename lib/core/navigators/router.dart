@@ -10,13 +10,17 @@ import 'package:afroreads/features/auth/presentation/pages/publisher.dart';
 import 'package:afroreads/features/auth/presentation/pages/publisher_sign_up.dart';
 import 'package:afroreads/features/auth/presentation/pages/sign_up_verification_page.dart';
 import 'package:afroreads/features/getbooks/presentation/pages/bookdetails.dart';
+import 'package:afroreads/features/getbooks/presentation/pages/continueReading.dart';
 import 'package:afroreads/features/getbooks/presentation/pages/home.dart';
 import 'package:afroreads/features/getbooks/presentation/pages/index.dart';
 import 'package:afroreads/features/getbooks/presentation/pages/pdfscreen.dart';
 import 'package:afroreads/features/getuserdetails/presentation/pages/createkidprofile.dart';
+import 'package:afroreads/features/getuserdetails/presentation/pages/dabit_screen.dart';
 import 'package:afroreads/features/getuserdetails/presentation/pages/kidprofilesetting.dart';
 import 'package:afroreads/features/getuserdetails/presentation/pages/manage_kid_profile_details.dart';
 import 'package:afroreads/features/getuserdetails/presentation/pages/managekidprofile.dart';
+import 'package:afroreads/features/getuserdetails/presentation/pages/view_income_page.dart';
+import 'package:afroreads/features/getuserdetails/presentation/widgets/debit_card_modal.dart';
 import 'package:afroreads/features/onboarding/pages/onboarding_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:afroreads/features/auth/presentation/pages/sign_up_page.dart';
@@ -130,6 +134,22 @@ Route<dynamic> generateRoute(RouteSettings settings) {
         routeName: settings.name,
         viewToShow: const BookCredit(),
       );
+    case RouteName.viewincomepage:
+      return _getPageRoute(
+        routeName: settings.name,
+        viewToShow: const ViewIncomePage(),
+      );
+    case RouteName.debitCardScreen:
+      return _getPageRoute(
+        routeName: settings.name,
+        viewToShow: const DebitCardScreen(),
+      );
+    case RouteName.continueReading:
+      return _getPageRoute(
+        routeName: settings.name,
+        viewToShow: const ContinueReading(),
+      );
+
     default:
       return MaterialPageRoute<void>(
         builder: (_) => Scaffold(

@@ -88,7 +88,7 @@ class uploadimageprovider extends ChangeNotifier {
   }
 
   Future<void> sendrequest(
-      booktitle, author, description, genre, addedby) async {
+      booktitle, author, description, List genre, addedby) async {
     loading = true;
     notifyListeners();
     uploadingimage = true;
@@ -96,8 +96,15 @@ class uploadimageprovider extends ChangeNotifier {
 
     await uploadbook();
     uploadingbook = false;
-    notifyListeners();
 
+    String liststring = '';
+    if (genre.isNotEmpty) {
+      for (var i = 0; i < genre.length; i++) {
+        liststring = liststring + ',' + genre[i];
+      }
+      liststring = liststring.substring(1);
+    }
+    notifyListeners();
     Uploadbook uploadbooks = Uploadbook(
         bookTitle: booktitle,
         authorName: author,
@@ -106,7 +113,7 @@ class uploadimageprovider extends ChangeNotifier {
         bookage: bookage,
         addedBy: addedby,
         imageUrl: imageurl,
-        genre: genre);
+        genre: liststring);
 
     final response = await uploadBookRepo.uploadbook(uploadbooks);
     if (response[0] == '1') {
@@ -158,7 +165,6 @@ class uploadimageprovider extends ChangeNotifier {
     CreditClickedBook.add(author);
     CreditClickedBook.add(link);
 
-
     print(genre);
   }
 
@@ -170,6 +176,7 @@ class uploadimageprovider extends ChangeNotifier {
     } else if (book == 3) {
       bookage = '14-16';
     }
+    print(bookage);
     notifyListeners();
   }
 

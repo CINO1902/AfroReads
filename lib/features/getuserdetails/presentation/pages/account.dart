@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:afroreads/app/styles/fonts.dart';
 import 'package:afroreads/core/constants/app_assets.dart';
 import 'package:afroreads/core/constants/app_colors.dart';
@@ -126,12 +128,12 @@ class _AccountState extends State<Account> {
                                     color: AfroReadsColors.grey,
                                     fontSize: 12,
                                   )
-                                : SizedBox(),
-                    Gap(10),
+                                : const SizedBox(),
+                    const Gap(10),
                     Container(
                       height: 30,
                       width: 140,
-                      padding: EdgeInsets.symmetric(horizontal: 10),
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
                       decoration: BoxDecoration(
                           color: Colors.red,
                           borderRadius: BorderRadius.circular(15)),
@@ -155,18 +157,7 @@ class _AccountState extends State<Account> {
               ),
               const Gap(30),
               kidlog != ''
-                  ? myAccountContainer(
-                      context: context,
-                      text: "My Profile",
-                      textt: "Manage your personal information",
-                      image: AppAssets.profile,
-                      onTap: () {
-                        userdetail.childprofileexist
-                            ? Navigator.pushNamed(
-                                context, RouteName.managekidprofile)
-                            : Navigator.pushNamed(
-                                context, RouteName.kidprofilesetting);
-                      })
+                  ? SizedBox()
                   : parentlog != ''
                       ? myAccountContainer(
                           context: context,
@@ -193,30 +184,41 @@ class _AccountState extends State<Account> {
                                     : Navigator.pushNamed(
                                         context, RouteName.managebooks);
                               })
-                          : SizedBox(),
+                          : const SizedBox(),
               const Gap(5),
               Divider(color: Colors.grey.withOpacity(0.3)),
               publisherlog != ''
-                  ? myAccountContainer(
-                      context: context,
-                      text: "View Income",
-                      textt: "Access comics you have bookmarked to read later",
-                      image: AppAssets.mylibrary,
+                  ? InkWell(
+                      onTap: () {
+                        Navigator.pushNamed(context, RouteName.viewincomepage);
+                      },
+                      child: myAccountContainer(
+                        context: context,
+                        text: "View Income",
+                        textt:
+                            "Access comics you have bookmarked to read later",
+                        image: AppAssets.mylibrary,
+                      ),
                     )
                   : myAccountContainer(
                       context: context,
                       text: "Saved Books",
                       textt: "Access comics you have bookmarked to read later",
                       image: AppAssets.mylibrary,
-                    ),
+                      onTap: () {
+                        // Navigator.pushNamed(
+                        //   context, RouteName.viewincomepage);
+                      }),
               const Gap(5),
               Divider(color: Colors.grey.withOpacity(0.3)),
               myAccountContainer(
-                context: context,
-                text: "About Rootts Books",
-                textt: "Get to know about us and what we stand for.",
-                image: AppAssets.about,
-              ),
+                  context: context,
+                  text: "About Rootts Books",
+                  textt: "Get to know about us and what we stand for.",
+                  image: AppAssets.about,
+                  onTap: () {
+                    Navigator.pushNamed(context, RouteName.viewincomepage);
+                  }),
               const Gap(5),
               Divider(color: Colors.grey.withOpacity(0.3)),
               myAccountContainer(

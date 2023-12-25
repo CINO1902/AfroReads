@@ -3,6 +3,7 @@ import 'package:afroreads/core/constants/app_assets.dart';
 import 'package:afroreads/core/constants/app_colors.dart';
 import 'package:afroreads/features/getbooks/presentation/pages/book_type/fiction.dart';
 
+import 'package:afroreads/features/getbooks/presentation/pages/book_type/all.dart';
 import 'package:afroreads/features/getbooks/presentation/pages/book_type/folktales.dart';
 import 'package:afroreads/features/getbooks/presentation/pages/book_type/history.dart';
 import 'package:afroreads/features/getbooks/presentation/pages/book_type/lifestyle.dart';
@@ -26,12 +27,14 @@ bool loading = true;
 
 class _HomeState extends State<Home> {
   List tabb = [
+    
+    const All(),
     const Folktales(),
     const Fiction(),
     const History(),
     const Lifestyle()
   ];
-  List<String> tabs = ["Folktales", "History", "Fiction", "Lifestyle"];
+  List<String> tabs = ["All", "Folktales", "History", "Fiction", "Lifestyle"];
 
   int current = 0;
 
@@ -40,11 +43,13 @@ class _HomeState extends State<Home> {
       case 0:
         return 0;
       case 1:
-        return 90;
+        return 52;
       case 2:
-        return 180;
+        return 152;
       case 3:
-        return 260;
+        return 238;
+      case 4:
+        return 320;
 
       default:
         return 0;
@@ -54,13 +59,15 @@ class _HomeState extends State<Home> {
   double changeContainerWWidth() {
     switch (current) {
       case 0:
-        return 70;
+        return 30;
       case 1:
-        return 65;
-      case 2:
-        return 60;
-      case 3:
         return 70;
+      case 2:
+        return 55;
+      case 3:
+        return 53;
+      case 4:
+        return 65;
 
       default:
         return 0;
@@ -213,10 +220,10 @@ class _HomeState extends State<Home> {
             const SizedBox(
               height: 10,
             ),
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 0.58,
-              child: tabb[current],
-            )
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.58,
+                child: tabb[current],
+              )
           ],
         ),
       )),

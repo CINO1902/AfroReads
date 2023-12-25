@@ -52,7 +52,7 @@ class _managekidprofileState extends State<managekidprofile> {
                             child: Image.asset(AppAssets.childavatar)),
                         Gap(10),
                         Text(
-                          value.decoded[index].name,
+                          value.decoded[index].name!,
                           style: TextStyle(
                               fontSize: 15,
                               color: Theme.of(context).primaryColorDark),
