@@ -30,25 +30,24 @@ class _SignUpPageState extends State<SignUpPage> {
   final TextEditingController _answerController = TextEditingController();
   final TextEditingController _securityController = TextEditingController();
 
-  DateTime ? _selectedDate;
+  DateTime? _selectedDate;
 
   Future<void> _selectDate(BuildContext context) async {
-  DateTime? picked = await showDatePicker(
-    context: context,
-    initialDate: DateTime.now(),
-    firstDate: DateTime(1900),
-    lastDate: DateTime.now(),
-  );
+    DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(1900),
+      lastDate: DateTime.now(),
+    );
 
-  if (picked != null && picked != _selectedDate) {
-    setState(() {
-      _selectedDate = picked;
-      _dateOfBirthController.text = _selectedDate!.toLocal().toString().split(' ')[0];
-    });
+    if (picked != null && picked != _selectedDate) {
+      setState(() {
+        _selectedDate = picked;
+        _dateOfBirthController.text =
+            _selectedDate!.toLocal().toString().split(' ')[0];
+      });
+    }
   }
-}
-
-
 
   void handlerequest(AuthPro value) async {
     if (_formKey.currentState!.validate()) {
@@ -110,7 +109,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   const AfroReadsBackButton(),
                   const Gap(23),
                   TextBody(
-                    'Create Account',
+                    'Create Parent Account',
                     fontWeight: FontWeight.w700,
                     fontSize: 20,
                   ),
@@ -274,7 +273,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           floatingLabelBehavior: FloatingLabelBehavior.never,
                           contentPadding:
                               const EdgeInsets.symmetric(horizontal: 10),
-                               hintText: 'Select date using the button',
+                          hintText: 'Select date using the button',
                           labelText: 'DD/MM/YYYY',
                           labelStyle: const TextStyle(
                               fontSize: 14,

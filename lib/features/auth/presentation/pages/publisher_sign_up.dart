@@ -63,7 +63,7 @@ class _PublisherSignUpPageeState extends State<PublisherSignUpPage> {
               ),
             );
           });
-     
+
       await context.read<AuthPro>().publishercreateaccount(
           _firstnameController.text,
           _emailController.text,
@@ -110,7 +110,7 @@ class _PublisherSignUpPageeState extends State<PublisherSignUpPage> {
                   const AfroReadsBackButton(),
                   const Gap(23),
                   TextBody(
-                    'Create Account',
+                    'Create Publisher Account',
                     fontWeight: FontWeight.w700,
                     fontSize: 20,
                   ),

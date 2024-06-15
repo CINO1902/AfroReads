@@ -64,9 +64,11 @@ class _PublisherSignInPageState extends State<PublisherSignInPage> {
                 InputField(
                   controller: _parentEmailController,
                   placeholder: 'caleboruta.co@gmail.com',
+                  
                 ),
                 const Gap(16),
-                TextBody('Password', color: AfroReadsColors.textColor),
+                TextBody('Password',
+                    color: AfroReadsColors.textColor.withOpacity(.5)),
                 const Gap(8),
                 InputField(
                   controller: _parentPasswordController,

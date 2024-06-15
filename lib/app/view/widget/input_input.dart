@@ -120,7 +120,7 @@ class _InputFieldState extends State<InputField> {
               // decoration:
               // InputDecoration.collapsed(hintText: widget.placeholder),
               decoration: InputDecoration(
-                // contentPadding: EdgeInsets.only(top: 10),
+                //x contentPadding: EdgeInsets.only(top: 10),
                 hintText: widget.placeholder,
                 border: InputBorder.none,
 
